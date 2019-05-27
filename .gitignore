@@ -62,3 +62,4 @@ typings/
 
 # mac files
 .DS_Store
+.code-workspace
