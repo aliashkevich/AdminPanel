@@ -2,18 +2,30 @@ import React from "react";
 
 function Login() {
   return (
-    <div class="card card-nav-tabs text-center">
-      <div class="card-header card-header-primary">
+    <div className="card card-nav-tabs text-center w-50 p-3 mx-auto">
+      <div className="card-header card-header-primary">
         Log in
       </div>
-      <div class="card-body">
-        <h4 class="card-title">Special title treatment</h4>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#0" class="btn btn-primary">Go somewhere</a>
-      </div>
-      <div class="card-footer text-muted">
-        2 days ago
-      </div>
+      <form>
+        <div className="form-group mt-5">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+        </div>
+        <div className="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+        </div>
+        <div className="form-check">
+          <label className="form-check-label">
+            <input className="form-check-input" type="checkbox" value="" />
+            Remember next time
+            <span className="form-check-sign">
+              <span className="check"></span>
+            </span>
+          </label>
+       </div>
+       <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
   </div>
   );
 }
