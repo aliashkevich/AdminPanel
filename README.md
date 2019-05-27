@@ -7,3 +7,4 @@
 * [Lesewert - Wild Code School | Trello](https://trello.com/b/8gid21gh/lesewert-wild-code-school)
 * [Backlog preparation | Google Sheets](https://docs.google.com/spreadsheets/d/1SfvvOi-dGhnFxPb0PJaOYIyKuRmAyskRB7eh3jA2P1U/edit#gid=0)
 * [Questions to Lesewert | Google Docs](https://docs.google.com/document/d/1yEjmz1qvr5dWNbpCXAkOuihZMt8kMv6oO-EzNwt5Xgs/edit)
+* [Material Dashboard Docs](https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html?_ga=2.137011127.66372125.1558957445-465210373.1558532151)
