@@ -3,10 +3,10 @@ import React, {Component} from 'react';
 export default class Header extends Component {
   render() {
     return (
-      <div className='wrapper'>
+      <React.Fragment>
         <div
           className='sidebar'
-          data-color='purple'
+          data-color='orange'
           data-background-color='white'
           data-image='../assets/img/sidebar-1.jpg'>
           <div className='logo'>
@@ -108,7 +108,7 @@ export default class Header extends Component {
             </div>
           </nav>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
