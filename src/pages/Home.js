@@ -3,10 +3,6 @@ import Header from '../components/Header';
 
 export default class Home extends Component {
   render() {
-    return (
-      <div className=''>
-        <Header />
-      </div>
-    );
+    return <div className=''>Dashboard</div>;
   }
 }
