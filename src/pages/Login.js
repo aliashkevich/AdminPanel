@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/LoginForm';
-// import User from '../components/User.json';
+import User from '../components/User.json';
 import {Redirect} from 'react-router-dom';
 
 class Login extends Component {
@@ -31,10 +31,10 @@ class Login extends Component {
     event.preventDefault();
 
     if (
-      this.state.users.find(data => {
+      User.find(data => {
         return data.email === this.state.email; // if can't find, it will return undefined
       }) != undefined &&
-      this.state.users.filter(data => {
+      User.filter(data => {
         return data.password === this.state.password;
       }) != undefined
     ) {
@@ -45,15 +45,15 @@ class Login extends Component {
     }
   };
 
-  componentDidMount() {
-    fetch('https://workshop-express.herokuapp.com/')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          users: data.user,
-        });
-      });
-  }
+  // componentDidMount() {
+  //   fetch('https://workshop-express.herokuapp.com/')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       this.setState({
+  //         users: data.user,
+  //       });
+  //     });
+  // }
 
   render() {
     console.log(this.state.users);
