@@ -57,17 +57,20 @@ class Login extends Component {
 
   render() {
     console.log(this.state.users);
-
-    return (
-      <div>
-        <LoginForm
-          email={this.state.email}
-          password={this.state.password}
-          onSubmit={this.onSubmit}
-          handleInputChange={this.handleInputChange}
-        />
-      </div>
-    );
+    if (this.state.redirect) {
+      return <Redirect to='/' />;
+    } else {
+      return (
+        <div>
+          <LoginForm
+            email={this.state.email}
+            password={this.state.password}
+            onSubmit={this.onSubmit}
+            handleInputChange={this.handleInputChange}
+          />
+        </div>
+      );
+    }
   }
 }
 
