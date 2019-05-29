@@ -60,7 +60,7 @@ export default class Header extends Component {
             <div className='container-fluid'>
               <div className='navbar-wrapper'>
                 <a className='navbar-brand' href='/dashboard'>
-                  Dashboard
+                  
                 </a>
               </div>
               <button
