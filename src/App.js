@@ -12,7 +12,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className='wrapper'>
-        <Header />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/dashboard' component={Dashboard} />
