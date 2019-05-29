@@ -41,8 +41,10 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='card card-nav-tabs text-center w-50 p-3 mx-auto'>
-        <div className='card-header card-header-primary'>Log in</div>
+      <div
+        className='card card-nav-tabs text-center w-50 p-3 mx-auto'
+        data-color='orange'>
+        <div className='card-header card-header-warning'>Log in</div>
         <form onSubmit={this.onSubmit}>
           <div className='form-group mt-5'>
             <label for='exampleInputEmail1'>Email address</label>
@@ -80,7 +82,7 @@ class Login extends Component {
               </span>
             </label>
           </div>
-          <input type='submit' value='submit' className='btn btn-primary' />
+          <input type='submit' value='submit' className='btn btn-warning' />
         </form>
       </div>
     );

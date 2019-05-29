@@ -100,7 +100,7 @@ export default class Header extends Component {
                       </a>
                       <div className='dropdown-divider' />
                       <Link to='/login' className='dropdown-item'>
-                        Log in
+                        Log out
                       </Link>
                     </div>
                   </li>
