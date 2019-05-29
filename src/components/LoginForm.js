@@ -8,13 +8,13 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
       <div className='card-header card-header-warning'>Log in</div>
       <form onSubmit={onSubmit}>
         <div className='form-group mt-5'>
-          <label for='exampleInputEmail1'>Email address</label>
+          <label htmlFor='exampleInputEmail1'>Email address</label>
           <input
             type='email'
             name='email'
             value={email}
             onChange={handleInputChange}
-            class='form-control'
+            className='form-control'
             id='exampleInputEmail1'
             aria-describedby='emailHelp'
             placeholder='Enter email'
@@ -22,7 +22,7 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
           />
         </div>
         <div className='form-group'>
-          <label for='exampleInputPassword1'>Password</label>
+          <label htmlFor='exampleInputPassword1'>Password</label>
           <input
             type='password'
             name='password'
