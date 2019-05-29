@@ -28,6 +28,7 @@ class Login extends Component {
 
   onSubmit = event => {
     event.preventDefault();
+    // const userAPI = this.state.users;
     let existUser = User.find(data => {
       return data.email === this.state.email; // if can't find, it will return undefined
     });
@@ -36,10 +37,12 @@ class Login extends Component {
         alert('Login successful');
         this.setState({redirect: true});
       } else {
-        alert('password is wrong');
+        alert('Login failed: password is wrong');
+        this.setState({password: ''});
       }
     } else {
-      alert('Login failed');
+      alert('Login failed: you are not registered');
+      this.setState({email: '', password: ''});
     }
   };
 
