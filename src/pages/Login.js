@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/LoginForm';
-// import User from '../components/User.json';
+import User from '../components/User.json';
 import {Redirect} from 'react-router-dom';
 
 class Login extends Component {
@@ -28,17 +28,16 @@ class Login extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-
-    if (
-      this.state.users.find(data => {
-        return data.email === this.state.email; // if can't find, it will return undefined
-      }) !== undefined &&
-      this.state.users.find(data => {
-        return data.password === this.state.password;
-      }) !== undefined
-    ) {
-      alert('Login successful');
-      this.setState({redirect: true});
+    let existUser = User.find(data => {
+      return data.email === this.state.email; // if can't find, it will return undefined
+    });
+    if (existUser !== undefined) {
+      if (existUser.password === this.state.password) {
+        alert('Login successful');
+        this.setState({redirect: true});
+      } else {
+        alert('password is wrong');
+      }
     } else {
       alert('Login failed');
     }
