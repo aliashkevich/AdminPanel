@@ -20,17 +20,23 @@ class Login extends Component {
     this.setState({
       [name]: value,
     });
-    console.log('email: ', this.state.email);
-    console.log('password: ', this.state.password);
-    console.log('event.target.value: ', event.target.value);
-    console.log('event.target.name: ', event.target.name);
+    // console.log('email: ', this.state.email);
+    // console.log('password: ', this.state.password);
+    // console.log('event.target.value: ', event.target.value);
+    // console.log('event.target.name: ', event.target.name);
   };
 
   onSubmit = event => {
     event.preventDefault();
     if (
       User.filter(data => {
-        console.log(data.email);
+        console.log(
+          'data.email: ',
+          data.email,
+          ' this.state.email: ',
+          this.state.email,
+        );
+        console.log('check boolean :', data.email === this.state.email);
         return data.email === this.state.email;
       }) &&
       User.filter(data => {
