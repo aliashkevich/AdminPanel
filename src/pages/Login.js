@@ -33,7 +33,7 @@ class Login extends Component {
       User.find(data => {
         return data.email === this.state.email; // if can't find, it will return undefined
       }) != undefined &&
-      User.filter(data => {
+      User.find(data => {
         return data.password === this.state.password;
       }) != undefined
     ) {
