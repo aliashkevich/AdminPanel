@@ -39,9 +39,9 @@ class Login extends Component {
       }) != undefined
     ) {
       alert('Login successful');
+      this.setState({redirect: true});
     } else {
       alert('Login failed');
-      this.setState({redirect: true});
     }
   };
 
