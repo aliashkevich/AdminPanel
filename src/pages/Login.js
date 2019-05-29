@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import User from './User.json';
+import User from '../components/User.json';
 
 class Login extends Component {
   constructor(props) {

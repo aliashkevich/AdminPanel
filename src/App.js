@@ -6,7 +6,7 @@ import Dashboard from './examples/Dashboard';
 import Tables from './examples/Tables';
 import Home from './pages/Home';
 import Header from './components/Header';
-import Login from './components/Login';
+import Login from './pages/Login';
 
 function App() {
   return (
