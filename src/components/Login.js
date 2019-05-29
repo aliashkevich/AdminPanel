@@ -28,7 +28,20 @@ class Login extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    alert('Authentication coming soon!');
+    if (
+      User.filter(data => {
+        console.log(data.email);
+        return data.email === this.state.email;
+      }) &&
+      User.filter(data => {
+        console.log(data.password);
+        return data.password === this.state.password;
+      })
+    ) {
+      alert('logged in!!');
+    } else {
+      alert('failed!!');
+    }
   };
 
   render() {
