@@ -10,7 +10,6 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      loading: true,
       redirect: false,
       users: [],
     };
@@ -56,7 +55,6 @@ class Login extends Component {
   // }
 
   render() {
-    console.log(this.state.users);
     if (this.state.redirect) {
       return <Redirect to='/' />;
     } else {
