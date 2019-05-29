@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Header from '../components/Header';
+
 
 export default function Dashboard() {
     return (
         <React.Fragment>
             <div className="wrapper ">
-
+<Header />
     <div className="main-panel">
       <div className="content">
         <div className="container-fluid">
