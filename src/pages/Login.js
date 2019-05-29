@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import User from '../components/User.json';
+import LoginForm from '../components/LoginForm';
+// import User from '../components/User.json';
+import {Redirect} from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -8,6 +10,9 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      loading: true,
+      redirect: false,
+      users: [],
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,64 +31,41 @@ class Login extends Component {
     event.preventDefault();
 
     if (
-      User.find(data => {
+      this.state.users.find(data => {
         return data.email === this.state.email; // if can't find, it will return undefined
       }) != undefined &&
-      User.filter(data => {
+      this.state.users.filter(data => {
         return data.password === this.state.password;
       }) != undefined
     ) {
       alert('Login successful');
     } else {
       alert('Login failed');
+      this.setState({redirect: true});
     }
   };
 
+  componentDidMount() {
+    fetch('https://workshop-express.herokuapp.com/')
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          users: data.user,
+        });
+      });
+  }
+
   render() {
+    console.log(this.state.users);
+
     return (
-      <div
-        className='card card-nav-tabs text-center w-50 p-3 mx-auto'
-        data-color='orange'>
-        <div className='card-header card-header-warning'>Log in</div>
-        <form onSubmit={this.onSubmit}>
-          <div className='form-group mt-5'>
-            <label for='exampleInputEmail1'>Email address</label>
-            <input
-              type='email'
-              name='email'
-              value={this.state.email}
-              onChange={this.handleInputChange}
-              class='form-control'
-              id='exampleInputEmail1'
-              aria-describedby='emailHelp'
-              placeholder='Enter email'
-              required
-            />
-          </div>
-          <div className='form-group'>
-            <label for='exampleInputPassword1'>Password</label>
-            <input
-              type='password'
-              name='password'
-              value={this.state.password}
-              onChange={this.handleInputChange}
-              className='form-control'
-              id='exampleInputPassword1'
-              placeholder='Password'
-              required
-            />
-          </div>
-          <div className='form-check'>
-            <label className='form-check-label'>
-              <input className='form-check-input' type='checkbox' value='' />
-              Remember next time
-              <span className='form-check-sign'>
-                <span className='check' />
-              </span>
-            </label>
-          </div>
-          <input type='submit' value='submit' className='btn btn-warning' />
-        </form>
+      <div>
+        <LoginForm
+          email={this.state.email}
+          password={this.state.password}
+          onSubmit={this.onSubmit}
+          handleInputChange={this.handleInputChange}
+        />
       </div>
     );
   }
