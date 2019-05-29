@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 export default class Header extends Component {
   render() {
@@ -34,9 +35,10 @@ export default class Header extends Component {
                 </a>
               </li>
               <li className='nav-item '>
-                <a className='nav-link' href='./typography.html'>
-                  <i className='material-icons'>library_books</i>
-                  <p>Projects</p>
+                <a className='nav-link'>
+                  <Link to='/projects/'>
+                    <i className='material-icons'>library_books</i> Projects
+                  </Link>
                 </a>
               </li>
               <li className='nav-item '>
@@ -60,7 +62,7 @@ export default class Header extends Component {
             <div className='container-fluid'>
               <div className='navbar-wrapper'>
                 <a className='navbar-brand' href='/dashboard'>
-                  
+                  Dashboard
                 </a>
               </div>
               <button
