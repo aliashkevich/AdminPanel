@@ -15,10 +15,15 @@ class Login extends Component {
   }
 
   handleInputChange = event => {
+    // will update state by name attribute, so state name should be same with it
     const {value, name} = event.target;
     this.setState({
       [name]: value,
     });
+    console.log('email: ', this.state.email);
+    console.log('password: ', this.state.password);
+    console.log('event.target.value: ', event.target.value);
+    console.log('event.target.name: ', event.target.name);
   };
 
   onSubmit = event => {
