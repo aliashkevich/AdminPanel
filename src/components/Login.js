@@ -33,9 +33,9 @@ class Login extends Component {
         return data.password === this.state.password;
       }) != undefined
     ) {
-      alert('logged in!!');
+      alert('Login successful');
     } else {
-      alert('failed!!');
+      alert('Login failed');
     }
   };
 
