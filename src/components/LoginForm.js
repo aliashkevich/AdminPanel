@@ -34,7 +34,7 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
             required
           />
         </div>
-        <div className='form-check'>
+        {/* <div className='form-check'>
           <label className='form-check-label'>
             <input className='form-check-input' type='checkbox' value='' />
             Remember next time
@@ -42,7 +42,7 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
               <span className='check' />
             </span>
           </label>
-        </div>
+        </div> */}
         <input type='submit' value='submit' className='btn btn-warning' />
       </form>
     </div>
