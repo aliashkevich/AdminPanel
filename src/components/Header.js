@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 export default class Header extends Component {
   render() {
@@ -98,9 +99,9 @@ export default class Header extends Component {
                         Settings
                       </a>
                       <div className='dropdown-divider' />
-                      <a className='dropdown-item' href='#'>
+                      <Link to='/login' className='dropdown-item'>
                         Log out
-                      </a>
+                      </Link>
                     </div>
                   </li>
                 </ul>
