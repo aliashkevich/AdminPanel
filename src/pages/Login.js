@@ -54,7 +54,7 @@ class Login extends Component {
           users: data.users,
         });
       })
-      .catch(error => console.log('error api'));
+      .catch(error => console.log(error));
   }
 
   render() {
