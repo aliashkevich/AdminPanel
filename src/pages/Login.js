@@ -28,8 +28,8 @@ class Login extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    // const userAPI = this.state.users;
-    let existUser = User.find(data => {
+    let userArray = this.state.users;
+    let existUser = userArray.find(data => {
       return data.email === this.state.email; // if can't find, it will return undefined
     });
     if (existUser !== undefined) {
@@ -47,16 +47,14 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    fetch('https://api-lesewert.herokuapp.com/api/v1/users')
+    fetch('https://lesewert.herokuapp.com/api/v1/users')
       .then(res => res.json())
-      .then(data => console.log('data: ', data))
       .then(data => {
         this.setState({
-          users: data,
+          users: data.users,
         });
       })
-      .then(console.log('this.state.users :', this.state.users))
-      .catch(() => console.log('error api'));
+      .catch(error => console.log('error api'));
   }
 
   render() {
