@@ -5,8 +5,8 @@ import Dashboard from './examples/Dashboard';
 import Tables from './examples/Tables';
 import Home from './pages/Home';
 import Project from './pages/Projects';
-import Header from './components/Header';
 import Login from './pages/Login';
+import Clients from './pages/Clients';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />
+          <Route path='/clients' component={Clients} />
         </Switch>
       </div>
     </BrowserRouter>
@@ -25,4 +26,3 @@ function App() {
 }
 
 export default App;
-
