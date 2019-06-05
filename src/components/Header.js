@@ -23,36 +23,38 @@ export default class Header extends Component {
           <div className='sidebar-wrapper'>
             <ul className='nav'>
               <li className='nav-item active  '>
-                <a className='nav-link' href='./dashboard.html'>
+                <Link to='/dashboards' className='nav-link'>
                   <i className='material-icons'>dashboard</i>
                   <p>Dashboard</p>
-                </a>
-              </li>
-              <li className='nav-item '>
-                <a className='nav-link' href='./user.html'>
-                  <i className='material-icons'>person</i>
-                  <p>Clients</p>
-                </a>
-              </li>
-              <li className='nav-item '>
-                <a className='nav-link' href='./user.html'>
-                  <Link to='/projects/'>
-                    <i className='material-icons'>library_books</i> Projects
-                  </Link>
-                </a>
-              </li>
-              <li className='nav-item '>
-                <a className='nav-link' href='./typography.html'>
-                  <i className='material-icons'>notes</i>
-                  <p>Tasks</p>
-                </a>
+                </Link>
               </li>
 
               <li className='nav-item '>
-                <a className='nav-link' href='./tables.html'>
+                <Link to='/clients' className='nav-link'>
+                  <i className='material-icons'>people</i>
+                  <p>Clients</p>
+                </Link>
+              </li>
+
+              <li className='nav-item '>
+                <Link to='/projects' className='nav-link'>
+                  <i className='material-icons'>library_books</i>
+                  <p>Projects</p>
+                </Link>
+              </li>
+
+              <li className='nav-item '>
+                <Link to='/tasks' className='nav-link'>
+                  <i className='material-icons'>notes</i>
+                  <p>Tasks</p>
+                </Link>
+              </li>
+
+              <li className='nav-item '>
+                <Link to='/administration' className='nav-link'>
                   <i className='material-icons'>content_paste</i>
                   <p>Administration</p>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
