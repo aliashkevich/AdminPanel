@@ -15,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/projects' component={Project} />
+          {/* <Route path='/projects/add' component={AddNewProject} /> */}
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />
@@ -25,4 +26,3 @@ function App() {
 }
 
 export default App;
-
