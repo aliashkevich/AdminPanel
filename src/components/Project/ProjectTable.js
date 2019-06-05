@@ -35,7 +35,6 @@ export default class ProjectTable extends Component {
                   <div className='card-header card-header-warning'>
                     <h4 className='card-title '>Project Overview</h4>
                     {/* <p className='card-category'>
-                      {' '}
                       Here is a subtitle for this table
                     </p> */}
                   </div>
@@ -53,7 +52,6 @@ export default class ProjectTable extends Component {
                           <MediaQuery maxDeviceWidth={800}>
                             <th>Part.</th>
                           </MediaQuery>
-                          <th />
                           <th />
                         </thead>
                         <tbody>

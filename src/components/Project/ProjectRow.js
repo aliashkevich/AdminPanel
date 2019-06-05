@@ -13,9 +13,7 @@ export default function ProjectRow(props) {
           type='button'
           className='btn btn-default btn-fab btn-fab-mini btn-round'>
           <i className='material-icons'>edit</i>
-        </button>
-      </td>
-      <td>
+        </button>{' '}
         <button
           type='button'
           className='btn btn-danger btn-fab btn-fab-mini btn-round'>
