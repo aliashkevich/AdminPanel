@@ -5,7 +5,7 @@ export default function ProjectAdd() {
   return (
     <div className='container-fluid'>
       <Link className='text-light' to='/newproject'>
-        <button type='button' className='btn btn-warning'>
+        <button type='button' className='btn btn-success'>
           <i className='material-icons'>add_circle</i> New project
         </button>
       </Link>

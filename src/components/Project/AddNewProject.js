@@ -23,6 +23,18 @@ class AddNewProject extends React.Component {
     });
   }
 
+  componentDidMount() {
+    fetch('https://lesewert.herokuapp.com/api/v1/projects')
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          projects: data.projects,
+        });
+        console.log(this.state);
+      })
+      .catch(error => console.log(error));
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -38,7 +50,7 @@ class AddNewProject extends React.Component {
                 <div className='card-body'>
                   <form>
                     <div className='form-row'>
-                      <div className='form-group  col-sm-12 col-md-6'>
+                      <div className='form-group  col-sm-12 col-md-6 has-warning'>
                         <label for='inputTitle'>Title</label>
                         <input
                           type='text'
@@ -48,7 +60,7 @@ class AddNewProject extends React.Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div className='form-group col-sm-12 col-md-2'>
+                      <div className='form-group col-sm-12 col-md-2 has-warning'>
                         <label for='inputIDN'>IDN</label>
                         <input
                           type='number'
@@ -58,7 +70,7 @@ class AddNewProject extends React.Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div className='form-group col-sm-12 col-md-4'>
+                      <div className='form-group col-sm-12 col-md-4 has-warning'>
                         <label for='inputClient'>Client</label>
                         <input
                           type='text'
@@ -71,7 +83,7 @@ class AddNewProject extends React.Component {
                     </div>
                     <br />
                     <div className='form-row'>
-                      <div className='form-group col-sm-12 col-md-12'>
+                      <div className='form-group col-sm-12 col-md-12 has-warning'>
                         <label for='inputSummary'>Summary</label>
                         <input
                           type='text'
@@ -84,7 +96,7 @@ class AddNewProject extends React.Component {
                     </div>
                     <br />
                     <div className='form-row'>
-                      <div className='form-group col-sm-12 col-md-3'>
+                      <div className='form-group col-sm-12 col-md-3 has-warning'>
                         <label for='inputStartDate'>Start Date</label>
                         <input
                           type='text'
@@ -94,7 +106,7 @@ class AddNewProject extends React.Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div className='form-group col-sm-12 col-md-3'>
+                      <div className='form-group col-sm-12 col-md-3 has-warning'>
                         <label for='inputEndDate'>Start End</label>
                         <input
                           type='text'
@@ -104,7 +116,7 @@ class AddNewProject extends React.Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div className='form-group col-sm-12 col-md-6'>
+                      <div className='form-group col-sm-12 col-md-6 has-warning'>
                         <label for='inputParticipants'>Participants</label>
                         <select
                           multiple
@@ -117,7 +129,7 @@ class AddNewProject extends React.Component {
                           <option>3</option>
                           <option>4</option>
                           <option>5</option>
-                          {/* onChange={this.handleChange} */}
+                          {/* onChange={this.handleChange} */}>
                         </select>
                       </div>
                     </div>
