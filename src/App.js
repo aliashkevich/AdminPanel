@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Project from './pages/Projects';
 import Header from './components/Header';
 import Login from './pages/Login';
+import ProjectDetail from './pages/ProjectDetail';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />
+          <Route path='/project-detail' component={ProjectDetail} />
         </Switch>
       </div>
     </BrowserRouter>
@@ -25,4 +27,3 @@ function App() {
 }
 
 export default App;
-
