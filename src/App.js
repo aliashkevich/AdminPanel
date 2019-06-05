@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Project from './pages/Projects';
 import Header from './components/Header';
 import Login from './pages/Login';
+import NewProject from './pages/NewProject';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/projects' component={Project} />
-          {/* <Route path='/projects/add' component={AddNewProject} /> */}
+          <Route path='/newproject' component={NewProject} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />

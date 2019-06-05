@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class AddNewProject extends React.Component {
   constructor(props) {
@@ -37,6 +38,16 @@ class AddNewProject extends React.Component {
                 <div className='card-body'>
                   <form>
                     <div className='form-row'>
+                      <div className='form-group  col-sm-12 col-md-6'>
+                        <label for='inputTitle'>Title</label>
+                        <input
+                          type='text'
+                          name='title'
+                          className='form-control'
+                          id='inputTitle'
+                          onChange={this.handleChange}
+                        />
+                      </div>
                       <div className='form-group col-sm-12 col-md-2'>
                         <label for='inputIDN'>IDN</label>
                         <input
@@ -54,16 +65,6 @@ class AddNewProject extends React.Component {
                           name='client_id'
                           className='form-control'
                           id='inputClient'
-                          onChange={this.handleChange}
-                        />
-                      </div>
-                      <div className='form-group  col-sm-12 col-md-6'>
-                        <label for='inputTitle'>Title</label>
-                        <input
-                          type='text'
-                          name='title'
-                          className='form-control'
-                          id='inputTitle'
                           onChange={this.handleChange}
                         />
                       </div>
@@ -107,24 +108,28 @@ class AddNewProject extends React.Component {
                         <label for='inputParticipants'>Participants</label>
                         <select
                           multiple
-                          name='participants'
-                          className='form-control selectpicker'
+                          className='form-control'
                           data-style='btn btn-link'
                           id='inputParticipants'>
-                          onChange={this.handleChange}
                           <option />
                           <option>1</option>
                           <option>2</option>
                           <option>3</option>
                           <option>4</option>
                           <option>5</option>
+                          {/* onChange={this.handleChange} */}
                         </select>
                       </div>
                     </div>
                     <div className='text-right'>
-                      <button type='submit' className='btn btn-warning'>
-                        Add
-                      </button>
+                      <Link to='/projects'>
+                        <button
+                          type='submit'
+                          className='btn btn-warning'
+                          onSubmit={this.handleSubmit}>
+                          Add
+                        </button>
+                      </Link>
                     </div>
                   </form>
                 </div>

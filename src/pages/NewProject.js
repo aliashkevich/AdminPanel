@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from '../components/Header';
-import AddNewProject from '../components/AddNewProject';
+import AddNewProject from '../components/Project/AddNewProject';
 
-export default function Projects() {
+export default function NewProject() {
   return (
     <React.Fragment>
       <Header />
