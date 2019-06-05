@@ -6,7 +6,7 @@ export default function ProjectRow(props) {
     <tr>
       <td>{props.project.id}</td>
       <td className='text-warning'>
-        <Link to='/project-detail' className='link'>
+        <Link to='/project-detail' className='text-warning'>
           {props.project.title}
         </Link>
       </td>
