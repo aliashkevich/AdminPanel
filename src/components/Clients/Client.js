@@ -23,15 +23,13 @@ export default class Client extends React.Component {
         <td className='td-actions text-right'>
           <button
             type='button'
-            className='btn btn-success btn-fab btn-fab-mini btn-round'
-            data-original-title='Edit Client'>
+            className='btn btn-default btn-fab btn-fab-mini btn-round'>
             <i className='material-icons'>edit</i>
-          </button>
+          </button>{' '}
           <button
             type='button'
-            className='btn btn-danger btn-sm btn-fab btn-fab-mini btn-round'
-            data-original-title='Remove'>
-            <i className='material-icons'>close</i>
+            className='btn btn-danger btn-fab btn-fab-mini btn-round'>
+            <i className='material-icons'>delete</i>
           </button>
         </td>
       </tr>
