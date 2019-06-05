@@ -13,7 +13,7 @@ export default function ClientsTable(props) {
             <div className='col-md-12'>
               <div className='card'>
                 <div className='card-header card-header-primary'>
-                  <h4 className='card-title'>Clients overview</h4>
+                  <h4 className='card-title'>Clients</h4>
                   {/* <p className='card-category'>Clients table description</p> */}
                 </div>
                 <div className='card-body'>
