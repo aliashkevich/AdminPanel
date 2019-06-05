@@ -4,7 +4,9 @@ import {Link} from 'react-router-dom';
 export default function ProjectRow(props) {
   return (
     <tr>
-      <td>{props.project.id}</td>
+      <Link to='/project-detail'>
+        <td>{props.project.id}</td>
+      </Link>
       <td className='text-warning'>{props.project.title}</td>
       <td>{props.project.start_date.slice(0, 10)}</td>
       <td>{props.project.end_date.slice(0, 10)}</td>
@@ -13,9 +15,7 @@ export default function ProjectRow(props) {
         <button
           type='button'
           className='btn btn-default btn-fab btn-fab-mini btn-round'>
-          <Link to='/project-detail'>
-            <i className='material-icons'>edit</i>
-          </Link>
+          <i className='material-icons'>edit</i>
         </button>
         <button
           type='button'
