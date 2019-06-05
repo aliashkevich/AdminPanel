@@ -8,7 +8,7 @@ export default function ProjectDetail() {
     <React.Fragment>
       <Header />
       <ProjectDetailCard />
-      {/* <Dashboard /> */}
+      <Dashboard />
     </React.Fragment>
   );
 }
