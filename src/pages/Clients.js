@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import ClientCard from '../components/Clients/ClientCard';
+import ClientsTable from '../components/Clients/ClientsTable';
 
 export default class Clients extends React.Component {
   static defaultProps = {
@@ -30,18 +30,7 @@ export default class Clients extends React.Component {
     return (
       <React.Fragment>
         <Header />
-        <div className='main-panel'>
-          <div className='content'>
-            <div className='container-fluid'>
-              <div>
-                <p>Clients</p>
-                {this.state.clients.map(client => (
-                  <ClientCard client={client} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <ClientsTable clients={this.state.clients} />
       </React.Fragment>
     );
   }
