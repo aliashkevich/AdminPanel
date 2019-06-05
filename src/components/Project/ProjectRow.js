@@ -4,10 +4,10 @@ import {Link} from 'react-router-dom';
 export default function ProjectRow(props) {
   return (
     <tr>
-      <Link to='/project-detail'>
-        <td>{props.project.id}</td>
+      <td>{props.project.id}</td>
+      <Link to='/project-detail' className='link'>
+        <td className='text-warning'>{props.project.title}</td>
       </Link>
-      <td className='text-warning'>{props.project.title}</td>
       <td>{props.project.start_date.slice(0, 10)}</td>
       <td>{props.project.end_date.slice(0, 10)}</td>
       <td>{props.project.participants.length}</td>
