@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 export default function ProjectRow(props) {
   return (
@@ -15,10 +16,39 @@ export default function ProjectRow(props) {
           <i className='material-icons'>edit</i>
         </button>{' '}
         <button
+          data-toggle='modal'
+          data-target='#confirmDelete'
           type='button'
           className='btn btn-danger btn-fab btn-fab-mini btn-round'>
           <i className='material-icons'>delete</i>
         </button>
+        <div
+          class='modal fade'
+          id='confirmDelete'
+          tabindex='-1'
+          role='dialog'
+          aria-labelledby='confirmDelete'
+          aria-hidden='true'>
+          <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+              <div class='modal-body'>
+                Are you sure you wish to delete{' '}
+                <span className='text-warning'>{props.project.title}?</span>
+              </div>
+              <div class='modal-footer'>
+                <button
+                  type='button'
+                  class='btn btn-secondary'
+                  data-dismiss='modal'>
+                  Cancel
+                </button>
+                <button type='button' class='btn btn-warning'>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </td>
     </tr>
   );
