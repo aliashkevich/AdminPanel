@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ProjectRow from './ProjectRow';
+import MediaQuery from 'react-responsive';
 
 export default class ProjectTable extends Component {
   constructor(props) {
@@ -46,7 +47,12 @@ export default class ProjectTable extends Component {
                           <th>Title</th>
                           <th>Start</th>
                           <th>End</th>
-                          <th>Participants</th>
+                          <MediaQuery minDeviceWidth={800}>
+                            <th>Participants</th>
+                          </MediaQuery>
+                          <MediaQuery maxDeviceWidth={800}>
+                            <th>Part.</th>
+                          </MediaQuery>
                           <th />
                           <th />
                         </thead>
@@ -59,9 +65,9 @@ export default class ProjectTable extends Component {
                     </div>
                   </div>
                 </div>
-              </div>{' '}
+              </div>
             </div>
-          </div>{' '}
+          </div>
         </div>
       </div>
     );
