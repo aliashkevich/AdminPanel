@@ -33,10 +33,10 @@ export default class ProjectTable extends Component {
                 <div className='card'>
                   <div className='card-header card-header-warning'>
                     <h4 className='card-title '>Project Overview</h4>
-                    <p className='card-category'>
+                    {/* <p className='card-category'>
                       {' '}
                       Here is a subtitle for this table
-                    </p>
+                    </p> */}
                   </div>
                   <div className='card-body'>
                     <div className='table-responsive'>
