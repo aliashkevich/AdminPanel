@@ -1,5 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Select from 'react-select';
+
+const styles = {
+  dates: {
+    marginTop: '15px',
+  },
+  participants: {
+    marginBottom: '20px',
+  },
+};
 
 class AddNewProject extends React.Component {
   constructor(props) {
@@ -11,15 +21,27 @@ class AddNewProject extends React.Component {
       Summary: '',
       start_date: '',
       end_date: '',
-      participants: '',
+      participants: [],
+      participantOptions: [
+        {value: '1', label: '1'},
+        {value: '2', label: '2'},
+        {value: '3', label: '3'},
+      ],
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleMultiChange = this.handleMultiChange.bind(this);
   }
 
   handleChange(e) {
     e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value,
+    });
+  }
+
+  handleMultiChange(option) {
+    this.setState({
+      participants: option,
     });
   }
 
@@ -96,7 +118,9 @@ class AddNewProject extends React.Component {
                     </div>
                     <br />
                     <div className='form-row'>
-                      <div className='form-group col-sm-12 col-md-3 has-warning'>
+                      <div
+                        className='form-group col-sm-12 col-md-3 has-warning'
+                        style={styles.dates}>
                         <label for='inputStartDate'>Start Date</label>
                         <input
                           type='text'
@@ -106,7 +130,9 @@ class AddNewProject extends React.Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div className='form-group col-sm-12 col-md-3 has-warning'>
+                      <div
+                        className='form-group col-sm-12 col-md-3 has-warning'
+                        style={styles.dates}>
                         <label for='inputEndDate'>Start End</label>
                         <input
                           type='text'
@@ -116,21 +142,21 @@ class AddNewProject extends React.Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div className='form-group col-sm-12 col-md-6 has-warning'>
-                        <label for='inputParticipants'>Participants</label>
-                        <select
-                          multiple
-                          className='form-control'
-                          data-style='btn btn-link'
-                          id='inputParticipants'>
-                          <option />
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          {/* onChange={this.handleChange} */}>
-                        </select>
+                      <div
+                        className='col-sm-12 col-md-6 has-warning'
+                        style={styles.participants}>
+                        <label for='inputParticipants' className='text-warning'>
+                          Participants
+                        </label>
+                        <Select
+                          id='inputParticipants'
+                          name='participants'
+                          placeholder='Select...'
+                          value={this.state.participants}
+                          options={this.state.participantOptions}
+                          onChange={this.handleMultiChange}
+                          isMulti
+                        />
                       </div>
                     </div>
                     <div className='text-right'>

@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Project from './pages/Projects';
 import Login from './pages/Login';
 import Clients from './pages/Clients';
+import NewProject from './pages/NewProject';
 
 function App() {
   return (
