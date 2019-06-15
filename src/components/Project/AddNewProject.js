@@ -9,19 +9,32 @@ const styles = {
   participants: {
     marginBottom: '20px',
   },
+  control: {
+    control: (base, state) => ({
+      ...base,
+      borderColor: 'lightgrey',
+      boxShadow: `0 0 0 1px 'orange'`,
+      '&:hover': {
+        borderColor: 'orange',
+        boxShadow: `0 0 5 10px 'orange'`,
+      },
+    }),
+  },
 };
 
 class AddNewProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      client_id: '',
-      title: '',
-      Summary: '',
-      start_date: '',
-      end_date: '',
-      participants: [],
+      projects: {
+        id: '',
+        client_id: '',
+        title: '',
+        Summary: '',
+        start_date: '',
+        end_date: '',
+        participants: [],
+      },
       participantOptions: [
         {value: '1', label: '1'},
         {value: '2', label: '2'},
@@ -30,6 +43,7 @@ class AddNewProject extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleMultiChange = this.handleMultiChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -42,6 +56,31 @@ class AddNewProject extends React.Component {
   handleMultiChange(option) {
     this.setState({
       participants: option,
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    fetch('/auth/signup', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify(this.state),
+    })
+      .then(res => res.json())
+      .then(
+        res => this.setState({flash: res.flash}),
+        err => this.setState({flash: err.flash}),
+      );
+    this.setState({
+      email: '',
+      name: '',
+      lastname: '',
+      password: '',
+      passwordbis: '',
+      flash: '',
+      open: true,
     });
   }
 
@@ -72,7 +111,7 @@ class AddNewProject extends React.Component {
                 <div className='card-body'>
                   <form>
                     <div className='form-row'>
-                      <div className='form-group  col-sm-12 col-md-6 has-warning'>
+                      <div className='form-group col-sm-12 col-md-6 has-warning'>
                         <label for='inputTitle'>Title</label>
                         <input
                           type='text'
@@ -156,6 +195,7 @@ class AddNewProject extends React.Component {
                           options={this.state.participantOptions}
                           onChange={this.handleMultiChange}
                           isMulti
+                          styles={styles.control}
                         />
                       </div>
                     </div>
