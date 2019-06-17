@@ -8,12 +8,17 @@ const styles = {
   },
   participants: {
     marginBottom: '20px',
+    padding: '0px',
+  },
+  summary: {
+    height: '400px !important',
   },
   control: {
     control: (base, state) => ({
       ...base,
       borderColor: 'lightgrey',
       boxShadow: `0 0 0 1px 'orange'`,
+      borderRadius: '4px',
       '&:hover': {
         borderColor: 'orange',
         boxShadow: `0 0 5 10px 'orange'`,
@@ -39,6 +44,13 @@ class AddNewProject extends React.Component {
         {value: '1', label: '1'},
         {value: '2', label: '2'},
         {value: '3', label: '3'},
+        {value: '4', label: '4'},
+        {value: '5', label: '5'},
+        {value: '6', label: '6'},
+        {value: '7', label: '7'},
+        {value: '8', label: '8'},
+        {value: '9', label: '9'},
+        {value: '10', label: '10'},
       ],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -61,12 +73,12 @@ class AddNewProject extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('/auth/signup', {
+    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(this.state.projects),
     })
       .then(res => res.json())
       .then(
@@ -74,30 +86,20 @@ class AddNewProject extends React.Component {
         err => this.setState({flash: err.flash}),
       );
     this.setState({
-      email: '',
-      name: '',
-      lastname: '',
-      password: '',
-      passwordbis: '',
-      flash: '',
-      open: true,
+      projects: {
+        id: '',
+        client_id: '',
+        title: '',
+        Summary: '',
+        start_date: '',
+        end_date: '',
+        participants: [],
+      },
     });
   }
 
-  componentDidMount() {
-    fetch('https://lesewert.herokuapp.com/api/v1/projects')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          projects: data.projects,
-        });
-        console.log(this.state);
-      })
-      .catch(error => console.log(error));
-  }
-
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div className='main-panel'>
         <div className='content'>
@@ -107,23 +109,14 @@ class AddNewProject extends React.Component {
                 <div className='card-header card-header-warning'>
                   <h4 className='card-title'>New Project</h4>
                 </div>
-                <br />
                 <div className='card-body'>
+                  <br />
                   <form>
                     <div className='form-row'>
-                      <div className='form-group col-sm-12 col-md-6 has-warning'>
-                        <label for='inputTitle'>Title</label>
+                      <div className='form-group col-sm-12 col-md-1 has-warning'>
+                        <label for='inputIDN'>IDN:</label>
                         <input
-                          type='text'
-                          name='title'
-                          className='form-control'
-                          id='inputTitle'
-                          onChange={this.handleChange}
-                        />
-                      </div>
-                      <div className='form-group col-sm-12 col-md-2 has-warning'>
-                        <label for='inputIDN'>IDN</label>
-                        <input
+                          style={{marginTop: '17px'}}
                           type='number'
                           name='id'
                           className='form-control'
@@ -131,9 +124,21 @@ class AddNewProject extends React.Component {
                           onChange={this.handleChange}
                         />
                       </div>
-                      <div className='form-group col-sm-12 col-md-4 has-warning'>
-                        <label for='inputClient'>Client</label>
+                      <div className='form-group col-sm-12 col-md-6 has-warning'>
+                        <label for='inputTitle'>Title:</label>
                         <input
+                          style={{marginTop: '17px'}}
+                          type='text'
+                          name='title'
+                          className='form-control'
+                          id='inputTitle'
+                          onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className='form-group col-sm-12 col-md-5 has-warning'>
+                        <label for='inputClient'>Client:</label>
+                        <input
+                          style={{marginTop: '17px'}}
                           type='text'
                           name='client_id'
                           className='form-control'
@@ -142,26 +147,13 @@ class AddNewProject extends React.Component {
                         />
                       </div>
                     </div>
-                    <br />
-                    <div className='form-row'>
-                      <div className='form-group col-sm-12 col-md-12 has-warning'>
-                        <label for='inputSummary'>Summary</label>
-                        <input
-                          type='text'
-                          name='Summary'
-                          className='form-control'
-                          id='inputSummary'
-                          onChange={this.handleChange}
-                        />
-                      </div>
-                    </div>
-                    <br />
                     <div className='form-row'>
                       <div
                         className='form-group col-sm-12 col-md-3 has-warning'
                         style={styles.dates}>
-                        <label for='inputStartDate'>Start Date</label>
+                        <label for='inputStartDate'>Start Date:</label>
                         <input
+                          style={{marginTop: '17px'}}
                           type='text'
                           name='start_date'
                           className='form-control'
@@ -172,8 +164,9 @@ class AddNewProject extends React.Component {
                       <div
                         className='form-group col-sm-12 col-md-3 has-warning'
                         style={styles.dates}>
-                        <label for='inputEndDate'>Start End</label>
+                        <label for='inputEndDate'>Start End:</label>
                         <input
+                          style={{marginTop: '17px'}}
                           type='text'
                           name='end_date'
                           className='form-control'
@@ -185,7 +178,7 @@ class AddNewProject extends React.Component {
                         className='col-sm-12 col-md-6 has-warning'
                         style={styles.participants}>
                         <label for='inputParticipants' className='text-warning'>
-                          Participants
+                          Participants:
                         </label>
                         <Select
                           id='inputParticipants'
@@ -196,18 +189,49 @@ class AddNewProject extends React.Component {
                           onChange={this.handleMultiChange}
                           isMulti
                           styles={styles.control}
+                          theme={theme => ({
+                            ...theme,
+                            borderRadius: 0,
+                            colors: {
+                              ...theme.colors,
+                              primary25: 'orange',
+                              primary: 'black',
+                            },
+                          })}
                         />
                       </div>
                     </div>
-                    <div className='text-right'>
-                      <Link to='/projects'>
-                        <button
-                          type='submit'
-                          className='btn btn-warning'
-                          onSubmit={this.handleSubmit}>
-                          Add
-                        </button>
-                      </Link>
+                    <div className='form-row'>
+                      <div className='form-group col-sm-12 col-md-12 has-warning'>
+                        <label for='inputSummary'>Summary:</label>
+                        <textarea
+                          type='text'
+                          name='Summary'
+                          className='form-control'
+                          id='inputSummary'
+                          onChange={this.handleChange}
+                          rows={10}
+                        />
+                      </div>
+                    </div>
+                    <div className='form-row'>
+                      <div className=' form-group col-xs-1'>
+                        <Link to='/projects'>
+                          <button type='button' className='btn btn-danger'>
+                            Cancel
+                          </button>
+                        </Link>
+                      </div>
+                      <div className='form-group col-xs-1 text-end ml-auto'>
+                        <Link to='/projects'>
+                          <button
+                            type='submit'
+                            className='btn btn-warning btn-right'
+                            onSubmit={this.handleSubmit}>
+                            Add
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                   </form>
                 </div>

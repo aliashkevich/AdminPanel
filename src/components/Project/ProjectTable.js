@@ -5,7 +5,6 @@ import MediaQuery from 'react-responsive';
 export default class ProjectTable extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       projects: [],
     };
