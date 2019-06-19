@@ -1,5 +1,6 @@
 import React from 'react';
 import './LoginForm.css';
+import {Link} from 'react-router-dom';
 
 function LoginForm({email, password, onSubmit, handleInputChange}) {
   return (
@@ -8,7 +9,18 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
         <div
           className='card card-nav-tabs text-center p-3 mx-auto col-lg-8 col-md-10 col-sm-12'
           data-color='orange'>
-          <div className='card-header card-header-warning'>Log in</div>
+          <div className='card-header card-header-warning'>
+            <div className='logo'>
+              <Link to='/'>
+                <img
+                  src='https://www.lesewert.de/files/lesewert/img/lesewert_logo.svg'
+                  alt='Lesewert'
+                />
+              </Link>
+            </div>
+            <br />
+            <p>Welcome to Lesewert Dashboard!</p>
+          </div>
           <form onSubmit={onSubmit}>
             <div className='form-group mt-5'>
               <label htmlFor='exampleInputEmail1'>Email address</label>
