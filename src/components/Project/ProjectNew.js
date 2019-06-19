@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router';
 import Select from 'react-select';
 
 const styles = {
@@ -35,20 +36,20 @@ class AddNewProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      client_id: [],
+      clientSelect: '',
+      client_id: '',
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      clients: [],
-      client: [],
-      users: [],
+      participantSelect: [],
       participants: [],
+      clients: [],
+      users: [],
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleCliChange = this.handleCliChange.bind(this);
-    this.handleParChange = this.handleParChange.bind(this);
+    this.handleClientChange = this.handleClientChange.bind(this);
+    this.handleParticipantChange = this.handleParticipantChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -80,45 +81,57 @@ class AddNewProject extends React.Component {
     });
   }
 
-  handleCliChange(option) {
+  handleClientChange(option) {
     this.setState({
-      client: option,
+      clientSelect: option,
     });
-    if (this.state.client.length > 0) {
-      this.setState(prevState => ({
-        client_id: [
-          ...prevState.client_id,
-          this.state.client[this.state.client.length - 1].value,
-        ],
-      }));
-    }
   }
 
-  handleParChange(option) {
+  handleParticipantChange(option) {
     this.setState({
-      participants: option,
+      participantSelect: option,
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.clientSelect !== this.state.clientSelect) {
+      this.setState({
+        client_id: this.state.clientSelect.value,
+      });
+    } else if (prevState.participantSelect !== this.state.participantSelect) {
+      this.setState({
+        participants: [
+          ...this.state.participants,
+          this.state.participantSelect[this.state.participantSelect.length - 1]
+            .value,
+        ],
+      });
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
+    fetch('/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify(this.state),
     })
-      .then(res => res.json())
-      .then(
-        res => this.setState({flash: res.flash}),
-        err => this.setState({flash: err.flash}),
-      );
+      .then(res => {
+        if (res.status >= 200 && res.status < 300) {
+          console.log(res);
+          this.props.history.push('/projects');
+          return res;
+        } else {
+          console.log('Somthing happened wrong');
+        }
+      })
+      .catch(err => err);
     this.setState({
-      id: '',
       client_id: '',
       title: '',
-      Summary: '',
+      summary: '',
       start_date: '',
       end_date: '',
       participants: '',
@@ -126,10 +139,10 @@ class AddNewProject extends React.Component {
   }
 
   render() {
-    let cliOptions = this.state.clients.map(client => {
+    let clientOptions = this.state.clients.map(client => {
       return {value: client.id, label: client.name};
     });
-    let parOptions = this.state.users.map(user => {
+    let participantOptions = this.state.users.map(user => {
       return {value: user.id, label: user.name};
     });
     console.log(this.state);
@@ -144,7 +157,7 @@ class AddNewProject extends React.Component {
                 </div>
                 <div className='card-body'>
                   <br />
-                  <form>
+                  <form onSubmit={this.handleSubmit}>
                     <div className='form-row'>
                       <div
                         className='form-group col-sm-12 col-md-6 has-info'
@@ -167,11 +180,10 @@ class AddNewProject extends React.Component {
                         </label>
                         <Select
                           id='inputClient'
-                          name='client'
-                          value={this.state.client}
-                          options={cliOptions}
-                          onChange={this.handleCliChange}
-                          isMulti
+                          name='clientSelect'
+                          value={this.state.clientSelect}
+                          options={clientOptions}
+                          onChange={this.handleClientChange}
                           styles={styles.control}
                           theme={theme => ({
                             ...theme,
@@ -220,10 +232,10 @@ class AddNewProject extends React.Component {
                         </label>
                         <Select
                           id='inputParticipants'
-                          name='participants'
-                          value={this.state.participants}
-                          options={parOptions}
-                          onChange={this.handleParChange}
+                          name='participantSelect'
+                          value={this.state.participantSelect}
+                          options={participantOptions}
+                          onChange={this.handleParticipantChange}
                           isMulti
                           styles={styles.control}
                           theme={theme => ({
@@ -243,7 +255,7 @@ class AddNewProject extends React.Component {
                         <label for='inputSummary'>Summary:</label>
                         <textarea
                           type='text'
-                          name='Summary'
+                          name='summary'
                           className='form-control'
                           id='inputSummary'
                           onChange={this.handleChange}
@@ -255,20 +267,21 @@ class AddNewProject extends React.Component {
                     <div className='form-row'>
                       <div className=' form-group col-xs-1'>
                         <Link to='/projects'>
-                          <button type='button' className='btn btn-danger'>
+                          <button type='reset' className='btn btn-danger'>
                             Cancel
                           </button>
                         </Link>
                       </div>
                       <div className='form-group col-xs-1 text-end ml-auto'>
-                        <Link to='/projects'>
-                          <button
-                            type='submit'
-                            className='btn btn-success btn-right'
-                            onSubmit={this.handleSubmit}>
-                            Add
-                          </button>
-                        </Link>
+                        {/* <Link to='/projects'> */}
+                        <button
+                          type='submit'
+                          className='btn btn-success btn-right'
+                          // onClick={this.handleSubmit}
+                        >
+                          Add
+                        </button>
+                        {/* </Link> */}
                       </div>
                     </div>
                   </form>
@@ -282,4 +295,4 @@ class AddNewProject extends React.Component {
   }
 }
 
-export default AddNewProject;
+export default withRouter(AddNewProject);
