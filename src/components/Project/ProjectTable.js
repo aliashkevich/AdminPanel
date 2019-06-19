@@ -52,7 +52,7 @@ export default class ProjectTable extends Component {
         <div className='row'>
           <div className='col-md-12'>
             <div className='card'>
-              <div className='card-header card-header-warning'>
+              <div className='card-header card-header-info'>
                 <h4 className='card-title'>Projects</h4>
                 {/* <p className='card-category'>
                       Here is a subtitle for this table
@@ -61,7 +61,7 @@ export default class ProjectTable extends Component {
               <div className='card-body'>
                 <div className='table-responsive'>
                   <table className='table'>
-                    <thead className='text-warning'>
+                    <thead className='text-info'>
                       <tr>
                         <th>ID</th>
                         <th>Title</th>
