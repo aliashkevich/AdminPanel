@@ -27,6 +27,7 @@ const styles = {
       '&:hover': {
         borderColor: '#1fbfd7',
         boxShadow: `1 1 5 10px #1fbfd7`,
+        color: 'white',
       },
     }),
   },
@@ -170,6 +171,7 @@ class AddNewProject extends React.Component {
                           className='form-control'
                           id='inputTitle'
                           onChange={this.handleChange}
+                          required
                         />
                       </div>
                       <div
@@ -191,9 +193,10 @@ class AddNewProject extends React.Component {
                             colors: {
                               ...theme.colors,
                               primary25: '#1fbfd7',
-                              primary: 'black',
+                              primary: '#1fbfd7',
                             },
                           })}
+                          required
                         />
                       </div>
                     </div>
@@ -209,6 +212,7 @@ class AddNewProject extends React.Component {
                           className='form-control'
                           id='inputStartDate'
                           onChange={this.handleChange}
+                          required
                         />
                       </div>
                       <div
@@ -222,6 +226,7 @@ class AddNewProject extends React.Component {
                           className='form-control'
                           id='inputEndDate'
                           onChange={this.handleChange}
+                          required
                         />
                       </div>
                       <div
@@ -247,6 +252,7 @@ class AddNewProject extends React.Component {
                               primary: 'black',
                             },
                           })}
+                          required
                         />
                       </div>
                     </div>
@@ -260,10 +266,10 @@ class AddNewProject extends React.Component {
                           id='inputSummary'
                           onChange={this.handleChange}
                           rows={10}
+                          required
                         />
                       </div>
                     </div>
-
                     <div className='form-row'>
                       <div className=' form-group col-xs-1'>
                         <Link to='/projects'>
@@ -273,15 +279,11 @@ class AddNewProject extends React.Component {
                         </Link>
                       </div>
                       <div className='form-group col-xs-1 text-end ml-auto'>
-                        {/* <Link to='/projects'> */}
                         <button
                           type='submit'
-                          className='btn btn-success btn-right'
-                          // onClick={this.handleSubmit}
-                        >
+                          className='btn btn-success btn-right'>
                           Add
                         </button>
-                        {/* </Link> */}
                       </div>
                     </div>
                   </form>
