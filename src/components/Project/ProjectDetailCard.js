@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default function ProjectDetailCard() {
+export default function ProjectDetailCard(props) {
   return (
     <div className='main-panel'>
       <div className='content'>
         <div className='container-fluid'>
           <div className='row'>
-            <div className='col-md-10'>
+            <div className='col-lg-12 col-md-12 col-sm-12'>
               <div className='card'>
-                <div className='card-header card-header-warning'>
+                <div className='card-header card-header-info'>
                   <h4 className='card-title'>Lesewert 2018</h4>
                   <p className='category'>
                     Project ID: <span>2018-33</span>
@@ -36,9 +36,9 @@ export default function ProjectDetailCard() {
 
 function Participants() {
   return (
-    <div className='col-lg-4 col-md-6 col-sm-6'>
+    <div className='col-lg-4 col-md-12 col-sm-12'>
       <div className='card card-stats'>
-        <div className='card-header card-header-warning card-header-icon'>
+        <div className='card-header card-header-info card-header-icon'>
           <div className='card-icon'>
             <i className='material-icons'>people</i>
           </div>
@@ -60,9 +60,9 @@ function Participants() {
 
 function ClientInfo() {
   return (
-    <div className='col-lg-4 col-md-6 col-sm-6'>
+    <div className='col-lg-4 col-md-12 col-sm-12'>
       <div className='card card-stats'>
-        <div className='card-header card-header-warning card-header-icon'>
+        <div className='card-header card-header-info card-header-icon'>
           <div className='card-icon'>
             <i className='material-icons'>location_city</i>
           </div>
@@ -81,9 +81,9 @@ function ClientInfo() {
 
 function ProjectSummary() {
   return (
-    <div class='col-md-6'>
+    <div class='col-lg-8 col-md-12 col-sm-12'>
       <div class='card'>
-        <div class='card-header card-header-text card-header-warning'>
+        <div class='card-header card-header-text card-header-info'>
           <div class='card-text'>
             <h4 class='card-title'>Project Summary</h4>
           </div>
@@ -135,9 +135,9 @@ function UserInfo() {
 
 function Tasks() {
   return (
-    <div className='col-lg-6 col-md-12'>
+    <div className='col-lg-8 col-md-12 col-sm-12'>
       <div className='card'>
-        <div className='card-header card-header-tabs card-header-warning'>
+        <div className='card-header card-header-tabs card-header-info'>
           <div className='nav-tabs-navigation'>
             <div className='nav-tabs-wrapper'>
               <span className='nav-tabs-title'>Tasks:</span>
