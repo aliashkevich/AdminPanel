@@ -15,11 +15,11 @@ function App() {
       <div className='wrapper'>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/projects' component={Project} />
+          <Route exact path='/projects' component={Project} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />
-          <Route path='/project-detail' component={ProjectDetail} />
+          <Route path='/projects/:id' component={ProjectDetail} />
           <Route path='/clients' component={Clients} />
         </Switch>
       </div>
