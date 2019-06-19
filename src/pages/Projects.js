@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
-import ProjectTable from '../components/Project/ProjectTable';
-import ProjectAdd from '../components/Project/ProjectAdd';
+import ProjectTable from '../components/projects/ProjectTable';
+import ProjectAdd from '../components/projects/ProjectAdd';
 
 export default function Projects() {
   return (
