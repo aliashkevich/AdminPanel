@@ -42,12 +42,11 @@ export default function ProjectRow(props) {
                   data-dismiss='modal'>
                   Cancel
                 </button>
-
                 <button
                   type='button'
                   class='btn btn-warning'
-                  onClick={() => props.deleteOnClick(props.project.id)}
-                  data-dismiss='modal'>
+                  data-dismiss='modal'
+                  onClick={() => props.deleteOnClick(props.project.id)}>
                   Delete
                 </button>
               </div>

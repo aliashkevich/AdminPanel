@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ProjectRow from './ProjectRow';
 import MediaQuery from 'react-responsive';
+import {Redirect} from 'react-router-dom';
 
 export default class ProjectTable extends Component {
   constructor(props) {
@@ -9,10 +10,14 @@ export default class ProjectTable extends Component {
     this.state = {
       projects: [],
     };
+    this.getProjectData = this.getProjectData.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
   }
 
-  componentDidMount() {
+  getProjectData() {
+    this.setState({
+      redirect: false,
+    });
     fetch('https://lesewert.herokuapp.com/api/v1/projects')
       .then(res => res.json())
       .then(data => {
@@ -23,26 +28,20 @@ export default class ProjectTable extends Component {
       .catch(error => console.log(error));
   }
 
+  componentDidMount() {
+    this.getProjectData();
+  }
+
   deleteOnClick(projectId) {
-    let header = new Headers({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'DELETE',
-      'Content-Type': 'application/json',
-    });
     const options = {
       method: 'DELETE',
-      header: header,
     };
     fetch(
       `https://lesewert.herokuapp.com/api/v1/projects/${projectId}`,
       options,
     )
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        this.setState({
-          projects: data.projects,
-        });
+      .then(res => {
+        window.location.reload();
       })
       .catch(error => console.log(error));
   }
