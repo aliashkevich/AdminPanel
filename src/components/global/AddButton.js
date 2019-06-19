@@ -6,7 +6,7 @@ export default function AddButton(props) {
   return (
     <button type='button' className='btn btn-success'>
       <i className='material-icons'>add_circle</i>
-      {' ' + buttonName}
+      {` ${buttonName}`}
     </button>
   );
 }

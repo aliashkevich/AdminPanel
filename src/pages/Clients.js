@@ -17,7 +17,7 @@ export default class Clients extends React.Component {
   }
 
   componentDidMount() {
-    fetch(this.props.url + '/clients')
+    fetch(`${this.props.url}/clients`)
       .then(res => res.json())
       .then(data => {
         this.setState({

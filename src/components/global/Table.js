@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Table({...props}) {
+function Table(props) {
   const {tableName, tableDescription, tableHead, tableData, tableColor} = props;
   return (
     <div className='card'>

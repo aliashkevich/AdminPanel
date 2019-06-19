@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ActionsTable.css';
 
-function ActionsTable({...props}) {
+function ActionsTable(props) {
   const {tableName, tableDescription, tableHead, tableData, tableColor} = props;
   return (
     <div className='card'>
