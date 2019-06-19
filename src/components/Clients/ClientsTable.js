@@ -12,20 +12,11 @@ export default function ClientsTable(props) {
   const tableColor = 'primary';
 
   return (
-    <div className='main-panel'>
-      <div className='content'>
-        <div className='container-fluid'>
-          <button type='button' className='btn btn-success'>
-            <i className='material-icons'>add_circle</i> New Client
-          </button>
-          <ActionsTable
-            tableName={tableName}
-            tableHead={tableHead}
-            tableData={tableData}
-            tableColor={tableColor}
-          />
-        </div>
-      </div>
-    </div>
+    <ActionsTable
+      tableName={tableName}
+      tableHead={tableHead}
+      tableData={tableData}
+      tableColor={tableColor}
+    />
   );
 }

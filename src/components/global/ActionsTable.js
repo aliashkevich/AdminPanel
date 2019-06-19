@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './ActionsTable.css';
 
 function ActionsTable({...props}) {
   const {tableName, tableDescription, tableHead, tableData, tableColor} = props;
@@ -32,12 +33,12 @@ function ActionsTable({...props}) {
                     <td key={prop.length} className='td-actions text-right'>
                       <button
                         type='button'
-                        className='btn btn-default btn-fab btn-fab-mini btn-round'>
+                        className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'>
                         <i className='material-icons'>edit</i>
                       </button>
                       <button
                         type='button'
-                        className='btn btn-danger btn-fab btn-fab-mini btn-round'>
+                        className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
                         <i className='material-icons'>delete</i>
                       </button>
                     </td>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import ClientsTable from '../components/clients/ClientsTable';
+import AddClientButton from '../components/clients/AddClientButton';
 
 export default class Clients extends React.Component {
   static defaultProps = {
@@ -30,7 +31,14 @@ export default class Clients extends React.Component {
     return (
       <React.Fragment>
         <Header />
-        <ClientsTable clients={this.state.clients} />
+        <div className='main-panel'>
+          <div className='content'>
+            <div className='container-fluid'>
+              <AddClientButton />
+              <ClientsTable clients={this.state.clients} />
+            </div>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
