@@ -8,6 +8,7 @@ import Project from './pages/Projects';
 import Login from './pages/Login';
 import ProjectDetail from './pages/ProjectDetail';
 import Clients from './pages/Clients';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/tables' component={Tables} />
           <Route path='/projects/:id' component={ProjectDetail} />
           <Route path='/clients' component={Clients} />
+          <Route path='/profile' component={ProfilePage} />
         </Switch>
       </div>
     </BrowserRouter>
