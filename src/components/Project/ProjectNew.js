@@ -62,7 +62,7 @@ class AddNewProject extends React.Component {
           users: data.users,
         }),
       )
-      .catch(() => console.log('error'))
+      .catch(error => console.log(error));
       .then(
         fetch('https://lesewert.herokuapp.com/api/v1/clients')
           .then(res => res.json())
@@ -71,7 +71,7 @@ class AddNewProject extends React.Component {
               clients: data.clients,
             }),
           )
-          .catch(() => console.log('error')),
+         .catch(error => console.log(error));
       );
   }
 
@@ -128,7 +128,8 @@ class AddNewProject extends React.Component {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(err => err);
+      .catch(err => err)
+      .catch(error => console.log(error));
     this.setState({
       client_id: '',
       title: '',
