@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import ProjectRow from './ProjectRow';
 import MediaQuery from 'react-responsive';
+import {withRouter} from 'react-router';
 
-export default class ProjectTable extends Component {
+class ProjectTable extends Component {
   constructor(props) {
     super(props);
 
@@ -37,7 +38,10 @@ export default class ProjectTable extends Component {
       options,
     )
       .then(res => {
-        window.location.reload();
+        this.props.history.push('/');
+      })
+      .then(res => {
+        this.props.history.push('/projects');
       })
       .catch(error => console.log(error));
   }
@@ -91,3 +95,5 @@ export default class ProjectTable extends Component {
     );
   }
 }
+
+export default withRouter(ProjectTable);
