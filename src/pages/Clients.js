@@ -11,7 +11,7 @@ export default function Clients() {
         <div className='content'>
           <div className='container-fluid'>
             <AddClientButton />
-            <ClientsTable clients={this.state.clients} />
+            <ClientsTable />
           </div>
         </div>
       </div>
