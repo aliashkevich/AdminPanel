@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
-import ProjectsTable from '../components/projects/ProjectsTable';
-import AddProjectButton from '../components/projects/AddProjectButton';
+import ProjectsTable from '../components/Projects/ProjectsTable';
+import AddProjectButton from '../components/Projects/AddProjectButton';
 
 export default class Projects extends React.Component {
   static defaultProps = {

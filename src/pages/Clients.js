@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
-import ClientsTable from '../components/clients/ClientsTable';
-import AddClientButton from '../components/clients/AddClientButton';
+import ClientsTable from '../components/Clients/ClientsTable';
+import AddClientButton from '../components/Clients/AddClientButton';
 
 export default class Clients extends React.Component {
   static defaultProps = {
