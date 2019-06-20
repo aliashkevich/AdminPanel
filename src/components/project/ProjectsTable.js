@@ -8,6 +8,7 @@ export default class ProjectsTable extends React.Component {
 
     this.state = {
       projects: [],
+      updated: false,
     };
     this.getProjects = this.getProjects.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -19,6 +20,7 @@ export default class ProjectsTable extends React.Component {
       .then(data => {
         this.setState({
           projects: data.projects,
+          updated: false,
         });
       })
       .catch(error => console.log(error));
@@ -31,12 +33,14 @@ export default class ProjectsTable extends React.Component {
   deleteOnClick(project) {
     const options = {
       method: 'DELETE',
+      updated: false,
     };
     fetch(
       `https://lesewert.herokuapp.com/api/v1/projects/${project.id}`,
       options,
     )
-      .then(this.getProjects())
+      .then(res => console.log(res))
+      .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
 

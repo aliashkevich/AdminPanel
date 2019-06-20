@@ -12,6 +12,7 @@ export default class ClientsTable extends React.Component {
 
     this.state = {
       clients: [],
+      updated: false,
     };
 
     this.getClients = this.getClients.bind(this);
@@ -28,6 +29,7 @@ export default class ClientsTable extends React.Component {
       .then(data => {
         this.setState({
           clients: data.clients,
+          updated: false,
         });
       })
       .catch(error => console.log(error));
@@ -38,8 +40,15 @@ export default class ClientsTable extends React.Component {
       method: 'DELETE',
     };
     fetch(`${this.props.url}/clients/${client.id}`, options)
-      .then(this.getProjects())
+      .then(res => console.log(res))
+      .then(this.setState({updated: true}))
       .catch(error => console.log(error));
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.updated !== prevState.updated) {
+      this.getClients();
+    }
   }
 
   render() {
