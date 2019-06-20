@@ -39,9 +39,14 @@ export default class ProjectsTable extends React.Component {
       `https://lesewert.herokuapp.com/api/v1/projects/${project.id}`,
       options,
     )
-      .then(res => console.log(res))
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.updated !== prevState.updated) {
+      this.getProjects();
+    }
   }
 
   render() {
