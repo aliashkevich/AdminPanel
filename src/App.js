@@ -16,8 +16,8 @@ function App() {
       <div className='wrapper'>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/projects' component={Project} />
-          <Route path='/newproject' component={NewProject} />
+          <Route exact path='/projects' component={Project} />
+          <Route path='/projects/new' component={NewProject} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />

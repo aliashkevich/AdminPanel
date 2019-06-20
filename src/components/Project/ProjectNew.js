@@ -62,7 +62,7 @@ class AddNewProject extends React.Component {
           users: data.users,
         }),
       )
-      .catch(() => console.log('error'))
+      .catch(error => console.log(error))
       .then(
         fetch('https://lesewert.herokuapp.com/api/v1/clients')
           .then(res => res.json())
@@ -71,7 +71,7 @@ class AddNewProject extends React.Component {
               clients: data.clients,
             }),
           )
-          .catch(() => console.log('error')),
+          .catch(error => console.log(error)),
       );
   }
 
@@ -112,7 +112,7 @@ class AddNewProject extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('/api/v1/projects', {
+    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -125,10 +125,11 @@ class AddNewProject extends React.Component {
           this.props.history.push('/projects');
           return res;
         } else {
-          console.log('Somthing happened wrong');
+          console.log('Something went wrong');
         }
       })
-      .catch(err => err);
+      .catch(err => err)
+      .catch(error => console.log(error));
     this.setState({
       client_id: '',
       title: '',
@@ -146,7 +147,6 @@ class AddNewProject extends React.Component {
     let participantOptions = this.state.users.map(user => {
       return {value: user.id, label: user.name};
     });
-    console.log(this.state);
     return (
       <div className='container-fluid'>
         <div className='col-md-12'>
@@ -216,7 +216,7 @@ class AddNewProject extends React.Component {
                   <div
                     className='form-group col-sm-12 col-md-3 has-info'
                     style={styles.dates}>
-                    <label for='inputEndDate'>Start End:</label>
+                    <label for='inputEndDate'>End Date:</label>
                     <input
                       style={{marginTop: '17px'}}
                       type='date'
