@@ -3,43 +3,18 @@ import Header from '../components/Header';
 import ProjectsTable from '../components/project/ProjectsTable';
 import AddProjectButton from '../components/project/AddProjectButton';
 
-export default class Projects extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      projects: [],
-    };
-  }
-
-  componentDidMount() {
-    fetch(this.props.url + '/projects')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          projects: data.projects,
-        });
-      })
-      .catch(error => console.log(error));
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <div className='main-panel'>
-          <div className='content'>
-            <div className='container-fluid'>
-              <AddProjectButton />
-              <ProjectsTable />
-            </div>
+export default function Projects() {
+  return (
+    <React.Fragment>
+      <Header />
+      <div className='main-panel'>
+        <div className='content'>
+          <div className='container-fluid'>
+            <AddProjectButton />
+            <ProjectsTable />
           </div>
         </div>
-      </React.Fragment>
-    );
-  }
+      </div>
+    </React.Fragment>
+  );
 }
