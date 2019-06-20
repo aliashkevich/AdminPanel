@@ -146,7 +146,6 @@ class AddNewProject extends React.Component {
     let participantOptions = this.state.users.map(user => {
       return {value: user.id, label: user.name};
     });
-    console.log(this.state);
     return (
       <div className='main-panel'>
         <div className='content'>
