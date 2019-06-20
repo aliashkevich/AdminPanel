@@ -125,7 +125,7 @@ class AddNewProject extends React.Component {
           this.props.history.push('/projects');
           return res;
         } else {
-          console.log('Something went wrong');
+          alert('Sorry - something went wrong.');
         }
       })
       .catch(err => err)
