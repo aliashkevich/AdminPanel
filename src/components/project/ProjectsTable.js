@@ -2,26 +2,67 @@ import React from 'react';
 import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
 
-export default function ClientsTable(props) {
-  const tableName = 'Projects';
-  const tableHead = ['ID', 'Title', 'Start', 'End', 'Participants'];
-  const tableData = props.projects.map(project => [
-    project.id,
-    <Link to={`/projects/${project.id}`} className='text-info'>
-      {project.title}
-    </Link>,
-    project.start_date.slice(0, 10),
-    project.end_date.slice(0, 10),
-    project.participants.length,
-  ]);
-  const tableColor = 'info';
+export default class ProjectsTable extends React.Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <ActionsTable
-      tableName={tableName}
-      tableHead={tableHead}
-      tableData={tableData}
-      tableColor={tableColor}
-    />
-  );
+    this.state = {
+      projects: [],
+    };
+    this.getProjects = this.getProjects.bind(this);
+    this.deleteOnClick = this.deleteOnClick.bind(this);
+  }
+
+  getProjects() {
+    fetch('https://lesewert.herokuapp.com/api/v1/projects')
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          projects: data.projects,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  componentDidMount() {
+    this.getProjects();
+  }
+
+  deleteOnClick(project) {
+    const options = {
+      method: 'DELETE',
+    };
+    fetch(
+      `https://lesewert.herokuapp.com/api/v1/projects/${project.id}`,
+      options,
+    )
+      .then(res => {
+        window.location.reload();
+      })
+      .catch(error => console.log(error));
+  }
+
+  render() {
+    const tableData = this.state.projects.map(project => [
+      project.id,
+      <Link to={`/projects/${project.id}`} className='text-info'>
+        {project.title}
+      </Link>,
+      project.start_date.slice(0, 10),
+      project.end_date.slice(0, 10),
+      project.participants.length,
+    ]);
+
+    return (
+      <ActionsTable
+        entities={this.state.projects}
+        tableName={'Projects'}
+        tableHead={['ID', 'Title', 'Start', 'End', 'Participants']}
+        tableData={tableData}
+        tableColor={'info'}
+        deleteOnClick={this.deleteOnClick}
+        confirmationFieldName={'title'}
+      />
+    );
+  }
 }

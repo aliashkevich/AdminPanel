@@ -35,7 +35,7 @@ export default class Projects extends React.Component {
           <div className='content'>
             <div className='container-fluid'>
               <AddProjectButton />
-              <ProjectsTable projects={this.state.projects} />
+              <ProjectsTable />
             </div>
           </div>
         </div>

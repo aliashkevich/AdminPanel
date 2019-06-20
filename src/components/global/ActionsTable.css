@@ -1,3 +1,7 @@
 button.btn-action {
   margin: 5px !important;
 }
+
+button.btn-modal {
+  padding: 12px 30px !important;
+}
