@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ProjectRow from './ProjectRow';
 import MediaQuery from 'react-responsive';
-import {Redirect} from 'react-router-dom';
 
 export default class ProjectTable extends Component {
   constructor(props) {
@@ -15,9 +14,6 @@ export default class ProjectTable extends Component {
   }
 
   getProjectData() {
-    this.setState({
-      redirect: false,
-    });
     fetch('https://lesewert.herokuapp.com/api/v1/projects')
       .then(res => res.json())
       .then(data => {
