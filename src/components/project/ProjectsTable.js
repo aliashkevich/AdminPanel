@@ -36,9 +36,7 @@ export default class ProjectsTable extends React.Component {
       `https://lesewert.herokuapp.com/api/v1/projects/${project.id}`,
       options,
     )
-      .then(res => {
-        window.location.reload();
-      })
+      .then(this.getProjects())
       .catch(error => console.log(error));
   }
 
