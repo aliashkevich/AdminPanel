@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import LoginForm from '../components/LoginForm';
-import User from '../components/User.json';
+import LoginForm from '../components/Login/LoginForm';
 import {Redirect} from 'react-router-dom';
 
 class Login extends Component {
