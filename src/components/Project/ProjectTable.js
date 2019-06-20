@@ -9,9 +9,11 @@ export default class ProjectTable extends Component {
     this.state = {
       projects: [],
     };
+    this.getProjectData = this.getProjectData.bind(this);
+    this.deleteOnClick = this.deleteOnClick.bind(this);
   }
 
-  componentDidMount() {
+  getProjectData() {
     fetch('https://lesewert.herokuapp.com/api/v1/projects')
       .then(res => res.json())
       .then(data => {
@@ -21,6 +23,25 @@ export default class ProjectTable extends Component {
       })
       .catch(error => console.log(error));
   }
+
+  componentDidMount() {
+    this.getProjectData();
+  }
+
+  deleteOnClick(projectId) {
+    const options = {
+      method: 'DELETE',
+    };
+    fetch(
+      `https://lesewert.herokuapp.com/api/v1/projects/${projectId}`,
+      options,
+    )
+      .then(res => {
+        window.location.reload();
+      })
+      .catch(error => console.log(error));
+  }
+
   render() {
     return (
       <div className='container-fluid'>
@@ -53,7 +74,11 @@ export default class ProjectTable extends Component {
                     </thead>
                     <tbody>
                       {this.state.projects.map(project => (
-                        <ProjectRow key={project.id} project={project} />
+                        <ProjectRow
+                          key={project.id}
+                          project={project}
+                          deleteOnClick={this.deleteOnClick}
+                        />
                       ))}
                     </tbody>
                   </table>
