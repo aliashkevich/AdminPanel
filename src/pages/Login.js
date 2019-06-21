@@ -11,6 +11,7 @@ class Login extends Component {
       password: '',
       redirect: false,
       users: [],
+      user: {},
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -33,6 +34,12 @@ class Login extends Component {
     });
     if (existUser !== undefined) {
       if (existUser.password === this.state.password) {
+        console.log('existUser', existUser);
+        localStorage.setItem('user', JSON.stringify(existUser));
+        let userFromStorage = localStorage.getItem('user');
+        let parsedUser = JSON.parse(userFromStorage);
+        console.log('localStorage user', JSON.parse(userFromStorage));
+        console.log('userFromStorage.name', parsedUser.name);
         alert('Login successful');
         this.setState({redirect: true});
       } else {
