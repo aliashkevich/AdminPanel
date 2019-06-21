@@ -95,9 +95,9 @@ export default class Header extends Component {
                     <div
                       className='dropdown-menu dropdown-menu-right'
                       aria-labelledby='navbarDropdownProfile'>
-                      <a className='dropdown-item' href='#'>
+                      <Link to='/profile' className='dropdown-item'>
                         Profile
-                      </a>
+                      </Link>
                       <a className='dropdown-item' href='#'>
                         Settings
                       </a>
