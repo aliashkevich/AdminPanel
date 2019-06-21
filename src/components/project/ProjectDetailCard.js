@@ -81,14 +81,14 @@ function ClientInfo() {
 
 function ProjectSummary() {
   return (
-    <div class='col-lg-8 col-md-12 col-sm-12'>
-      <div class='card'>
-        <div class='card-header card-header-text card-header-info'>
-          <div class='card-text'>
-            <h4 class='card-title'>Project Summary</h4>
+    <div className='col-lg-8 col-md-12 col-sm-12'>
+      <div className='card'>
+        <div className='card-header card-header-text card-header-info'>
+          <div className='card-text'>
+            <h4 className='card-title'>Project Summary</h4>
           </div>
         </div>
-        <div class='card-body'>
+        <div className='card-body'>
           <div>
             <p>
               Project Date: <span>2018-01-01 ~ 2018-12-21</span>
@@ -112,7 +112,7 @@ function ProjectSummary() {
 function CircleImg() {
   return (
     <img
-      class='card-img-top'
+      className='card-img-top'
       style={{
         width: '3rem',
         borderRadius: '50%',
