@@ -4,7 +4,7 @@ export default function Profile() {
   return (
     <React.Fragment>
       <div class='wrapper row'>
-        <div class='col-lg-4 col-md-8 col-sm-10'>
+        <div class='col-lg-4 col-md-8 col-sm-10 text-center'>
           <div class='card card-profile'>
             <div class='card-avatar'>
               <a href='#edit'>
