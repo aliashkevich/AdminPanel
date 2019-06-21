@@ -7,6 +7,9 @@ const styles = {
   dates: {
     marginTop: '15px',
   },
+  margin: {
+    marginTop: '17px',
+  },
   participants: {
     marginBottom: '20px',
     padding: '0px',
@@ -18,7 +21,16 @@ const styles = {
   summary: {
     height: '400px !important',
   },
-  control: {
+  select: {
+    theme: theme => ({
+      ...theme,
+      borderRadius: 0,
+      colors: {
+        ...theme.colors,
+        primary25: '#1fbfd7',
+        primary: 'black',
+      },
+    }),
     control: (base, state) => ({
       ...base,
       borderColor: 'lightgrey',
@@ -160,10 +172,10 @@ class AddNewProject extends React.Component {
                 <div className='form-row'>
                   <div
                     className='form-group col-sm-12 col-md-6 has-info'
-                    style={{marginTop: '15px'}}>
+                    style={styles.dates}>
                     <label for='inputTitle'>Title:</label>
                     <input
-                      style={{marginTop: '17px'}}
+                      style={styles.margin}
                       type='text'
                       name='title'
                       className='form-control'
@@ -184,16 +196,8 @@ class AddNewProject extends React.Component {
                       value={this.state.clientSelect}
                       options={clientOptions}
                       onChange={this.handleClientChange}
-                      styles={styles.control}
-                      theme={theme => ({
-                        ...theme,
-                        borderRadius: 0,
-                        colors: {
-                          ...theme.colors,
-                          primary25: '#1fbfd7',
-                          primary: '#1fbfd7',
-                        },
-                      })}
+                      styles={styles.select}
+                      theme={styles.select.theme}
                       required
                     />
                   </div>
@@ -204,7 +208,7 @@ class AddNewProject extends React.Component {
                     style={styles.dates}>
                     <label for='inputStartDate'>Start Date:</label>
                     <input
-                      style={{marginTop: '17px'}}
+                      style={styles.margin}
                       type='date'
                       name='start_date'
                       className='form-control'
@@ -218,7 +222,7 @@ class AddNewProject extends React.Component {
                     style={styles.dates}>
                     <label for='inputEndDate'>End Date:</label>
                     <input
-                      style={{marginTop: '17px'}}
+                      style={styles.margin}
                       type='date'
                       name='end_date'
                       className='form-control'
@@ -240,16 +244,8 @@ class AddNewProject extends React.Component {
                       options={participantOptions}
                       onChange={this.handleParticipantChange}
                       isMulti
-                      styles={styles.control}
-                      theme={theme => ({
-                        ...theme,
-                        borderRadius: 0,
-                        colors: {
-                          ...theme.colors,
-                          primary25: '#1fbfd7',
-                          primary: 'black',
-                        },
-                      })}
+                      styles={styles.select}
+                      theme={styles.select.theme}
                       required
                     />
                   </div>
