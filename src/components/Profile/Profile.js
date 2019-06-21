@@ -4,7 +4,7 @@ export default function Profile() {
   return (
     <React.Fragment>
       <div class='wrapper row'>
-        <div class='col-lg-4 col-md-8 col-sm-10'>
+        <div class='col-lg-4 col-md-8 col-sm-10 text-center'>
           <div class='card card-profile'>
             <div class='card-avatar'>
               <a href='#edit'>
@@ -12,9 +12,9 @@ export default function Profile() {
               </a>
             </div>
             <div class='card-body'>
-              <h4 class='card-title'>Name</h4>
+              <h4 class='card-title'>Ricardo Schmidt</h4>
               <h6 class='card-category text-gray'>Role (client_ID/role_ID)</h6>
-              <p class='card-description'>E-mail: Mail@address.com</p>
+              <p class='card-description'>Email: ricardo@lesewert.com</p>
               <a href='#edit' class='btn btn-warning btn-round'>
                 Edit
               </a>
