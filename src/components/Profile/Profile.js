@@ -14,7 +14,7 @@ export default function Profile() {
             <div class='card-body'>
               <h4 class='card-title'>Name</h4>
               <h6 class='card-category text-gray'>Role (client_ID/role_ID)</h6>
-              <p class='card-description'>E-mail: Mail@address.com</p>
+              <p class='card-description'>Email: ricardo@lesewert.com</p>
               <a href='#edit' class='btn btn-warning btn-round'>
                 Edit
               </a>
