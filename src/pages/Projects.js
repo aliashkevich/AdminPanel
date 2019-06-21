@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
-import ProjectTable from '../components/Project/ProjectTable';
-import ProjectAdd from '../components/Project/ProjectAdd';
+import ProjectsTable from '../components/project/ProjectsTable';
+import AddProjectButton from '../components/project/AddProjectButton';
 
 export default function Projects() {
   return (
@@ -9,8 +9,10 @@ export default function Projects() {
       <Header />
       <div className='main-panel'>
         <div className='content'>
-          <ProjectAdd />
-          <ProjectTable />
+          <div className='container-fluid'>
+            <AddProjectButton />
+            <ProjectsTable />
+          </div>
         </div>
       </div>
     </React.Fragment>

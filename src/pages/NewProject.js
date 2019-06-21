@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import ProjectNew from '../components/Project/ProjectNew';
+import ProjectNew from '../components/project/ProjectNew';
 
 export default function NewProject() {
   return (
