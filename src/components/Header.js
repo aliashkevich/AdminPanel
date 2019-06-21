@@ -92,9 +92,7 @@ export default class Header extends Component {
                       aria-haspopup='true'
                       aria-expanded='false'>
                       <i className='material-icons'>person</i>
-                      {parsedUser !== undefined
-                        ? parsedUser.name
-                        : 'ricardo schmidt'}
+                      ricardo schmidt
                     </a>
                     <div
                       className='dropdown-menu dropdown-menu-right'
