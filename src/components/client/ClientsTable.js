@@ -40,11 +40,15 @@ export default class ClientsTable extends React.Component {
       method: 'DELETE',
     };
     fetch(`${this.props.url}/clients/${client.id}`, options)
+      .then(res => res.json())
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
+    if (this.state.updated) {
+      this.getClients();
+    }
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.updated !== prevState.updated) {
       this.getClients();
     }

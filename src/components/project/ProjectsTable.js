@@ -3,6 +3,10 @@ import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
 
 export default class ProjectsTable extends React.Component {
+  static defaultProps = {
+    url: 'https://lesewert.herokuapp.com/api/v1',
+  };
+
   constructor(props) {
     super(props);
 
@@ -15,7 +19,7 @@ export default class ProjectsTable extends React.Component {
   }
 
   getProjects() {
-    fetch('https://lesewert.herokuapp.com/api/v1/projects')
+    fetch(`${this.props.url}/projects`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -33,17 +37,13 @@ export default class ProjectsTable extends React.Component {
   deleteOnClick(project) {
     const options = {
       method: 'DELETE',
-      updated: false,
     };
-    fetch(
-      `https://lesewert.herokuapp.com/api/v1/projects/${project.id}`,
-      options,
-    )
+    fetch(`${this.props.url}/projects/${project.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.updated !== prevState.updated) {
       this.getProjects();
     }
