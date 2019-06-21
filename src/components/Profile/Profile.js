@@ -12,7 +12,7 @@ export default function Profile() {
               </a>
             </div>
             <div class='card-body'>
-              <h4 class='card-title'>Name</h4>
+              <h4 class='card-title'>Ricardo Schmidt</h4>
               <h6 class='card-category text-gray'>Role (client_ID/role_ID)</h6>
               <p class='card-description'>Email: ricardo@lesewert.com</p>
               <a href='#edit' class='btn btn-warning btn-round'>
