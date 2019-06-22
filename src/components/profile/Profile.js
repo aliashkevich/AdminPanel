@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default function Profile() {
+  let userFromStorage = localStorage.getItem('user');
+  let parsedUser = JSON.parse(userFromStorage);
   return (
     <React.Fragment>
       <div className='wrapper row'>
@@ -8,15 +10,13 @@ export default function Profile() {
           <div className='card card-profile'>
             <div className='card-avatar'>
               <a href='#edit'>
-                <img className='img' src='../assets/img/faces/marc.jpg' />
+                <img className='img' src={parsedUser.image} alt='profile' />
               </a>
             </div>
             <div className='card-body'>
-              <h4 className='card-title'>Ricardo Schmidt</h4>
-              <h6 className='card-category text-gray'>
-                Role (client_ID/role_ID)
-              </h6>
-              <p className='card-description'>Email: ricardo@lesewert.com</p>
+              <h4 className='card-title'>{parsedUser.name}</h4>
+              <h6 className='card-category text-gray'>{parsedUser.role_id}</h6>
+              <p className='card-description'>{parsedUser.email}</p>
               <a href='#edit' className='btn btn-warning btn-round'>
                 Edit
               </a>

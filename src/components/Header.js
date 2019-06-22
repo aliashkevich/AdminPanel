@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 
 export default class Header extends Component {
   render() {
+    let userFromStorage = localStorage.getItem('user');
+    let parsedUser = JSON.parse(userFromStorage);
     return (
       <React.Fragment>
         <div
@@ -90,7 +92,7 @@ export default class Header extends Component {
                       aria-haspopup='true'
                       aria-expanded='false'>
                       <i className='material-icons'>person</i>
-                      Ricardo Schmidt
+                      ricardo schmidt
                     </a>
                     <div
                       className='dropdown-menu dropdown-menu-right'

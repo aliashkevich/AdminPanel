@@ -33,6 +33,7 @@ class Login extends Component {
     });
     if (existUser !== undefined) {
       if (existUser.password === this.state.password) {
+        localStorage.setItem('user', JSON.stringify(existUser));
         alert('Login successful');
         this.setState({redirect: true});
       } else {
