@@ -5,6 +5,10 @@ Final project of [Jenna](https://github.com/jenna1k), [Laura](https://github.com
 [develop branch](https://admin-panel-app.netlify.com/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9aa3d3e0-9208-420e-9ad7-c4fef8089f65/deploy-status)](https://app.netlify.com/sites/admin-panel-app/deploys)
 
+# API
+* [API with our mocked data](https://github.com/aliashkevich/lswrt_api)
+
+
 ## Links
 * [Lesewert - Wild Code School | Trello](https://trello.com/b/8gid21gh/lesewert-wild-code-school)
 * [Backlog preparation | Google Sheets](https://docs.google.com/spreadsheets/d/1SfvvOi-dGhnFxPb0PJaOYIyKuRmAyskRB7eh3jA2P1U/edit#gid=0)
