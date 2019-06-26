@@ -52,30 +52,34 @@ function ActionsTable(props) {
                       {checkmarkFieldName ? (
                         entities[rowIndex][checkmarkFieldName].toLowerCase() ===
                         checkmarkValue.toLowerCase() ? (
-                          <a
-                            href='#'
-                            className='btn btn-success btn-fab btn-fab-mini btn-round btn-action disabled'
-                            aria-disabled='true'>
-                            <i className='material-icons'>done</i>
-                          </a>
+                          <span title='Task is done'>
+                            <a
+                              href='#'
+                              className='btn btn-success btn-fab btn-fab-mini btn-round btn-action disabled'>
+                              <i className='material-icons'>done</i>
+                            </a>
+                          </span>
                         ) : (
                           <button
                             type='button'
                             className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
-                            onClick={() => updateOnClick(entities[rowIndex])}>
+                            onClick={() => updateOnClick(entities[rowIndex])}
+                            title='Mark as done'>
                             <i className='material-icons'>done</i>
                           </button>
                         )
                       ) : null}
                       <button
                         type='button'
-                        className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'>
+                        className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
+                        title='Edit'>
                         <i className='material-icons'>edit</i>
                       </button>
                       <button
                         data-toggle='modal'
                         data-target={'#confirmDelete-' + rowIndex}
                         type='button'
+                        title='Delete'
                         className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
                         <i className='material-icons'>delete</i>
                       </button>

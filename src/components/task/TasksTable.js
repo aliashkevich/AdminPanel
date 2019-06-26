@@ -45,8 +45,13 @@ export default class TasksTable extends React.Component {
   }
 
   updateOnClick(task) {
+    const data = {status: 'done'};
     const options = {
       method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
     fetch(`${this.props.url}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
@@ -82,7 +87,7 @@ export default class TasksTable extends React.Component {
         confirmationFieldName={'title'}
         updateOnClick={this.updateOnClick}
         checkmarkFieldName={'status'}
-        checkmarkValue={'finished'}
+        checkmarkValue={'done'}
       />
     );
   }
