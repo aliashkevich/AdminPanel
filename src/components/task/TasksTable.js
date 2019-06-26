@@ -16,6 +16,7 @@ export default class TasksTable extends React.Component {
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
+    this.updateOnClick = this.updateOnClick.bind(this);
   }
 
   getTasks() {
@@ -43,6 +44,15 @@ export default class TasksTable extends React.Component {
       .catch(error => console.log(error));
   }
 
+  updateOnClick(task) {
+    const options = {
+      method: 'PUT',
+    };
+    fetch(`${this.props.url}/tasks/${task.id}`, options)
+      .then(this.setState({updated: true}))
+      .catch(error => console.log(error));
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.updated !== prevState.updated) {
       this.getTasks();
@@ -50,18 +60,7 @@ export default class TasksTable extends React.Component {
   }
 
   render() {
-    const checkbox = (
-      <div className='form-check'>
-        <label className='form-check-label'>
-          <input className='form-check-input' type='checkbox' value='' />
-          <span className='form-check-sign'>
-            <span className='check' />
-          </span>
-        </label>
-      </div>
-    );
     const tableData = this.state.tasks.map(task => [
-      checkbox,
       task.id,
       <Link to={`/tasks/${task.id}`} className='text-info'>
         {task.title}
@@ -76,19 +75,14 @@ export default class TasksTable extends React.Component {
       <ActionsTable
         entities={this.state.tasks}
         tableName={'Tasks'}
-        tableHead={[
-          '',
-          'ID',
-          'Title',
-          'Start',
-          'End',
-          'Estimation',
-          'Assignee',
-        ]}
+        tableHead={['ID', 'Title', 'Start', 'End', 'Estimation', 'Assignee']}
         tableData={tableData}
         tableColor={'rose'}
         deleteOnClick={this.deleteOnClick}
         confirmationFieldName={'title'}
+        updateOnClick={this.updateOnClick}
+        checkmarkFieldName={'status'}
+        checkmarkValue={'finished'}
       />
     );
   }
