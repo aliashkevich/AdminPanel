@@ -50,7 +50,18 @@ export default class TasksTable extends React.Component {
   }
 
   render() {
+    const checkbox = (
+      <div className='form-check'>
+        <label className='form-check-label'>
+          <input className='form-check-input' type='checkbox' value='' />
+          <span className='form-check-sign'>
+            <span className='check' />
+          </span>
+        </label>
+      </div>
+    );
     const tableData = this.state.tasks.map(task => [
+      checkbox,
       task.id,
       <Link to={`/tasks/${task.id}`} className='text-info'>
         {task.title}
@@ -65,7 +76,15 @@ export default class TasksTable extends React.Component {
       <ActionsTable
         entities={this.state.tasks}
         tableName={'Tasks'}
-        tableHead={['ID', 'Title', 'Start', 'End', 'Estimation', 'Assignee']}
+        tableHead={[
+          '',
+          'ID',
+          'Title',
+          'Start',
+          'End',
+          'Estimation',
+          'Assignee',
+        ]}
         tableData={tableData}
         tableColor={'rose'}
         deleteOnClick={this.deleteOnClick}

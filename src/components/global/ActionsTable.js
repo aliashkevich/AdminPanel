@@ -52,7 +52,7 @@ function ActionsTable(props) {
                         data-toggle='modal'
                         data-target={'#confirmDelete-' + rowIndex}
                         type='button'
-                        className='btn btn-danger btn-fab btn-fab-mini btn-round'>
+                        className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
                         <i className='material-icons'>delete</i>
                       </button>
                       <div
