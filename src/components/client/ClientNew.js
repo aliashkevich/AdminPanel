@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
-import Select from 'react-select';
 
 const styles = {
   dates: {
@@ -10,9 +9,16 @@ const styles = {
   margin: {
     marginTop: '17px',
   },
-  logoImg: {
-    height: '100px',
-    width: '100px',
+  logoWrapper: {
+    height: '150px',
+    maxWidth: '150px',
+  },
+  logo: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+  fileInput: {
+    opacity: 0,
   },
 };
 
@@ -80,7 +86,7 @@ class AddNewProject extends React.Component {
 
     reader.onloadend = e => {
       this.setState({
-        logo: e.target.value,
+        logo: file,
         logoPreview: reader.result,
       });
     };
@@ -107,77 +113,82 @@ class AddNewProject extends React.Component {
           <br />
           <form onSubmit={this.handleSubmit}>
             <div className='form-row'>
-              <div
-                className='form-group col-sm-12 col-md-6 has-primary'
-                style={styles.dates}>
-                <label for='inputTitle'>Name:</label>
-                <input
-                  style={styles.margin}
-                  type='text'
-                  name='title'
-                  className='form-control'
-                  id='inputTitle'
-                  onChange={this.handleChange}
-                  required
-                />
+              <div className='form-row col-md-9'>
+                <div
+                  className='form-group col-sm-12 col-md-9 has-primary'
+                  style={styles.dates}>
+                  <label for='inputTitle'>Name:</label>
+                  <input
+                    style={styles.margin}
+                    type='text'
+                    name='title'
+                    className='form-control'
+                    id='inputTitle'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div
+                  className='form-group col-sm-12 col-md-3 has-primary'
+                  style={styles.dates}>
+                  <label for='inputInitials'>Initials:</label>
+                  <input
+                    style={styles.margin}
+                    type='text'
+                    name='initials'
+                    className='form-control'
+                    id='inputInitials'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div
+                  className='form-group col-sm-12 col-md-6 has-primary'
+                  style={styles.dates}>
+                  <label for='inputEmail'>Email:</label>
+                  <input
+                    style={styles.margin}
+                    type='email'
+                    name='email'
+                    className='form-control'
+                    id='inputEmail'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div
+                  className='form-group col-sm-12 col-md-6 has-primary'
+                  style={styles.dates}>
+                  <label for='inputNumber'>Number:</label>
+                  <input
+                    style={styles.margin}
+                    type='text'
+                    name='number'
+                    className='form-control'
+                    id='inputNumber'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
               </div>
               <div
                 className='form-group col-sm-12 col-md-3 has-primary'
-                style={styles.dates}>
-                <label for='inputInitials'>Initials:</label>
-                <input
-                  style={styles.margin}
-                  type='text'
-                  name='initials'
-                  className='form-control'
-                  id='inputInitials'
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <input
-                type='file'
-                ref='logo'
-                name='logo'
-                onChange={this.handleLogoChange}
-              />
-              {/* <button type='submit' onClick={this.handleLogoSubmit}>
-                Upload Image
-              </button> */}
-              <img src={this.state.logoPreview} style={styles.logoImg} />
-            </div>
-
-            <div className='form-row'>
-              <div
-                className='form-group col-sm-12 col-md-6 has-primary'
-                style={styles.dates}>
-                <label for='inputEmail'>Email:</label>
-                <input
-                  style={styles.margin}
-                  type='email'
-                  name='email'
-                  className='form-control'
-                  id='inputEmail'
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div
-                className='form-group col-sm-12 col-md-6 has-primary'
-                style={styles.dates}>
-                <label for='inputNumber'>Number:</label>
-                <input
-                  style={styles.margin}
-                  type='text'
-                  name='number'
-                  className='form-control'
-                  id='inputNumber'
-                  onChange={this.handleChange}
-                  required
-                />
+                align='center'>
+                <div
+                  className='fileinput-new thumbnail img-raised'
+                  style={styles.logoWrapper}>
+                  <img src={this.state.logoPreview} style={styles.logo} />
+                </div>
+                <button className='btn btn-round btn-primary'>
+                  Select Logo
+                  <input
+                    type='file'
+                    ref='logo'
+                    name='logo'
+                    onChange={this.handleLogoChange}
+                    style={styles.fileInput}
+                  />
+                </button>
               </div>
             </div>
 
