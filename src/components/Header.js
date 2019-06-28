@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {matchPath} from 'react-router';
 import './Header.css';
 
 export default class Header extends Component {
