@@ -10,6 +10,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import Clients from './pages/Clients';
 import ProfilePage from './pages/ProfilePage';
 import NewProject from './pages/NewProject';
+import EditProject from './components/project/ProjectEdit';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path='/projects' component={Project} />
           <Route path='/projects/new' component={NewProject} />
+          <Route path='/projects/edit' component={EditProject} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />
