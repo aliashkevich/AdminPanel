@@ -10,7 +10,11 @@ import ProjectDetail from './pages/ProjectDetail';
 import Clients from './pages/Clients';
 import ProfilePage from './pages/ProfilePage';
 import NewProject from './pages/NewProject';
+<<<<<<< HEAD
 import EditProject from './components/project/ProjectEdit';
+=======
+import Tasks from './pages/Tasks';
+>>>>>>> 0af5f52e0f56a43443a0ad9563a7fce43c645de1
 
 function App() {
   return (
@@ -27,6 +31,7 @@ function App() {
           <Route path='/projects/:id' component={ProjectDetail} />
           <Route path='/clients' component={Clients} />
           <Route path='/profile' component={ProfilePage} />
+          <Route exact path='/tasks' component={Tasks} />
         </Switch>
       </div>
     </BrowserRouter>

@@ -1,4 +1,5 @@
-button.btn-action {
+button.btn-action,
+a.btn-action {
   margin: 5px !important;
 }
 
