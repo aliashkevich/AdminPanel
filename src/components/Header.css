@@ -1,0 +1,13 @@
+li.nav-item > a.selected {
+  background-color: #ff9800;
+  color: #ffffff;
+}
+
+li.nav-item > a.selected i {
+  color: #ffffff;
+}
+
+li.nav-item > a.selected:hover {
+  background-color: #ff9800;
+  color: #ffffff;
+}

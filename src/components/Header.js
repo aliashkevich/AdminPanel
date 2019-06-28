@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import './Header.css';
 
 export default class Header extends Component {
   render() {
@@ -24,39 +25,54 @@ export default class Header extends Component {
           </div>
           <div className='sidebar-wrapper'>
             <ul className='nav'>
-              <li className='nav-item active  '>
-                <Link to='/dashboards' className='nav-link'>
+              <li className='nav-item '>
+                <NavLink
+                  to='/dashboards'
+                  className='nav-link'
+                  activeClassName='selected'>
                   <i className='material-icons'>dashboard</i>
                   <p>Dashboard</p>
-                </Link>
+                </NavLink>
               </li>
 
               <li className='nav-item '>
-                <Link to='/clients' className='nav-link'>
+                <NavLink
+                  to='/clients'
+                  className='nav-link'
+                  activeClassName='selected'>
                   <i className='material-icons'>people</i>
                   <p>Clients</p>
-                </Link>
+                </NavLink>
               </li>
 
               <li className='nav-item '>
-                <Link to='/projects' className='nav-link'>
+                <NavLink
+                  to='/projects'
+                  className='nav-link'
+                  activeClassName='selected'>
                   <i className='material-icons'>library_books</i>
                   <p>Projects</p>
-                </Link>
+                </NavLink>
               </li>
 
               <li className='nav-item '>
-                <Link to='/tasks' className='nav-link'>
+                <NavLink
+                  to='/tasks'
+                  className='nav-link'
+                  activeClassName='selected'>
                   <i className='material-icons'>notes</i>
                   <p>Tasks</p>
-                </Link>
+                </NavLink>
               </li>
 
               <li className='nav-item '>
-                <Link to='/administration' className='nav-link'>
+                <NavLink
+                  to='/administration'
+                  className='nav-link'
+                  activeClassName='selected'>
                   <i className='material-icons'>content_paste</i>
                   <p>Administration</p>
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
