@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import {matchPath} from 'react-router';
 import './Header.css';
 
 export default class Header extends Component {
@@ -28,8 +29,11 @@ export default class Header extends Component {
               <li className='nav-item '>
                 <NavLink
                   to='/dashboards'
-                  className='nav-link'
-                  activeClassName='selected'>
+                  className='nav-link '
+                  activeClassName='selected'
+                  isActive={(match, location) => {
+                    return location.pathname === '/';
+                  }}>
                   <i className='material-icons'>dashboard</i>
                   <p>Dashboard</p>
                 </NavLink>
