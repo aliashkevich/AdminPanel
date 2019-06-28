@@ -42,9 +42,20 @@ class AddNewProject extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    this.setState({
-      [e.target.name]: [e.target.value],
-    });
+    if (e.target.name === 'email' || e.target.name === 'number') {
+      console.log(e.target.name);
+      let infoContact = this.state.contact_information;
+      this.setState({
+        contact_information: {
+          ...infoContact,
+          [e.target.name]: e.target.value,
+        },
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
   }
 
   handleSubmit(e) {
@@ -145,7 +156,7 @@ class AddNewProject extends React.Component {
                   <input
                     style={styles.margin}
                     type='email'
-                    name='contactinformation.email'
+                    name='email'
                     className='form-control'
                     id='inputEmail'
                     onChange={this.handleChange}
