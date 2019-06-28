@@ -4,7 +4,7 @@ import ActionsTable from '../global/ActionsTable';
 
 export default class ClientsTable extends React.Component {
   static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
+    url: 'http://localhost:3000/api/v1',
   };
 
   constructor(props) {

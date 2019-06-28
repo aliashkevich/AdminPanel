@@ -43,13 +43,13 @@ class AddNewProject extends React.Component {
   handleChange(e) {
     e.preventDefault();
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: [e.target.value],
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('https://lesewert.herokuapp.com/api/v1/clients', {
+    fetch('http://localhost:3000/api/v1/clients', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -70,11 +70,7 @@ class AddNewProject extends React.Component {
     this.setState({
       name: '',
       initials: '',
-      logo: '',
-      contact_information: {
-        email: '',
-        number: '',
-      },
+      contact_information: '',
     });
   }
 
@@ -121,7 +117,7 @@ class AddNewProject extends React.Component {
                   <input
                     style={styles.margin}
                     type='text'
-                    name='title'
+                    name='name'
                     className='form-control'
                     id='inputTitle'
                     onChange={this.handleChange}
@@ -149,7 +145,7 @@ class AddNewProject extends React.Component {
                   <input
                     style={styles.margin}
                     type='email'
-                    name='email'
+                    name='contactinformation.email'
                     className='form-control'
                     id='inputEmail'
                     onChange={this.handleChange}
