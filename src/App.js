@@ -11,6 +11,7 @@ import Clients from './pages/Clients';
 import ProfilePage from './pages/ProfilePage';
 import NewProject from './pages/NewProject';
 import NewClient from './pages/NewClient';
+import Tasks from './pages/Tasks';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/clients' component={Clients} />
           <Route path='/clients/new' component={NewClient} />
           <Route path='/profile' component={ProfilePage} />
+          <Route exact path='/tasks' component={Tasks} />
         </Switch>
       </div>
     </BrowserRouter>
