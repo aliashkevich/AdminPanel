@@ -143,110 +143,112 @@ class AddNewProject extends React.Component {
       return {value: user.id, label: user.name};
     });
     return (
-      <div className='card'>
-        <div className='card-header card-header-info'>
-          <h4 className='card-title'>New Project</h4>
-        </div>
-        <div className='card-body'>
-          <br />
-          <form onSubmit={this.handleSubmit}>
-            <div className='form-row'>
-              <div className='form-group col-sm-12 col-md-6 has-info input-group'>
-                <label for='inputTitle'>Title:</label>
-                <input
-                  type='text'
-                  name='title'
-                  className='form-control inner-form'
-                  id='inputTitle'
-                  onChange={this.handleChange}
-                  required
-                />
+      <div className='container-fluid'>
+        <div className='card'>
+          <div className='card-header card-header-info'>
+            <h4 className='card-title'>New Project</h4>
+          </div>
+          <div className='card-body'>
+            <br />
+            <form onSubmit={this.handleSubmit}>
+              <div className='form-row'>
+                <div className='form-group col-sm-12 col-md-6 has-info input-group'>
+                  <label for='inputTitle'>Title:</label>
+                  <input
+                    type='text'
+                    name='title'
+                    className='form-control inner-form'
+                    id='inputTitle'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div className='col-sm-12 col-md-6 has-info clients'>
+                  <label for='inputClient' className='text-info'>
+                    Client:
+                  </label>
+                  <Select
+                    id='inputClient'
+                    name='clientSelect'
+                    value={this.state.clientSelect}
+                    options={clientOptions}
+                    onChange={this.handleClientChange}
+                    className='select'
+                    theme={styles.select.theme}
+                    required
+                  />
+                </div>
               </div>
-              <div className='col-sm-12 col-md-6 has-info clients'>
-                <label for='inputClient' className='text-info'>
-                  Client:
-                </label>
-                <Select
-                  id='inputClient'
-                  name='clientSelect'
-                  value={this.state.clientSelect}
-                  options={clientOptions}
-                  onChange={this.handleClientChange}
-                  className='select'
-                  theme={styles.select.theme}
-                  required
-                />
+              <div className='form-row'>
+                <div className='form-group col-sm-12 col-md-3 has-info input-group'>
+                  <label for='inputStartDate'>Start Date:</label>
+                  <input
+                    type='date'
+                    name='start_date'
+                    className='form-control inner-form'
+                    id='inputStartDate'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div className='form-group col-sm-12 col-md-3 has-info input-group'>
+                  <label for='inputEndDate'>End Date:</label>
+                  <input
+                    type='date'
+                    name='end_date'
+                    className='form-control inner-form'
+                    id='inputEndDate'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div className='col-sm-12 col-md-6 has-info participants'>
+                  <label for='inputParticipants' className='text-info'>
+                    Participants:
+                  </label>
+                  <Select
+                    id='inputParticipants'
+                    name='participantSelect'
+                    value={this.state.participantSelect}
+                    options={participantOptions}
+                    onChange={this.handleParticipantChange}
+                    isMulti
+                    className='select'
+                    theme={styles.select.theme}
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div className='form-row'>
-              <div className='form-group col-sm-12 col-md-3 has-info input-group'>
-                <label for='inputStartDate'>Start Date:</label>
-                <input
-                  type='date'
-                  name='start_date'
-                  className='form-control inner-form'
-                  id='inputStartDate'
-                  onChange={this.handleChange}
-                  required
-                />
+              <div className='form-row'>
+                <div className='form-group col-sm-12 col-md-12 has-info'>
+                  <label for='inputSummary'>Summary:</label>
+                  <textarea
+                    type='text'
+                    name='summary'
+                    className='form-control'
+                    id='inputSummary'
+                    onChange={this.handleChange}
+                    rows={10}
+                    required
+                  />
+                </div>
               </div>
-              <div className='form-group col-sm-12 col-md-3 has-info input-group'>
-                <label for='inputEndDate'>End Date:</label>
-                <input
-                  type='date'
-                  name='end_date'
-                  className='form-control inner-form'
-                  id='inputEndDate'
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div className='col-sm-12 col-md-6 has-info participants'>
-                <label for='inputParticipants' className='text-info'>
-                  Participants:
-                </label>
-                <Select
-                  id='inputParticipants'
-                  name='participantSelect'
-                  value={this.state.participantSelect}
-                  options={participantOptions}
-                  onChange={this.handleParticipantChange}
-                  isMulti
-                  className='select'
-                  theme={styles.select.theme}
-                  required
-                />
-              </div>
-            </div>
-            <div className='form-row'>
-              <div className='form-group col-sm-12 col-md-12 has-info'>
-                <label for='inputSummary'>Summary:</label>
-                <textarea
-                  type='text'
-                  name='summary'
-                  className='form-control'
-                  id='inputSummary'
-                  onChange={this.handleChange}
-                  rows={10}
-                  required
-                />
-              </div>
-            </div>
-            <div className='form-row'>
-              <div className=' form-group col-xs-1'>
-                <Link to='/projects'>
-                  <button type='reset' className='btn btn-danger'>
-                    Cancel
+              <div className='form-row'>
+                <div className=' form-group col-xs-1'>
+                  <Link to='/projects'>
+                    <button type='reset' className='btn btn-danger'>
+                      Cancel
+                    </button>
+                  </Link>
+                </div>
+                <div className='form-group col-xs-1 text-end ml-auto'>
+                  <button type='submit' className='btn btn-success btn-right'>
+                    Add
                   </button>
-                </Link>
+                </div>
               </div>
-              <div className='form-group col-xs-1 text-end ml-auto'>
-                <button type='submit' className='btn btn-success btn-right'>
-                  Add
-                </button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     );

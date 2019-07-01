@@ -103,76 +103,97 @@ class AddNewProject extends React.Component {
 
   render() {
     return (
-      <div className='card'>
-        <div className='card-header card-header-primary'>
-          <h4 className='card-title'>New Client</h4>
-        </div>
-        <div className='card-body'>
-          <form onSubmit={this.handleSubmit}>
-            <div className='form-row'>
-              <div className='form-row col-md-9 textInputFormating client-wrap'>
-                <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
-                  <label for='inputTitle'>Name:</label>
-                  <input
-                    type='text'
-                    name='name'
-                    className='form-control inner-form'
-                    id='inputTitle'
-                    onChange={this.handleChange}
-                    required
-                  />
+      <div className='container-fluid'>
+        <div className='card'>
+          <div className='card-header card-header-primary'>
+            <h4 className='card-title'>New Client</h4>
+          </div>
+          <div className='card-body'>
+            <form onSubmit={this.handleSubmit}>
+              <div className='form-row'>
+                <div className='form-row col-md-9 textInputFormating client-wrap'>
+                  <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
+                    <label for='inputTitle'>Name:</label>
+                    <input
+                      type='text'
+                      name='name'
+                      className='form-control inner-form'
+                      id='inputTitle'
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
+                  <div className='form-group col-sm-12 col-md-3 has-primary input-group'>
+                    <label for='inputInitials'>Initials:</label>
+                    <input
+                      type='text'
+                      name='initials'
+                      className='form-control inner-form'
+                      id='inputInitials'
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
+                  <div className='form-group col-sm-12 col-md-7 has-primary input-group'>
+                    <label for='inputEmail'>Email:</label>
+                    <input
+                      type='email'
+                      name='email'
+                      className='form-control inner-form'
+                      id='inputEmail'
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
+                  <div className='form-group col-sm-12 col-md-5 has-primary input-group'>
+                    <label for='inputNumber'>Number:</label>
+                    <input
+                      type='text'
+                      name='number'
+                      className='form-control inner-form'
+                      id='inputNumber'
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className='form-group col-sm-12 col-md-3 has-primary input-group'>
-                  <label for='inputInitials'>Initials:</label>
-                  <input
-                    type='text'
-                    name='initials'
-                    className='form-control inner-form'
-                    id='inputInitials'
-                    onChange={this.handleChange}
-                    required
-                  />
-                </div>
-                <div className='form-group col-sm-12 col-md-7 has-primary input-group'>
-                  <label for='inputEmail'>Email:</label>
-                  <input
-                    type='email'
-                    name='email'
-                    className='form-control inner-form'
-                    id='inputEmail'
-                    onChange={this.handleChange}
-                    required
-                  />
-                </div>
-                <div className='form-group col-sm-12 col-md-5 has-primary input-group'>
-                  <label for='inputNumber'>Number:</label>
-                  <input
-                    type='text'
-                    name='number'
-                    className='form-control inner-form'
-                    id='inputNumber'
-                    onChange={this.handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div
-                className='form-group col-sm-12 col-md-3 has-primary'
-                align='center'>
-                {this.state.logoLoaded === true ? (
-                  <img
-                    src={this.state.logoPreview}
-                    className='fileinput-new thumbnail img-raised logo'
-                  />
-                ) : (
-                  <div className='fileinput-new thumbnail img-raised logoPlaceholder' />
-                )}
-                {this.state.logoLoaded === true ? (
-                  <div>
+                <div
+                  className='form-group col-sm-12 col-md-3 has-primary'
+                  align='center'>
+                  {this.state.logoLoaded === true ? (
+                    <img
+                      src={this.state.logoPreview}
+                      className='fileinput-new thumbnail img-raised logo'
+                    />
+                  ) : (
+                    <div className='fileinput-new thumbnail img-raised logoPlaceholder' />
+                  )}
+                  {this.state.logoLoaded === true ? (
+                    <div>
+                      <button
+                        className='btn btn-round btn-primary client-button'
+                        type='button'>
+                        Change Logo
+                        <input
+                          type='file'
+                          ref='logo'
+                          name='logo'
+                          onChange={this.handleLogoChange}
+                          className='fileInput'
+                        />
+                      </button>
+                      <button
+                        class='btn btn-fab btn-danger btn-round client-button'
+                        type='button'
+                        onClick={this.handleLogoDelete}>
+                        <i class='fa fa-times' />
+                      </button>
+                    </div>
+                  ) : (
                     <button
                       className='btn btn-round btn-primary client-button'
                       type='button'>
-                      Change Logo
+                      Select Logo
                       <input
                         type='file'
                         ref='logo'
@@ -181,45 +202,26 @@ class AddNewProject extends React.Component {
                         className='fileInput'
                       />
                     </button>
-                    <button
-                      class='btn btn-fab btn-danger btn-round client-button'
-                      type='button'
-                      onClick={this.handleLogoDelete}>
-                      <i class='fa fa-times' />
+                  )}
+                </div>
+              </div>
+              {/* buttons */}
+              <div className='form-row'>
+                <div className=' form-group col-xs-1'>
+                  <Link to='/clients'>
+                    <button type='reset' className='btn btn-danger'>
+                      Cancel
                     </button>
-                  </div>
-                ) : (
-                  <button
-                    className='btn btn-round btn-primary client-button'
-                    type='button'>
-                    Select Logo
-                    <input
-                      type='file'
-                      ref='logo'
-                      name='logo'
-                      onChange={this.handleLogoChange}
-                      className='fileInput'
-                    />
+                  </Link>
+                </div>
+                <div className='form-group col-xs-1 text-end ml-auto'>
+                  <button type='submit' className='btn btn-success btn-right'>
+                    Add
                   </button>
-                )}
+                </div>
               </div>
-            </div>
-            {/* buttons */}
-            <div className='form-row'>
-              <div className=' form-group col-xs-1'>
-                <Link to='/clients'>
-                  <button type='reset' className='btn btn-danger'>
-                    Cancel
-                  </button>
-                </Link>
-              </div>
-              <div className='form-group col-xs-1 text-end ml-auto'>
-                <button type='submit' className='btn btn-success btn-right'>
-                  Add
-                </button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     );
