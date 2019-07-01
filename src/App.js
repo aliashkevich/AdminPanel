@@ -10,11 +10,8 @@ import ProjectDetail from './pages/ProjectDetail';
 import Clients from './pages/Clients';
 import ProfilePage from './pages/ProfilePage';
 import NewProject from './pages/NewProject';
-<<<<<<< HEAD
-import EditProject from './components/project/ProjectEdit';
-=======
+import ProjectEdit from './pages/ProjectEdit';
 import Tasks from './pages/Tasks';
->>>>>>> 0af5f52e0f56a43443a0ad9563a7fce43c645de1
 
 function App() {
   return (
@@ -24,7 +21,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path='/projects' component={Project} />
           <Route path='/projects/new' component={NewProject} />
-          <Route path='/projects/edit' component={EditProject} />
+          <Route path='/projects/edit' component={ProjectEdit} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />

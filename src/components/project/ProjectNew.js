@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Select from 'react-select';
@@ -45,46 +45,93 @@ const styles = {
   },
 };
 
-class AddNewProject extends React.Component {
+class AddNewProject extends Component {
+  static defaultProps = {
+    url: 'https://lesewert.herokuapp.com/api/v1',
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      clientSelect: '',
       client_id: '',
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participantSelect: [],
       participants: [],
       clients: [],
       users: [],
+      project: [],
+      updated: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
     this.handleParticipantChange = this.handleParticipantChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getProject = this.getProject.bind(this);
+    this.getUsers = this.getUsers.bind(this);
+    this.getClients = this.getClients.bind(this);
+    this.prefillProject = this.prefillProject.bind(this);
   }
 
-  componentDidMount() {
-    fetch('https://lesewert.herokuapp.com/api/v1/users')
+  getProject() {
+    fetch(
+      `${this.props.url}/projects/${this.props.location.pathname
+        .split('/')
+        .pop()}`,
+    )
       .then(res => res.json())
-      .then(data =>
+      .then(data => {
+        this.setState({
+          project: data.project,
+        });
+      })
+      .then(() => this.prefillProject())
+      .catch(error => console.log(error));
+  }
+
+  getUsers() {
+    fetch(`${this.props.url}/users`)
+      .then(res => res.json())
+      .then(data => {
         this.setState({
           users: data.users,
-        }),
-      )
-      .catch(error => console.log(error))
-      .then(
-        fetch('https://lesewert.herokuapp.com/api/v1/clients')
-          .then(res => res.json())
-          .then(data =>
-            this.setState({
-              clients: data.clients,
-            }),
-          )
-          .catch(error => console.log(error)),
-      );
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  getClients() {
+    fetch(`${this.props.url}/clients`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          clients: data.clients,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  prefillProject() {
+    function isUser(participant) {
+      return participant == this.state.users.id;
+    }
+    if (this.props.edit) {
+      this.setState({
+        // clients: this.state.project.client_id,
+        title: this.state.project.title,
+        summary: this.state.project.summary,
+        start_date: this.state.project.start_date,
+        end_date: this.state.project.end_date,
+        participants: this.state.project.participants,
+        // participantSelect: this.state.project.participants.map(participant => {
+        //   return {
+        //     value: participant,
+        //     label: this.state.project.participants.find(isUser),
+        //   };
+        // }),
+      });
+    }
   }
 
   handleChange(e) {
@@ -104,6 +151,12 @@ class AddNewProject extends React.Component {
     this.setState({
       participantSelect: option,
     });
+  }
+
+  componentDidMount() {
+    this.getProject();
+    this.getUsers();
+    this.getClients();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -133,7 +186,6 @@ class AddNewProject extends React.Component {
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          console.log(res);
           this.props.history.push('/projects');
           return res;
         } else {
@@ -173,7 +225,7 @@ class AddNewProject extends React.Component {
                   <div
                     className='form-group col-sm-12 col-md-6 has-info'
                     style={styles.dates}>
-                    <label for='inputTitle'>Title:</label>
+                    <label htmlFor='inputTitle'>Title:</label>
                     <input
                       style={styles.margin}
                       type='text'
@@ -181,13 +233,14 @@ class AddNewProject extends React.Component {
                       className='form-control'
                       id='inputTitle'
                       onChange={this.handleChange}
+                      value={this.state.title}
                       required
                     />
                   </div>
                   <div
                     className='col-sm-12 col-md-6 has-info'
                     style={styles.clients}>
-                    <label for='inputClient' className='text-info'>
+                    <label htmlFor='inputClient' className='text-info'>
                       Client:
                     </label>
                     <Select
@@ -206,7 +259,7 @@ class AddNewProject extends React.Component {
                   <div
                     className='form-group col-sm-12 col-md-3 has-info'
                     style={styles.dates}>
-                    <label for='inputStartDate'>Start Date:</label>
+                    <label htmlFor='inputStartDate'>Start Date:</label>
                     <input
                       style={styles.margin}
                       type='date'
@@ -214,13 +267,14 @@ class AddNewProject extends React.Component {
                       className='form-control'
                       id='inputStartDate'
                       onChange={this.handleChange}
+                      value={this.state.start_date.slice(0, 10)}
                       required
                     />
                   </div>
                   <div
                     className='form-group col-sm-12 col-md-3 has-info'
                     style={styles.dates}>
-                    <label for='inputEndDate'>End Date:</label>
+                    <label htmlFor='inputEndDate'>End Date:</label>
                     <input
                       style={styles.margin}
                       type='date'
@@ -228,13 +282,14 @@ class AddNewProject extends React.Component {
                       className='form-control'
                       id='inputEndDate'
                       onChange={this.handleChange}
+                      value={this.state.end_date.slice(0, 10)}
                       required
                     />
                   </div>
                   <div
                     className='col-sm-12 col-md-6 has-info'
                     style={styles.participants}>
-                    <label for='inputParticipants' className='text-info'>
+                    <label htmlFor='inputParticipants' className='text-info'>
                       Participants:
                     </label>
                     <Select
@@ -252,7 +307,7 @@ class AddNewProject extends React.Component {
                 </div>
                 <div className='form-row'>
                   <div className='form-group col-sm-12 col-md-12 has-info'>
-                    <label for='inputSummary'>Summary:</label>
+                    <label htmlFor='inputSummary'>Summary:</label>
                     <textarea
                       type='text'
                       name='summary'
@@ -260,6 +315,7 @@ class AddNewProject extends React.Component {
                       id='inputSummary'
                       onChange={this.handleChange}
                       rows={10}
+                      value={this.state.summary}
                       required
                     />
                   </div>
