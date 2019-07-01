@@ -2,26 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 
-const styles = {
-  dates: {
-    marginTop: '15px',
-  },
-  margin: {
-    marginTop: '17px',
-  },
-  logoWrapper: {
-    height: '150px',
-    maxWidth: '150px',
-  },
-  logo: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
-  fileInput: {
-    opacity: 0,
-  },
-};
-
 class AddNewProject extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +10,7 @@ class AddNewProject extends React.Component {
       initials: '',
       logo: '',
       logoPreview: '',
+      logoLoaded: false,
       contact_information: {
         email: '',
         number: '',
@@ -38,6 +19,7 @@ class AddNewProject extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogoChange = this.handleLogoChange.bind(this);
+    this.handleLogoDelete = this.handleLogoDelete.bind(this);
   }
 
   handleChange(e) {
@@ -60,7 +42,7 @@ class AddNewProject extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('http://localhost:3000/api/v1/clients', {
+    fetch('https://lesewert.herokuapp.com/api/v1/clients', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -95,6 +77,7 @@ class AddNewProject extends React.Component {
       this.setState({
         logo: file,
         logoPreview: reader.result,
+        logoLoaded: true,
       });
     };
     if (file) {
@@ -109,69 +92,64 @@ class AddNewProject extends React.Component {
     }
   }
 
+  handleLogoDelete(e) {
+    e.preventDefault();
+    this.setState({
+      logo: null,
+      logoPreview: null,
+      logoLoaded: false,
+    });
+  }
+
   render() {
-    console.log(this.state);
     return (
       <div className='card'>
         <div className='card-header card-header-primary'>
           <h4 className='card-title'>New Client</h4>
         </div>
         <div className='card-body'>
-          <br />
           <form onSubmit={this.handleSubmit}>
             <div className='form-row'>
-              <div className='form-row col-md-9'>
-                <div
-                  className='form-group col-sm-12 col-md-9 has-primary'
-                  style={styles.dates}>
+              <div className='form-row col-md-9 textInputFormating client-wrap'>
+                <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
                   <label for='inputTitle'>Name:</label>
                   <input
-                    style={styles.margin}
                     type='text'
                     name='name'
-                    className='form-control'
+                    className='form-control inner-form'
                     id='inputTitle'
                     onChange={this.handleChange}
                     required
                   />
                 </div>
-                <div
-                  className='form-group col-sm-12 col-md-3 has-primary'
-                  style={styles.dates}>
+                <div className='form-group col-sm-12 col-md-3 has-primary input-group'>
                   <label for='inputInitials'>Initials:</label>
                   <input
-                    style={styles.margin}
                     type='text'
                     name='initials'
-                    className='form-control'
+                    className='form-control inner-form'
                     id='inputInitials'
                     onChange={this.handleChange}
                     required
                   />
                 </div>
-                <div
-                  className='form-group col-sm-12 col-md-6 has-primary'
-                  style={styles.dates}>
+                <div className='form-group col-sm-12 col-md-7 has-primary input-group'>
                   <label for='inputEmail'>Email:</label>
                   <input
-                    style={styles.margin}
                     type='email'
                     name='email'
-                    className='form-control'
+                    className='form-control inner-form'
                     id='inputEmail'
                     onChange={this.handleChange}
                     required
                   />
                 </div>
-                <div
-                  className='form-group col-sm-12 col-md-6 has-primary'
-                  style={styles.dates}>
+                <div className='form-group col-sm-12 col-md-5 has-primary input-group'>
                   <label for='inputNumber'>Number:</label>
                   <input
-                    style={styles.margin}
                     type='text'
                     name='number'
-                    className='form-control'
+                    className='form-control inner-form'
                     id='inputNumber'
                     onChange={this.handleChange}
                     required
@@ -181,26 +159,52 @@ class AddNewProject extends React.Component {
               <div
                 className='form-group col-sm-12 col-md-3 has-primary'
                 align='center'>
-                <div
-                  className='fileinput-new thumbnail img-raised'
-                  style={styles.logoWrapper}>
-                  <img src={this.state.logoPreview} style={styles.logo} />
-                </div>
-                <button className='btn btn-round btn-primary'>
-                  Select Logo
-                  <input
-                    type='file'
-                    ref='logo'
-                    name='logo'
-                    onChange={this.handleLogoChange}
-                    style={styles.fileInput}
+                {this.state.logoLoaded === true ? (
+                  <img
+                    src={this.state.logoPreview}
+                    className='fileinput-new thumbnail img-raised logo'
                   />
-                </button>
+                ) : (
+                  <div className='fileinput-new thumbnail img-raised logoPlaceholder' />
+                )}
+                {this.state.logoLoaded === true ? (
+                  <div>
+                    <button
+                      className='btn btn-round btn-primary client-button'
+                      type='button'>
+                      Change Logo
+                      <input
+                        type='file'
+                        ref='logo'
+                        name='logo'
+                        onChange={this.handleLogoChange}
+                        className='fileInput'
+                      />
+                    </button>
+                    <button
+                      class='btn btn-fab btn-danger btn-round client-button'
+                      type='button'
+                      onClick={this.handleLogoDelete}>
+                      <i class='fa fa-times' />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className='btn btn-round btn-primary client-button'
+                    type='button'>
+                    Select Logo
+                    <input
+                      type='file'
+                      ref='logo'
+                      name='logo'
+                      onChange={this.handleLogoChange}
+                      className='fileInput'
+                    />
+                  </button>
+                )}
               </div>
             </div>
-
             {/* buttons */}
-
             <div className='form-row'>
               <div className=' form-group col-xs-1'>
                 <Link to='/clients'>

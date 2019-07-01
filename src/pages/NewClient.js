@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import ClientNew from '../components/client/ClientNew';
 
-export default function NewProject() {
+export default function NewClient() {
   return (
     <React.Fragment>
       <Header />
