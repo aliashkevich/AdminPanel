@@ -1,28 +1,62 @@
 import React from 'react';
 
-export default function ProjectDetailCard(props) {
-  return (
-    <div className='main-panel'>
-      <div className='content'>
-        <div className='container-fluid'>
-          <div className='row'>
-            <div className='col-lg-12 col-md-12 col-sm-12'>
-              <div className='card'>
-                <div className='card-header card-header-info'>
-                  <h4 className='card-title'>Lesewert 2018</h4>
-                  <p className='category'>
-                    Project ID: <span>2018-33</span>
-                  </p>
-                </div>
-                {/* summary */}
-                <div className='card-body'>
-                  <div className='row'>
-                    <ClientInfo />
-                    <ProjectSummary />
+export default class ProjectDetailCard extends React.Component {
+  static defaultProps = {
+    url: 'https://lesewert.herokuapp.com/api/v1',
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      project: {},
+      id: props.id,
+    };
+    this.getProject = this.getProject.bind(this);
+  }
+
+  getProject() {
+    console.log('id check', this.state.id);
+    fetch(`${this.props.url}/projects/${this.state.id}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          project: data.project,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  componentDidMount() {
+    this.setState({id: this.props.id});
+    console.log(this.props);
+    this.getProject();
+  }
+
+  render() {
+    return (
+      <div className='main-panel'>
+        <div className='content'>
+          <div className='container-fluid'>
+            <div className='row'>
+              <div className='col-lg-12 col-md-12 col-sm-12'>
+                <div className='card'>
+                  <div className='card-header card-header-info'>
+                    <h4 className='card-title'>title</h4>
+                    <p className='category'>
+                      Project ID: <span>2018-33</span>
+                    </p>
                   </div>
-                  <div className='row'>
-                    <Participants />
-                    <Tasks />
+                  {/* summary */}
+                  <div className='card-body'>
+                    <div className='row'>
+                      <ClientInfo />
+                      <ProjectSummary />
+                    </div>
+                    <div className='row'>
+                      <Participants />
+                      <Tasks />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -30,8 +64,8 @@ export default function ProjectDetailCard(props) {
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function Participants() {

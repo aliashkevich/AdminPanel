@@ -2,11 +2,14 @@ import React from 'react';
 import Header from '../components/Header';
 import ProjectDetailCard from '../components/project/ProjectDetailCard';
 
-export default function ProjectDetail() {
+const ProjectDetail = props => {
+  console.log('ProjectDetail', props);
   return (
     <React.Fragment>
       <Header />
-      <ProjectDetailCard />
+      <ProjectDetailCard id={props.location.state.id} />
     </React.Fragment>
   );
-}
+};
+
+export default ProjectDetail;
