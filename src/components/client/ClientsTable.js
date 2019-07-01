@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import ActionsTable from '../global/ActionsTable';
+import Spinner from '../global/Spinner';
 
 export default class ClientsTable extends React.Component {
   static defaultProps = {
@@ -13,6 +14,7 @@ export default class ClientsTable extends React.Component {
     this.state = {
       clients: [],
       updated: false,
+      loading: true,
     };
 
     this.getClients = this.getClients.bind(this);
@@ -30,6 +32,7 @@ export default class ClientsTable extends React.Component {
         this.setState({
           clients: data.clients,
           updated: false,
+          loading: false,
         });
       })
       .catch(error => console.log(error));
@@ -64,15 +67,21 @@ export default class ClientsTable extends React.Component {
     ]);
 
     return (
-      <ActionsTable
-        entities={this.state.clients}
-        tableName={'Clients'}
-        tableHead={['ID', 'Initials', 'Name']}
-        tableData={tableData}
-        tableColor={'primary'}
-        deleteOnClick={this.deleteOnClick}
-        confirmationFieldName={'name'}
-      />
+      <React.Fragment>
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <ActionsTable
+            entities={this.state.clients}
+            tableName={'Clients'}
+            tableHead={['ID', 'Initials', 'Name']}
+            tableData={tableData}
+            tableColor={'primary'}
+            deleteOnClick={this.deleteOnClick}
+            confirmationFieldName={'name'}
+          />
+        )}
+      </React.Fragment>
     );
   }
 }
