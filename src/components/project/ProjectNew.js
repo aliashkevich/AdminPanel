@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Select from 'react-select';
+import '../global/Form.css';
 
 const styles = {
   select: {
