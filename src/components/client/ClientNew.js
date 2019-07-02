@@ -71,17 +71,20 @@ class AddNewProject extends React.Component {
 
   handleLogoChange(e) {
     e.preventDefault();
-
     const file = e.target.files[0];
     const reader = new FileReader();
 
-    reader.onloadend = e => {
-      this.setState({
-        logo: file,
-        logoPreview: reader.result,
-        logoLoaded: true,
-      });
-    };
+    if (e.target.files[0].size < 3145728) {
+      reader.onloadend = e => {
+        this.setState({
+          logo: file,
+          logoPreview: reader.result,
+          logoLoaded: true,
+        });
+      };
+    } else {
+      alert('Image is to big');
+    }
     if (file) {
       reader.readAsDataURL(file);
       this.setState({
@@ -92,10 +95,12 @@ class AddNewProject extends React.Component {
         logo: '',
       });
     }
+    e.target.value = null;
   }
 
   handleLogoDelete(e) {
     e.preventDefault();
+    e.target.value = '';
     this.setState({
       logo: '',
       logoPreview: '',
@@ -104,6 +109,7 @@ class AddNewProject extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className='container-fluid'>
         <div className='card'>
@@ -113,7 +119,7 @@ class AddNewProject extends React.Component {
           <div className='card-body'>
             <form onSubmit={this.handleSubmit}>
               <div className='form-row'>
-                <div className='form-row col-md-9 client-wrap'>
+                <div className='form-row col-md-8 client-wrap'>
                   <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
                     <label for='inputTitle'>Name:</label>
                     <input
@@ -160,7 +166,7 @@ class AddNewProject extends React.Component {
                   </div>
                 </div>
                 <div
-                  className='form-group col-sm-12 col-md-3 has-primary'
+                  className='form-group col-sm-12 col-md-4 has-primary'
                   align='center'>
                   {this.state.logoLoaded === true ? (
                     <img
@@ -182,6 +188,7 @@ class AddNewProject extends React.Component {
                         type='file'
                         ref={ref => (this.fileInput = ref)}
                         name='logo'
+                        accept='image/png, image/jpeg'
                         hidden
                         onChange={this.handleLogoChange}
                         className='fileInput'
