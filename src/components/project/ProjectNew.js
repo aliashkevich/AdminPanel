@@ -225,13 +225,16 @@ class AddNewProject extends Component {
 
   handleEdit(e) {
     e.preventDefault();
-    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
-      method: 'PUT',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(this.state),
-    })
+    fetch(
+      'https://lesewert.herokuapp.com/api/v1/projects/${this.state.project.id}',
+      {
+        method: 'PUT',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(this.state),
+      },
+    )
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
           this.props.history.push('/projects');
