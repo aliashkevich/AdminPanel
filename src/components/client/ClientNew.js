@@ -59,7 +59,6 @@ class AddNewProject extends React.Component {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(err => err)
       .catch(error => console.log(error));
     this.setState({
       name: '',
