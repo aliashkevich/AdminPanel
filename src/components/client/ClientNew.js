@@ -221,7 +221,6 @@ class AddNewProject extends React.Component {
                   )}
                 </div>
               </div>
-              {/* buttons */}
               <div className='form-row'>
                 <div className=' form-group col-xs-1'>
                   <Link to='/clients'>
