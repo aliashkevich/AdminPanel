@@ -21,7 +21,10 @@ class AddNewProject extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogoChange = this.handleLogoChange.bind(this);
     this.handleLogoDelete = this.handleLogoDelete.bind(this);
+    this.fileInput = React.createRef();
   }
+
+  fileInputRef = React.createRef();
 
   handleChange(e) {
     e.preventDefault();
@@ -70,7 +73,7 @@ class AddNewProject extends React.Component {
   handleLogoChange(e) {
     e.preventDefault();
 
-    const file = this.refs.logo.files[0];
+    const file = this.ref.fileInput.files[0];
     const reader = new FileReader();
 
     reader.onloadend = e => {
@@ -190,18 +193,22 @@ class AddNewProject extends React.Component {
                       </button>
                     </div>
                   ) : (
-                    <button
-                      className='btn btn-round btn-primary client-button'
-                      type='button'>
-                      Select Logo
+                    <div>
+                      <button
+                        className='btn btn-round btn-primary client-button'
+                        type='button'
+                        onClick={e => this.fileInput.click()}>
+                        Select Logo
+                      </button>
                       <input
                         type='file'
-                        ref='logo'
+                        ref={ref => (this.fileInput = ref)}
                         name='logo'
+                        hidden
                         onChange={this.handleLogoChange}
                         className='fileInput'
                       />
-                    </button>
+                    </div>
                   )}
                 </div>
               </div>

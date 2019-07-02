@@ -26,3 +26,9 @@
 .client-button {
   margin: 20px 2px;
 }
+
+.select-input-button {
+  height: 50px;
+  width: 70px;
+  background-color: blueviolet;
+}
