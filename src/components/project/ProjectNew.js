@@ -173,9 +173,9 @@ class AddNewProject extends Component {
   }
 
   componentDidMount() {
+    this.getProject();
     this.getUsers();
     this.getClients();
-    this.getProject();
   }
 
   componentDidUpdate(prevProps, prevState) {
