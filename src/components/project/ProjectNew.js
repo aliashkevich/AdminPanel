@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Select from 'react-select';
+import Spinner from '../global/Spinner';
 
 const styles = {
   dates: {
@@ -50,31 +51,30 @@ class AddNewProject extends Component {
     url: 'https://lesewert.herokuapp.com/api/v1',
   };
 
-  // IMPORTANT: participantselect and clientselect are objects, not array, this can only be seen if you read the documentation of react-select,
-  //  but we have to keep this in mind for the future, we should not setstate *select = []
   constructor(props) {
     super(props);
     this.state = {
       client_id: '',
       clients: [],
-      clientSelect: '',
+      clientSelect: undefined,
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
       participants: [],
-      participantSelect: '',
+      participantSelect: [],
       project: [],
+      loading: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
     this.handleParticipantChange = this.handleParticipantChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.getProject = this.getProject.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getClients = this.getClients.bind(this);
     this.prefillProject = this.prefillProject.bind(this);
-    this.searchName = this.searchName.bind(this);
   }
 
   getProject() {
@@ -115,38 +115,55 @@ class AddNewProject extends Component {
       .catch(error => console.log(error));
   }
 
-  searchName(nameKey, myArray) {
+  searchName = (nameKey, myArray) => {
     for (var i = 0; i < myArray.length; i++) {
       if (myArray[i].id === nameKey) {
         return myArray[i].name;
       }
     }
-  }
+  };
+
+  fillParticipants = () => {
+    this.setState(state => {
+      return {
+        participantSelect: state.project.participants.map(participant => {
+          console.log('searchlabel');
+          return {
+            value: participant,
+            label: this.searchName(participant, state.participants),
+          };
+        }),
+      };
+    });
+  };
 
   prefillProject() {
     const clientSelectPrefill = this.searchName(
       this.state.project.client_id,
       this.state.clients,
     );
-    console.log(this.state.project.client_id, this.state.clients);
+
     if (this.props.edit) {
-      this.setState({
-        client_id: this.state.project.client_id,
-        clientSelect: {
-          value: this.state.project.client_id,
-          label: clientSelectPrefill,
-        },
-        title: this.state.project.title,
-        summary: this.state.project.summary,
-        start_date: this.state.project.start_date,
-        end_date: this.state.project.end_date,
-        participants: this.state.project.participants,
-        participantSelect: this.state.project.participants.map(participant => {
-          return {
-            value: participant,
-            label: this.searchName(participant, this.state.participants),
-          };
-        }),
+      this.setState(state => {
+        return {
+          client_id: state.project.client_id,
+          clientSelect: {
+            value: state.project.client_id,
+            label: clientSelectPrefill,
+          },
+          title: state.project.title,
+          summary: state.project.summary,
+          start_date: state.project.start_date,
+          end_date: state.project.end_date,
+          participantSelect: state.project.participants.map(participant => {
+            return {
+              value: participant,
+              // label: 'test',
+              label: this.searchName(participant, state.participants),
+            };
+          }),
+          loading: false,
+        };
       });
     }
   }
@@ -176,23 +193,6 @@ class AddNewProject extends Component {
     this.getProject();
     this.getUsers();
     this.getClients();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.clientSelect !== this.state.clientSelect) {
-      this.setState({
-        client_id: this.state.clientSelect.value,
-      });
-      // here we shouldnt only check if its different but whether that participant has not been added to to participants already
-    } else if (prevState.participantSelect !== this.state.participantSelect) {
-      this.setState({
-        participants: [
-          ...this.state.participants,
-          this.state.participantSelect[this.state.participantSelect.length - 1]
-            .value,
-        ],
-      });
-    }
   }
 
   handleSubmit(e) {
@@ -227,18 +227,30 @@ class AddNewProject extends Component {
       .catch(error => console.log(error));
     this.setState({
       clients: [],
-      clientSelect: '',
+      clientSelect: undefined,
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
       participants: [],
-      participantSelect: '',
+      participantSelect: [],
     });
   }
 
   handleEdit(e) {
     e.preventDefault();
+    const newClient = this.state.clientSelect.value;
+    const newParticipants = this.state.participantSelect.map(participant => {
+      return participant.value;
+    });
+    const body = {
+      client_id: newClient,
+      title: this.state.title,
+      summary: this.state.summary,
+      start_date: this.state.start_date,
+      end_date: this.state.end_date,
+      participants: newParticipants,
+    };
     fetch(
       `https://lesewert.herokuapp.com/api/v1/projects/${this.state.project.id}`,
       {
@@ -246,7 +258,7 @@ class AddNewProject extends Component {
         headers: new Headers({
           'Content-Type': 'application/json',
         }),
-        body: JSON.stringify(this.state),
+        body: JSON.stringify(body),
       },
     )
       .then(res => {
@@ -259,12 +271,14 @@ class AddNewProject extends Component {
       })
       .catch(error => console.log(error));
     this.setState({
-      client_id: '',
+      clients: [],
+      clientSelect: undefined,
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participants: '',
+      participants: [],
+      participantSelect: [],
     });
   }
 
@@ -275,136 +289,160 @@ class AddNewProject extends Component {
     let participantOptions = this.state.participants.map(user => {
       return {value: user.id, label: user.name};
     });
+
+    // let participantSelectCheck = this.state.participantSelect.map(
+    //   participant => {
+    //     if (!participant.value || !participant.label) {
+    //       this.fillParticipants();
+    //       console.log(participant.label);
+    //       return false;
+    //     }
+    //     return true;
+    //   },
+    // );
     return (
-      <div className='container-fluid'>
-        <div className='col-md-12'>
-          <div className='card'>
-            <div className='card-header card-header-info'>
-              <h4 className='card-title'>
-                {this.props.edit ? 'Edit Project' : 'New Project'}
-              </h4>
-            </div>
-            <div className='card-body'>
-              <br />
-              <form onSubmit={this.handleSubmit}>
-                <div className='form-row'>
-                  <div
-                    className='form-group col-sm-12 col-md-6 has-info'
-                    style={styles.dates}>
-                    <label htmlFor='inputTitle'>Title:</label>
-                    <input
-                      style={styles.margin}
-                      type='text'
-                      name='title'
-                      className='form-control'
-                      id='inputTitle'
-                      onChange={this.handleChange}
-                      value={this.state.title}
-                      required
-                    />
-                  </div>
-                  <div
-                    className='col-sm-12 col-md-6 has-info'
-                    style={styles.clients}>
-                    <label htmlFor='inputClient' className='text-info'>
-                      Client:
-                    </label>
-                    <Select
-                      id='inputClient'
-                      name='clientSelect'
-                      value={this.state.clientSelect}
-                      options={clientOptions}
-                      onChange={this.handleClientChange}
-                      styles={styles.select}
-                      theme={styles.select.theme}
-                      required
-                    />
-                  </div>
+      <React.Fragment>
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <div className='container-fluid'>
+            <div className='col-md-12'>
+              <div className='card'>
+                <div className='card-header card-header-info'>
+                  <h4 className='card-title'>
+                    {this.props.edit ? 'Edit Project' : 'New Project'}
+                  </h4>
                 </div>
-                <div className='form-row'>
-                  <div
-                    className='form-group col-sm-12 col-md-3 has-info'
-                    style={styles.dates}>
-                    <label htmlFor='inputStartDate'>Start Date:</label>
-                    <input
-                      style={styles.margin}
-                      type='date'
-                      name='start_date'
-                      className='form-control'
-                      id='inputStartDate'
-                      onChange={this.handleChange}
-                      value={this.state.start_date.slice(0, 10)}
-                      required
-                    />
-                  </div>
-                  <div
-                    className='form-group col-sm-12 col-md-3 has-info'
-                    style={styles.dates}>
-                    <label htmlFor='inputEndDate'>End Date:</label>
-                    <input
-                      style={styles.margin}
-                      type='date'
-                      name='end_date'
-                      className='form-control'
-                      id='inputEndDate'
-                      onChange={this.handleChange}
-                      value={this.state.end_date.slice(0, 10)}
-                      required
-                    />
-                  </div>
-                  <div
-                    className='col-sm-12 col-md-6 has-info'
-                    style={styles.participants}>
-                    <label htmlFor='inputParticipants' className='text-info'>
-                      Participants:
-                    </label>
-                    <Select
-                      id='inputParticipants'
-                      name='participantSelect'
-                      value={this.state.participantSelect}
-                      options={participantOptions}
-                      onChange={this.handleParticipantChange}
-                      isMulti
-                      styles={styles.select}
-                      theme={styles.select.theme}
-                      required
-                    />
-                  </div>
+                <div className='card-body'>
+                  <br />
+                  <form
+                    onSubmit={
+                      this.props.edit ? this.handleEdit : this.handleSubmit
+                    }>
+                    <div className='form-row'>
+                      <div
+                        className='form-group col-sm-12 col-md-6 has-info'
+                        style={styles.dates}>
+                        <label htmlFor='inputTitle'>Title:</label>
+                        <input
+                          style={styles.margin}
+                          type='text'
+                          name='title'
+                          className='form-control'
+                          id='inputTitle'
+                          onChange={this.handleChange}
+                          value={this.state.title}
+                          required
+                        />
+                      </div>
+                      <div
+                        className='col-sm-12 col-md-6 has-info'
+                        style={styles.clients}>
+                        <label htmlFor='inputClient' className='text-info'>
+                          Client:
+                        </label>
+                        <Select
+                          id='inputClient'
+                          name='clientSelect'
+                          value={this.state.clientSelect}
+                          options={clientOptions}
+                          onChange={this.handleClientChange}
+                          styles={styles.select}
+                          theme={styles.select.theme}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className='form-row'>
+                      <div
+                        className='form-group col-sm-12 col-md-3 has-info'
+                        style={styles.dates}>
+                        <label htmlFor='inputStartDate'>Start Date:</label>
+                        <input
+                          style={styles.margin}
+                          type='date'
+                          name='start_date'
+                          className='form-control'
+                          id='inputStartDate'
+                          onChange={this.handleChange}
+                          value={this.state.start_date.slice(0, 10)}
+                          required
+                        />
+                      </div>
+                      <div
+                        className='form-group col-sm-12 col-md-3 has-info'
+                        style={styles.dates}>
+                        <label htmlFor='inputEndDate'>End Date:</label>
+                        <input
+                          style={styles.margin}
+                          type='date'
+                          name='end_date'
+                          className='form-control'
+                          id='inputEndDate'
+                          onChange={this.handleChange}
+                          value={this.state.end_date.slice(0, 10)}
+                          required
+                        />
+                      </div>
+                      <div
+                        className='col-sm-12 col-md-6 has-info'
+                        style={styles.participants}>
+                        <label
+                          htmlFor='inputParticipants'
+                          className='text-info'>
+                          Participants:
+                        </label>
+                        <Select
+                          id='inputParticipants'
+                          name='participantSelect'
+                          value={this.state.participantSelect}
+                          options={participantOptions}
+                          onChange={this.handleParticipantChange}
+                          isMulti
+                          styles={styles.select}
+                          theme={styles.select.theme}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className='form-row'>
+                      <div className='form-group col-sm-12 col-md-12 has-info'>
+                        <label htmlFor='inputSummary'>Summary:</label>
+                        <textarea
+                          type='text'
+                          name='summary'
+                          className='form-control'
+                          id='inputSummary'
+                          onChange={this.handleChange}
+                          rows={10}
+                          value={this.state.summary}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className='form-row'>
+                      <div className=' form-group col-xs-1'>
+                        <Link to='/projects'>
+                          <button type='reset' className='btn btn-danger'>
+                            Cancel
+                          </button>
+                        </Link>
+                      </div>
+                      <div className='form-group col-xs-1 text-end ml-auto'>
+                        <button
+                          type='submit'
+                          className='btn btn-success btn-right'>
+                          {this.props.edit ? 'Save' : 'Add'}
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <div className='form-row'>
-                  <div className='form-group col-sm-12 col-md-12 has-info'>
-                    <label htmlFor='inputSummary'>Summary:</label>
-                    <textarea
-                      type='text'
-                      name='summary'
-                      className='form-control'
-                      id='inputSummary'
-                      onChange={this.handleChange}
-                      rows={10}
-                      value={this.state.summary}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className='form-row'>
-                  <div className=' form-group col-xs-1'>
-                    <Link to='/projects'>
-                      <button type='reset' className='btn btn-danger'>
-                        Cancel
-                      </button>
-                    </Link>
-                  </div>
-                  <div className='form-group col-xs-1 text-end ml-auto'>
-                    <button type='submit' className='btn btn-success btn-right'>
-                      {this.props.edit ? 'Save' : 'Add'}
-                    </button>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        )}
+      </React.Fragment>
     );
   }
 }
