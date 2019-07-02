@@ -21,7 +21,6 @@ class AddNewProject extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogoChange = this.handleLogoChange.bind(this);
     this.handleLogoDelete = this.handleLogoDelete.bind(this);
-    this.fileInput = React.createRef();
   }
 
   fileInputRef = React.createRef();
@@ -73,7 +72,7 @@ class AddNewProject extends React.Component {
   handleLogoChange(e) {
     e.preventDefault();
 
-    const file = this.ref.fileInput.files[0];
+    const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.onloadend = e => {
