@@ -1,6 +1,7 @@
 import React from 'react';
 import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
+import Spinner from '../global/Spinner';
 
 export default class ProjectsTable extends React.Component {
   static defaultProps = {
@@ -11,6 +12,7 @@ export default class ProjectsTable extends React.Component {
     this.state = {
       projects: [],
       updated: false,
+      loading: true,
     };
     this.getProjects = this.getProjects.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -23,6 +25,7 @@ export default class ProjectsTable extends React.Component {
         this.setState({
           projects: data.projects,
           updated: false,
+          loading: false,
         });
       })
       .catch(error => console.log(error));
@@ -59,15 +62,21 @@ export default class ProjectsTable extends React.Component {
     ]);
 
     return (
-      <ActionsTable
-        entities={this.state.projects}
-        tableName={'Projects'}
-        tableHead={['ID', 'Title', 'Start', 'End', 'Participants']}
-        tableData={tableData}
-        tableColor={'info'}
-        deleteOnClick={this.deleteOnClick}
-        confirmationFieldName={'title'}
-      />
+      <React.Fragment>
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <ActionsTable
+            entities={this.state.projects}
+            tableName={'Projects'}
+            tableHead={['ID', 'Title', 'Start', 'End', 'Participants']}
+            tableData={tableData}
+            tableColor={'info'}
+            deleteOnClick={this.deleteOnClick}
+            confirmationFieldName={'title'}
+          />
+        )}
+      </React.Fragment>
     );
   }
 }

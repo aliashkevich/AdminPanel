@@ -1,6 +1,7 @@
 import React from 'react';
 import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
+import Spinner from '../global/Spinner';
 
 export default class TasksTable extends React.Component {
   static defaultProps = {
@@ -13,6 +14,7 @@ export default class TasksTable extends React.Component {
     this.state = {
       tasks: [],
       updated: false,
+      loading: true,
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -26,6 +28,7 @@ export default class TasksTable extends React.Component {
         this.setState({
           tasks: data.tasks,
           updated: false,
+          loading: false,
         });
       })
       .catch(error => console.log(error));
@@ -77,18 +80,31 @@ export default class TasksTable extends React.Component {
     ]);
 
     return (
-      <ActionsTable
-        entities={this.state.tasks}
-        tableName={'Tasks'}
-        tableHead={['ID', 'Title', 'Start', 'End', 'Estimation', 'Assignee']}
-        tableData={tableData}
-        tableColor={'rose'}
-        deleteOnClick={this.deleteOnClick}
-        confirmationFieldName={'title'}
-        updateOnClick={this.updateOnClick}
-        checkmarkFieldName={'status'}
-        checkmarkValue={'done'}
-      />
+      <React.Fragment>
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <ActionsTable
+            entities={this.state.tasks}
+            tableName={'Tasks'}
+            tableHead={[
+              'ID',
+              'Title',
+              'Start',
+              'End',
+              'Estimation',
+              'Assignee',
+            ]}
+            tableData={tableData}
+            tableColor={'rose'}
+            deleteOnClick={this.deleteOnClick}
+            confirmationFieldName={'title'}
+            updateOnClick={this.updateOnClick}
+            checkmarkFieldName={'status'}
+            checkmarkValue={'done'}
+          />
+        )}
+      </React.Fragment>
     );
   }
 }
