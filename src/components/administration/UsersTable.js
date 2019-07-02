@@ -17,8 +17,15 @@ export default class UsersTable extends React.Component {
       users: [],
       updated: false,
       loading: true,
+      clients: [],
+      projects: [],
+      roles: [],
     };
+
     this.getUsers = this.getUsers.bind(this);
+    this.getClients = this.getClients.bind(this);
+    this.getProjects = this.getProjects.bind(this);
+    this.getRoles = this.getRoles.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
     this.updateOnClick = this.updateOnClick.bind(this);
   }
@@ -36,7 +43,43 @@ export default class UsersTable extends React.Component {
       .catch(error => console.log(error));
   }
 
+  getProjects() {
+    fetch(`${this.props.url}/projects`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          projects: data.projects,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  getClients() {
+    fetch(`${this.props.url}/clients`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          clients: data.clients,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  getRoles() {
+    fetch(`${this.props.url}/roles`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          roles: data.roles,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
   componentDidMount() {
+    this.getProjects();
+    this.getClients();
+    this.getRoles();
     this.getUsers();
   }
 
@@ -84,9 +127,16 @@ export default class UsersTable extends React.Component {
         {user.name}
       </Link>,
       user.email,
-      user.client_id,
-      user.project_id,
-      user.role_id,
+      user.client_id
+        ? this.state.clients.find(client => client.id === user.client_id).name
+        : null,
+      user.project_id
+        ? this.state.projects.find(project => project.id === user.project_id)
+            .title
+        : null,
+      user.role_id
+        ? this.state.roles.find(role => role.id === user.role_id).name
+        : null,
     ]);
 
     return (
