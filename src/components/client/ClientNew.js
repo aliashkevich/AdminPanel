@@ -71,6 +71,7 @@ class AddNewProject extends React.Component {
 
   handleLogoChange(e) {
     e.preventDefault();
+
     const file = e.target.files[0];
     const reader = new FileReader();
 
@@ -96,8 +97,8 @@ class AddNewProject extends React.Component {
   handleLogoDelete(e) {
     e.preventDefault();
     this.setState({
-      logo: null,
-      logoPreview: null,
+      logo: '',
+      logoPreview: '',
       logoLoaded: false,
     });
   }
