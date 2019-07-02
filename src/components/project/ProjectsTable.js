@@ -4,12 +4,10 @@ import {Link} from 'react-router-dom';
 
 export default class ProjectsTable extends React.Component {
   static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
+    url: 'http://localhost:3000/api/v1',
   };
-
   constructor(props) {
     super(props);
-
     this.state = {
       projects: [],
       updated: false,

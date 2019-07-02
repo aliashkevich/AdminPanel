@@ -32,16 +32,14 @@ class AddNewProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientSelect: '',
-      client_id: '',
+      clients: [],
+      clientSelect: [],
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participantSelect: [],
       participants: [],
-      clients: [],
-      users: [],
+      participantSelect: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -50,16 +48,16 @@ class AddNewProject extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://lesewert.herokuapp.com/api/v1/users')
+    fetch('http://localhost:3000/api/v1/users')
       .then(res => res.json())
       .then(data =>
         this.setState({
-          users: data.users,
+          participants: data.users,
         }),
       )
       .catch(error => console.log(error))
       .then(
-        fetch('https://lesewert.herokuapp.com/api/v1/clients')
+        fetch('http://localhost:3000/api/v1/clients')
           .then(res => res.json())
           .then(data =>
             this.setState({
@@ -89,30 +87,26 @@ class AddNewProject extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.clientSelect !== this.state.clientSelect) {
-      this.setState({
-        client_id: this.state.clientSelect.value,
-      });
-    } else if (prevState.participantSelect !== this.state.participantSelect) {
-      this.setState({
-        participants: [
-          ...this.state.participants,
-          this.state.participantSelect[this.state.participantSelect.length - 1]
-            .value,
-        ],
-      });
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
+    const newClient = this.state.clientSelect.value;
+    const newParticipants = this.state.participantSelect.map(participant => {
+      return participant.value;
+    });
+    const body = {
+      client_id: newClient,
+      title: this.state.title,
+      summary: this.state.summary,
+      start_date: this.state.start_date,
+      end_date: this.state.end_date,
+      participants: newParticipants,
+    };
+    fetch('http://localhost:3000/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(body),
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
@@ -123,7 +117,6 @@ class AddNewProject extends React.Component {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(err => err)
       .catch(error => console.log(error));
     this.setState({
       client_id: '',
@@ -137,11 +130,14 @@ class AddNewProject extends React.Component {
 
   render() {
     let clientOptions = this.state.clients.map(client => {
+      console.log('client called');
       return {value: client.id, label: client.name};
     });
-    let participantOptions = this.state.users.map(user => {
+    let participantOptions = this.state.participants.map(user => {
+      console.log('called');
       return {value: user.id, label: user.name};
     });
+    console.log(this.state);
     return (
       <div className='container-fluid'>
         <div className='card'>
