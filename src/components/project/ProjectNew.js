@@ -28,7 +28,7 @@ const styles = {
       colors: {
         ...theme.colors,
         primary25: '#1fbfd7',
-        primary: 'black',
+        primary: '#1fbfd7',
       },
     }),
     control: (base, state) => ({
@@ -50,19 +50,21 @@ class AddNewProject extends Component {
     url: 'https://lesewert.herokuapp.com/api/v1',
   };
 
+  // IMPORTANT: participantselect and clientselect are objects, not array, this can only be seen if you read the documentation of react-select,
+  //  but we have to keep this in mind for the future, we should not setstate *select = []
   constructor(props) {
     super(props);
     this.state = {
       client_id: '',
+      clients: [],
+      clientSelect: '',
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
       participants: [],
-      clients: [],
-      users: [],
+      participantSelect: '',
       project: [],
-      updated: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -96,7 +98,7 @@ class AddNewProject extends Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          users: data.users,
+          participants: data.users,
         });
       })
       .catch(error => console.log(error));
@@ -142,8 +144,7 @@ class AddNewProject extends Component {
         participantSelect: this.state.project.participants.map(participant => {
           return {
             value: participant,
-
-            label: this.searchName(participant, this.state.users),
+            label: this.searchName(participant, this.state.participants),
           };
         }),
       });
@@ -196,12 +197,24 @@ class AddNewProject extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const newClient = this.state.clientSelect.value;
+    const newParticipants = this.state.participantSelect.map(participant => {
+      return participant.value;
+    });
+    const body = {
+      client_id: newClient,
+      title: this.state.title,
+      summary: this.state.summary,
+      start_date: this.state.start_date,
+      end_date: this.state.end_date,
+      participants: newParticipants,
+    };
     fetch('https://lesewert.herokuapp.com/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(body),
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
@@ -211,22 +224,23 @@ class AddNewProject extends Component {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(err => err)
       .catch(error => console.log(error));
     this.setState({
-      client_id: '',
+      clients: [],
+      clientSelect: '',
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participants: '',
+      participants: [],
+      participantSelect: '',
     });
   }
 
   handleEdit(e) {
     e.preventDefault();
     fetch(
-      'https://lesewert.herokuapp.com/api/v1/projects/${this.state.project.id}',
+      `https://lesewert.herokuapp.com/api/v1/projects/${this.state.project.id}`,
       {
         method: 'PUT',
         headers: new Headers({
@@ -258,7 +272,7 @@ class AddNewProject extends Component {
     let clientOptions = this.state.clients.map(client => {
       return {value: client.id, label: client.name};
     });
-    let participantOptions = this.state.users.map(user => {
+    let participantOptions = this.state.participants.map(user => {
       return {value: user.id, label: user.name};
     });
     return (
