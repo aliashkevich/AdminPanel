@@ -95,7 +95,7 @@ class AddNewProject extends React.Component {
         logo: '',
       });
     }
-    // e.target.value = null;
+    e.target.value = null;
   }
 
   handleLogoDelete(e) {
