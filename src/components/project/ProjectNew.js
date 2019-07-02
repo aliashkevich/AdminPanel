@@ -118,7 +118,7 @@ class AddNewProject extends React.Component {
       end_date: this.state.end_date,
       participants: newParticipants,
     };
-    fetch('http://localhost:3000/api/v1/projects', {
+    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
