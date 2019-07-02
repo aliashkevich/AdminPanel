@@ -223,6 +223,34 @@ class AddNewProject extends Component {
     });
   }
 
+  handleEdit(e) {
+    e.preventDefault();
+    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify(this.state),
+    })
+      .then(res => {
+        if (res.status >= 200 && res.status < 300) {
+          this.props.history.push('/projects');
+          return res;
+        } else {
+          alert('Sorry - something went wrong.');
+        }
+      })
+      .catch(error => console.log(error));
+    this.setState({
+      client_id: '',
+      title: '',
+      summary: '',
+      start_date: '',
+      end_date: '',
+      participants: '',
+    });
+  }
+
   render() {
     let clientOptions = this.state.clients.map(client => {
       return {value: client.id, label: client.name};
