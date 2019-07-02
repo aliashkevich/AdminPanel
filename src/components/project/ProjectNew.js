@@ -28,7 +28,7 @@ const styles = {
       colors: {
         ...theme.colors,
         primary25: '#1fbfd7',
-        primary: 'black',
+        primary: '#1fbfd7',
       },
     }),
     control: (base, state) => ({
@@ -49,16 +49,14 @@ class AddNewProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientSelect: '',
-      client_id: '',
+      clients: [],
+      clientSelect: [],
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participantSelect: [],
       participants: [],
-      clients: [],
-      users: [],
+      participantSelect: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -71,7 +69,7 @@ class AddNewProject extends React.Component {
       .then(res => res.json())
       .then(data =>
         this.setState({
-          users: data.users,
+          participants: data.users,
         }),
       )
       .catch(error => console.log(error))
@@ -106,49 +104,45 @@ class AddNewProject extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.clientSelect !== this.state.clientSelect) {
-      this.setState({
-        client_id: this.state.clientSelect.value,
-      });
-    } else if (prevState.participantSelect !== this.state.participantSelect) {
-      this.setState({
-        participants: [
-          ...this.state.participants,
-          this.state.participantSelect[this.state.participantSelect.length - 1]
-            .value,
-        ],
-      });
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
+    const newClient = this.state.clientSelect.value;
+    const newParticipants = this.state.participantSelect.map(participant => {
+      return participant.value;
+    });
+    const body = {
+      client_id: newClient,
+      title: this.state.title,
+      summary: this.state.summary,
+      start_date: this.state.start_date,
+      end_date: this.state.end_date,
+      participants: newParticipants,
+    };
+    fetch('http://localhost:3000/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(body),
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          console.log(res);
           this.props.history.push('/projects');
           return res;
         } else {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(err => err)
       .catch(error => console.log(error));
     this.setState({
-      client_id: '',
+      clients: [],
+      clientSelect: [],
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participants: '',
+      participants: [],
+      participantSelect: [],
     });
   }
 
@@ -156,130 +150,115 @@ class AddNewProject extends React.Component {
     let clientOptions = this.state.clients.map(client => {
       return {value: client.id, label: client.name};
     });
-    let participantOptions = this.state.users.map(user => {
+    let participantOptions = this.state.participants.map(user => {
       return {value: user.id, label: user.name};
     });
     return (
       <div className='container-fluid'>
-        <div className='col-md-12'>
-          <div className='card'>
-            <div className='card-header card-header-info'>
-              <h4 className='card-title'>New Project</h4>
-            </div>
-            <div className='card-body'>
-              <br />
-              <form onSubmit={this.handleSubmit}>
-                <div className='form-row'>
-                  <div
-                    className='form-group col-sm-12 col-md-6 has-info'
-                    style={styles.dates}>
-                    <label for='inputTitle'>Title:</label>
-                    <input
-                      style={styles.margin}
-                      type='text'
-                      name='title'
-                      className='form-control'
-                      id='inputTitle'
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
-                  <div
-                    className='col-sm-12 col-md-6 has-info'
-                    style={styles.clients}>
-                    <label for='inputClient' className='text-info'>
-                      Client:
-                    </label>
-                    <Select
-                      id='inputClient'
-                      name='clientSelect'
-                      value={this.state.clientSelect}
-                      options={clientOptions}
-                      onChange={this.handleClientChange}
-                      styles={styles.select}
-                      theme={styles.select.theme}
-                      required
-                    />
-                  </div>
+        <div className='card'>
+          <div className='card-header card-header-info'>
+            <h4 className='card-title'>New Project</h4>
+          </div>
+          <div className='card-body'>
+            <br />
+            <form onSubmit={this.handleSubmit}>
+              <div className='form-row'>
+                <div className='form-group col-sm-12 col-md-6 has-info input-group'>
+                  <label for='inputTitle'>Title:</label>
+                  <input
+                    type='text'
+                    name='title'
+                    className='form-control inner-form'
+                    id='inputTitle'
+                    onChange={this.handleChange}
+                    required
+                  />
                 </div>
-                <div className='form-row'>
-                  <div
-                    className='form-group col-sm-12 col-md-3 has-info'
-                    style={styles.dates}>
-                    <label for='inputStartDate'>Start Date:</label>
-                    <input
-                      style={styles.margin}
-                      type='date'
-                      name='start_date'
-                      className='form-control'
-                      id='inputStartDate'
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
-                  <div
-                    className='form-group col-sm-12 col-md-3 has-info'
-                    style={styles.dates}>
-                    <label for='inputEndDate'>End Date:</label>
-                    <input
-                      style={styles.margin}
-                      type='date'
-                      name='end_date'
-                      className='form-control'
-                      id='inputEndDate'
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
-                  <div
-                    className='col-sm-12 col-md-6 has-info'
-                    style={styles.participants}>
-                    <label for='inputParticipants' className='text-info'>
-                      Participants:
-                    </label>
-                    <Select
-                      id='inputParticipants'
-                      name='participantSelect'
-                      value={this.state.participantSelect}
-                      options={participantOptions}
-                      onChange={this.handleParticipantChange}
-                      isMulti
-                      styles={styles.select}
-                      theme={styles.select.theme}
-                      required
-                    />
-                  </div>
+                <div className='col-sm-12 col-md-6 has-info clients'>
+                  <label for='inputClient' className='text-info'>
+                    Client:
+                  </label>
+                  <Select
+                    id='inputClient'
+                    name='clientSelect'
+                    value={this.state.clientSelect}
+                    options={clientOptions}
+                    onChange={this.handleClientChange}
+                    className='select'
+                    theme={styles.select.theme}
+                    required
+                  />
                 </div>
-                <div className='form-row'>
-                  <div className='form-group col-sm-12 col-md-12 has-info'>
-                    <label for='inputSummary'>Summary:</label>
-                    <textarea
-                      type='text'
-                      name='summary'
-                      className='form-control'
-                      id='inputSummary'
-                      onChange={this.handleChange}
-                      rows={10}
-                      required
-                    />
-                  </div>
+              </div>
+              <div className='form-row'>
+                <div className='form-group col-sm-12 col-md-3 has-info input-group'>
+                  <label for='inputStartDate'>Start Date:</label>
+                  <input
+                    type='date'
+                    name='start_date'
+                    className='form-control inner-form'
+                    id='inputStartDate'
+                    onChange={this.handleChange}
+                    required
+                  />
                 </div>
-                <div className='form-row'>
-                  <div className=' form-group col-xs-1'>
-                    <Link to='/projects'>
-                      <button type='reset' className='btn btn-danger'>
-                        Cancel
-                      </button>
-                    </Link>
-                  </div>
-                  <div className='form-group col-xs-1 text-end ml-auto'>
-                    <button type='submit' className='btn btn-success btn-right'>
-                      Add
+                <div className='form-group col-sm-12 col-md-3 has-info input-group'>
+                  <label for='inputEndDate'>End Date:</label>
+                  <input
+                    type='date'
+                    name='end_date'
+                    className='form-control inner-form'
+                    id='inputEndDate'
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div className='col-sm-12 col-md-6 has-info participants'>
+                  <label for='inputParticipants' className='text-info'>
+                    Participants:
+                  </label>
+                  <Select
+                    id='inputParticipants'
+                    name='participantSelect'
+                    value={this.state.participantSelect}
+                    options={participantOptions}
+                    onChange={this.handleParticipantChange}
+                    isMulti
+                    className='select'
+                    theme={styles.select.theme}
+                    required
+                  />
+                </div>
+              </div>
+              <div className='form-row'>
+                <div className='form-group col-sm-12 col-md-12 has-info'>
+                  <label for='inputSummary'>Summary:</label>
+                  <textarea
+                    type='text'
+                    name='summary'
+                    className='form-control'
+                    id='inputSummary'
+                    onChange={this.handleChange}
+                    rows={10}
+                    required
+                  />
+                </div>
+              </div>
+              <div className='form-row'>
+                <div className=' form-group col-xs-1'>
+                  <Link to='/projects'>
+                    <button type='reset' className='btn btn-danger'>
+                      Cancel
                     </button>
-                  </div>
+                  </Link>
                 </div>
-              </form>
-            </div>
+                <div className='form-group col-xs-1 text-end ml-auto'>
+                  <button type='submit' className='btn btn-success btn-right'>
+                    Add
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
