@@ -71,7 +71,6 @@ class AddNewProject extends React.Component {
 
   handleLogoChange(e) {
     e.preventDefault();
-
     const file = e.target.files[0];
     const reader = new FileReader();
 
@@ -174,16 +173,18 @@ class AddNewProject extends React.Component {
                     <div>
                       <button
                         className='btn btn-round btn-primary client-button'
-                        type='button'>
+                        type='button'
+                        onClick={e => this.fileInput.click()}>
                         Change Logo
-                        <input
-                          type='file'
-                          ref='logo'
-                          name='logo'
-                          onClick={this.handleLogoChange}
-                          className='fileInput'
-                        />
                       </button>
+                      <input
+                        type='file'
+                        ref={ref => (this.fileInput = ref)}
+                        name='logo'
+                        hidden
+                        onChange={this.handleLogoChange}
+                        className='fileInput'
+                      />
                       <button
                         class='btn btn-fab btn-danger btn-round client-button'
                         type='button'
