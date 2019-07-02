@@ -174,7 +174,7 @@ class AddNewProject extends React.Component {
                     value={this.state.clientSelect}
                     options={clientOptions}
                     onChange={this.handleClientChange}
-                    className='select custom-select'
+                    className='select'
                     theme={styles.select.theme}
                     required
                   />

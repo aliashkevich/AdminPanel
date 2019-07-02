@@ -14,18 +14,13 @@
   height: 400px !important;
 }
 
-.logoPlaceholder {
+.logo-place-holder {
   height: 180px;
   width: 180px;
 }
 
 .logo {
   max-height: 180px;
-}
-
-.textInputFormating {
-  display: flex;
-  align-items: space-between;
 }
 
 .client-button {

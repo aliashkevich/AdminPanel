@@ -112,7 +112,7 @@ class AddNewProject extends React.Component {
           <div className='card-body'>
             <form onSubmit={this.handleSubmit}>
               <div className='form-row'>
-                <div className='form-row col-md-9 textInputFormating client-wrap'>
+                <div className='form-row col-md-9 client-wrap'>
                   <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
                     <label for='inputTitle'>Name:</label>
                     <input
@@ -167,7 +167,7 @@ class AddNewProject extends React.Component {
                       className='fileinput-new thumbnail img-raised logo'
                     />
                   ) : (
-                    <div className='fileinput-new thumbnail img-raised logoPlaceholder' />
+                    <div className='fileinput-new thumbnail img-raised logo-place-holder' />
                   )}
                   {this.state.logoLoaded === true ? (
                     <div>
@@ -179,7 +179,7 @@ class AddNewProject extends React.Component {
                           type='file'
                           ref='logo'
                           name='logo'
-                          onChange={this.handleLogoChange}
+                          onClick={this.handleLogoChange}
                           className='fileInput'
                         />
                       </button>
