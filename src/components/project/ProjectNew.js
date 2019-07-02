@@ -124,13 +124,16 @@ class AddNewProject extends Component {
   };
 
   fillParticipants = () => {
-    this.setState(state => {
+    let selectLabel = this.state.project.participants.map(participant => {
+      this.searchName(participant, this.state.participants);
+    });
+
+    this.setState(() => {
       return {
-        participantSelect: state.project.participants.map(participant => {
-          console.log('searchlabel');
+        participantSelect: this.state.project.participants.map(participant => {
           return {
             value: participant,
-            label: this.searchName(participant, state.participants),
+            label: selectLabel,
           };
         }),
       };
@@ -155,13 +158,7 @@ class AddNewProject extends Component {
           summary: state.project.summary,
           start_date: state.project.start_date,
           end_date: state.project.end_date,
-          participantSelect: state.project.participants.map(participant => {
-            return {
-              value: participant,
-              // label: 'test',
-              label: this.searchName(participant, state.participants),
-            };
-          }),
+
           loading: false,
         };
       });
