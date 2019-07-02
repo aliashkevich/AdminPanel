@@ -48,7 +48,7 @@ class AddNewProject extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/api/v1/users')
+    fetch('https://lesewert.herokuapp.com/api/v1/users')
       .then(res => res.json())
       .then(data =>
         this.setState({
@@ -57,7 +57,7 @@ class AddNewProject extends React.Component {
       )
       .catch(error => console.log(error))
       .then(
-        fetch('http://localhost:3000/api/v1/clients')
+        fetch('https://lesewert.herokuapp.com/api/v1/clients')
           .then(res => res.json())
           .then(data =>
             this.setState({
@@ -110,7 +110,6 @@ class AddNewProject extends React.Component {
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          console.log(res);
           this.props.history.push('/projects');
           return res;
         } else {
@@ -132,14 +131,11 @@ class AddNewProject extends React.Component {
 
   render() {
     let clientOptions = this.state.clients.map(client => {
-      console.log('client called');
       return {value: client.id, label: client.name};
     });
     let participantOptions = this.state.participants.map(user => {
-      console.log('called');
       return {value: user.id, label: user.name};
     });
-    console.log(this.state);
     return (
       <div className='container-fluid'>
         <div className='card'>
