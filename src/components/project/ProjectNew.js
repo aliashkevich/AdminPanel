@@ -11,7 +11,7 @@ const styles = {
       colors: {
         ...theme.colors,
         primary25: '#1fbfd7',
-        primary: 'black',
+        primary: '#1fbfd7',
       },
     }),
     control: (base, state) => ({
@@ -119,12 +119,14 @@ class AddNewProject extends React.Component {
       })
       .catch(error => console.log(error));
     this.setState({
-      client_id: '',
+      clients: [],
+      clientSelect: [],
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participants: '',
+      participants: [],
+      participantSelect: [],
     });
   }
 

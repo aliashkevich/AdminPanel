@@ -25,7 +25,6 @@ class AddNewProject extends React.Component {
   handleChange(e) {
     e.preventDefault();
     if (e.target.name === 'email' || e.target.name === 'number') {
-      console.log(e.target.name);
       let infoContact = this.state.contact_information;
       this.setState({
         contact_information: {
@@ -51,14 +50,12 @@ class AddNewProject extends React.Component {
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          console.log(res);
           this.props.history.push('/clients');
           return res;
         } else {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(err => err)
       .catch(error => console.log(error));
     this.setState({
       name: '',
