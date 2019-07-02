@@ -215,6 +215,7 @@ class AddNewProject extends React.Component {
                         hidden
                         onChange={this.handleLogoChange}
                         className='fileInput'
+                        accept='image/png, image/jpeg'
                       />
                     </div>
                   )}
