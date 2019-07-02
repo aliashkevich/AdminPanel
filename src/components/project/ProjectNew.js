@@ -12,7 +12,7 @@ const styles = {
       colors: {
         ...theme.colors,
         primary25: '#1fbfd7',
-        primary: 'black',
+        primary: '#1fbfd7',
       },
     }),
     control: (base, state) => ({
@@ -33,16 +33,14 @@ class AddNewProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientSelect: '',
-      client_id: '',
+      clients: [],
+      clientSelect: [],
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participantSelect: [],
       participants: [],
-      clients: [],
-      users: [],
+      participantSelect: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -55,7 +53,7 @@ class AddNewProject extends React.Component {
       .then(res => res.json())
       .then(data =>
         this.setState({
-          users: data.users,
+          participants: data.users,
         }),
       )
       .catch(error => console.log(error))
@@ -90,49 +88,45 @@ class AddNewProject extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.clientSelect !== this.state.clientSelect) {
-      this.setState({
-        client_id: this.state.clientSelect.value,
-      });
-    } else if (prevState.participantSelect !== this.state.participantSelect) {
-      this.setState({
-        participants: [
-          ...this.state.participants,
-          this.state.participantSelect[this.state.participantSelect.length - 1]
-            .value,
-        ],
-      });
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault();
+    const newClient = this.state.clientSelect.value;
+    const newParticipants = this.state.participantSelect.map(participant => {
+      return participant.value;
+    });
+    const body = {
+      client_id: newClient,
+      title: this.state.title,
+      summary: this.state.summary,
+      start_date: this.state.start_date,
+      end_date: this.state.end_date,
+      participants: newParticipants,
+    };
     fetch('https://lesewert.herokuapp.com/api/v1/projects', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(body),
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          console.log(res);
           this.props.history.push('/projects');
           return res;
         } else {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(err => err)
       .catch(error => console.log(error));
     this.setState({
-      client_id: '',
+      clients: [],
+      clientSelect: [],
       title: '',
       summary: '',
       start_date: '',
       end_date: '',
-      participants: '',
+      participants: [],
+      participantSelect: [],
     });
   }
 
@@ -140,7 +134,7 @@ class AddNewProject extends React.Component {
     let clientOptions = this.state.clients.map(client => {
       return {value: client.id, label: client.name};
     });
-    let participantOptions = this.state.users.map(user => {
+    let participantOptions = this.state.participants.map(user => {
       return {value: user.id, label: user.name};
     });
     return (
