@@ -72,6 +72,7 @@ class AddNewProject extends Component {
     this.getUsers = this.getUsers.bind(this);
     this.getClients = this.getClients.bind(this);
     this.prefillProject = this.prefillProject.bind(this);
+    this.searchName = this.searchName.bind(this);
   }
 
   getProject() {
@@ -112,27 +113,44 @@ class AddNewProject extends Component {
       .catch(error => console.log(error));
   }
 
-  prefillProject() {
-    function isUser(participant) {
-      return participant == this.state.users.id;
+  searchName(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+      if (myArray[i].id === nameKey) {
+        return myArray[i].name;
+      }
     }
+  }
+
+  prefillProject() {
+    const clientSelectPrefill = this.searchName(
+      this.state.project.client_id,
+      this.state.clients,
+    );
+    console.log(this.state.project.client_id, this.state.clients);
     if (this.props.edit) {
       this.setState({
-        // clients: this.state.project.client_id,
+        client_id: this.state.project.client_id,
+        clientSelect: {
+          value: this.state.project.client_id,
+          label: clientSelectPrefill,
+        },
         title: this.state.project.title,
         summary: this.state.project.summary,
         start_date: this.state.project.start_date,
         end_date: this.state.project.end_date,
         participants: this.state.project.participants,
-        // participantSelect: this.state.project.participants.map(participant => {
-        //   return {
-        //     value: participant,
-        //     label: this.state.project.participants.find(isUser),
-        //   };
-        // }),
+        participantSelect: this.state.project.participants.map(participant => {
+          return {
+            value: participant,
+
+            label: this.searchName(participant, this.state.users),
+          };
+        }),
       });
     }
   }
+
+  // TODO: fix bug that participant array is not unique
 
   handleChange(e) {
     e.preventDefault();
@@ -154,9 +172,9 @@ class AddNewProject extends Component {
   }
 
   componentDidMount() {
-    this.getProject();
     this.getUsers();
     this.getClients();
+    this.getProject();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -164,6 +182,7 @@ class AddNewProject extends Component {
       this.setState({
         client_id: this.state.clientSelect.value,
       });
+      // here we shouldnt only check if its different but whether that participant has not been added to to participants already
     } else if (prevState.participantSelect !== this.state.participantSelect) {
       this.setState({
         participants: [
@@ -216,7 +235,9 @@ class AddNewProject extends Component {
         <div className='col-md-12'>
           <div className='card'>
             <div className='card-header card-header-info'>
-              <h4 className='card-title'>New Project</h4>
+              <h4 className='card-title'>
+                {this.props.edit ? 'Edit Project' : 'New Project'}
+              </h4>
             </div>
             <div className='card-body'>
               <br />
@@ -330,7 +351,7 @@ class AddNewProject extends Component {
                   </div>
                   <div className='form-group col-xs-1 text-end ml-auto'>
                     <button type='submit' className='btn btn-success btn-right'>
-                      Add
+                      {this.props.edit ? 'Save' : 'Add'}
                     </button>
                   </div>
                 </div>
