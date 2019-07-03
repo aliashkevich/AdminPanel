@@ -95,6 +95,11 @@ export default class UsersTable extends React.Component {
   }
 
   render() {
+    function findInArray(array, arrayItemKey, value, arrayItemProperty) {
+      var item = array.find(arrayItem => arrayItem[arrayItemKey] === value);
+      return item ? item[arrayItemProperty] : '';
+    }
+
     if (
       this.state.loadingClients ||
       this.state.loadingProjects ||
@@ -123,16 +128,13 @@ export default class UsersTable extends React.Component {
             </Link>,
             user.email,
             user.client_id
-              ? this.state.clients.find(client => client.id === user.client_id)
-                  .name
+              ? findInArray(this.state.clients, 'id', user.client_id, 'name')
               : null,
             user.project_id
-              ? this.state.projects.find(
-                  project => project.id === user.project_id,
-                ).title
+              ? findInArray(this.state.projects, 'id', user.project_id, 'title')
               : null,
             user.role_id
-              ? this.state.roles.find(role => role.id === user.role_id).name
+              ? findInArray(this.state.roles, 'id', user.role_id, 'name')
               : null,
           ])}
           tableColor={'success'}
