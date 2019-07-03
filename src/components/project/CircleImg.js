@@ -1,7 +1,6 @@
 import React from 'react';
 
 function CircleImg(props) {
-  console.log('props.log', props.logo);
   return (
     <img
       className='card-img-top'

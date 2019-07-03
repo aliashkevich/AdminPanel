@@ -1,6 +1,6 @@
 import React from 'react';
 import ClientInfo from './ClientInfo';
-import CircleImg from './CircleImg';
+import Participants from './Participants';
 import ProjectSummary from './ProjectSummary';
 import Tasks from './Tasks';
 import Spinner from '../global/Spinner';
@@ -29,6 +29,7 @@ export default class ProjectDetailCard extends React.Component {
         this.setState({
           project: data.project,
           client: data.project.client_id,
+          participants: data.project.participants,
           loading: false,
         });
       })
@@ -66,11 +67,13 @@ export default class ProjectDetailCard extends React.Component {
                       {/* summary */}
                       <div className='card-body'>
                         <div className='row'>
-                          <ClientInfo client={this.state.client} />
+                          <ClientInfo clientId={this.state.client} />
                           <ProjectSummary project={this.state.project} />
                         </div>
                         <div className='row'>
-                          <Participants />
+                          <Participants
+                            participantsArr={this.state.participants}
+                          />
                           <Tasks />
                         </div>
                       </div>
@@ -84,28 +87,4 @@ export default class ProjectDetailCard extends React.Component {
       </React.Fragment>
     );
   }
-}
-
-function Participants() {
-  return (
-    <div className='col-lg-4 col-md-12 col-sm-12'>
-      <div className='card card-stats'>
-        <div className='card-header card-header-info card-header-icon'>
-          <div className='card-icon'>
-            <i className='material-icons'>people</i>
-          </div>
-          <div className='container-fluid' style={{padding: '10px'}}>
-            <p className='card-category' style={{paddingBottom: '5px'}}>
-              participants
-            </p>
-            {/* <div className='row'> */}
-            <CircleImg />
-            <CircleImg />
-            <CircleImg />
-            {/* </div> */}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }

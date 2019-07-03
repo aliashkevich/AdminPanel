@@ -15,7 +15,7 @@ export default class ClientInfo extends React.Component {
     this.getClient = this.getClient.bind(this);
   }
   getClient() {
-    fetch(`${this.props.url}/clients/${this.props.client}`)
+    fetch(`${this.props.url}/clients/${this.props.clientId}`)
       .then(res => res.json())
       .then(data => {
         this.setState({
