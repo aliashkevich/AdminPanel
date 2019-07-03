@@ -4,6 +4,7 @@ import Participants from './Participants';
 import ProjectSummary from './ProjectSummary';
 import Tasks from './Tasks';
 import Spinner from '../global/Spinner';
+import './ProjectDetailCard.css';
 
 export default class ProjectDetailCard extends React.Component {
   static defaultProps = {

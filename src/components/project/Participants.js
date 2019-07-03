@@ -42,7 +42,6 @@ export default class Participants extends React.Component {
           if (id === user.id) return participants.push(user);
         });
       });
-      console.log('participants: ', participants);
     }
     return (
       <div className='col-lg-4 col-md-12 col-sm-12'>
@@ -51,22 +50,18 @@ export default class Participants extends React.Component {
             <div className='card-icon'>
               <i className='material-icons'>people</i>
             </div>
-            <div className='container-fluid' style={{padding: '10px'}}>
-              <p className='card-category' style={{paddingBottom: '5px'}}>
-                participants
-              </p>
-              {/* <div className='row'> */}
+            <div className='container-fluid container-padding'>
+              <p className='card-category title-padding'>participants</p>
               {participants.map(participant => {
                 return (
                   <div>
                     <div>
                       <CircleImg logo={participant.image} />
-                      <span style={{color: 'grey'}}>{participant.name}</span>
+                      <span className='font-grey'>{participant.name}</span>
                     </div>
                   </div>
                 );
               })}
-              {/* </div> */}
             </div>
           </div>
         </div>

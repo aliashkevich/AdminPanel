@@ -3,12 +3,7 @@ import React from 'react';
 function CircleImg(props) {
   return (
     <img
-      className='card-img-top'
-      style={{
-        width: '3rem',
-        borderRadius: '50%',
-        paddingRight: '5px',
-      }}
+      className='card-img-top circle-img'
       src={props.logo}
       alt='participant'
     />

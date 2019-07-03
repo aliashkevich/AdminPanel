@@ -37,12 +37,10 @@ export default class ClientInfo extends React.Component {
             <div className='card-icon'>
               <i className='material-icons'>location_city</i>
             </div>
-            <div className='container-fluid' style={{padding: '10px'}}>
-              <p className='card-category' style={{paddingBottom: '5px'}}>
-                Client Information
-              </p>
+            <div className='container-fluid container-padding'>
+              <p className='card-category title-padding'>Client Information</p>
               <CircleImg logo={this.state.client.logo} />
-              <p style={{color: 'grey'}}>{this.state.client.name}</p>
+              <p className='font-grey'>{this.state.client.name}</p>
             </div>
           </div>
         </div>
