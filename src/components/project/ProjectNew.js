@@ -281,11 +281,14 @@ class AddNewProject extends Component {
 
   render() {
     let clientOptions = this.state.clients.map(client => {
+      console.log('clientOptions');
       return {value: client.id, label: client.name};
     });
     let participantOptions = this.state.participants.map(user => {
+      console.log('participantOptions');
       return {value: user.id, label: user.name};
     });
+    console.log(this.state);
 
     // let participantSelectCheck = this.state.participantSelect.map(
     //   participant => {
