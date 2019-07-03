@@ -133,7 +133,6 @@ class AddNewProject extends React.Component {
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          console.log(res);
           this.props.history.push('/projects');
           return res;
         } else {
