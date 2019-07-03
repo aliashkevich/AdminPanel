@@ -57,7 +57,14 @@ export default class Participants extends React.Component {
               </p>
               {/* <div className='row'> */}
               {participants.map(participant => {
-                return <CircleImg logo={participant.image} />;
+                return (
+                  <div>
+                    <div>
+                      <CircleImg logo={participant.image} />
+                      <span style={{color: 'grey'}}>{participant.name}</span>
+                    </div>
+                  </div>
+                );
               })}
               {/* </div> */}
             </div>
