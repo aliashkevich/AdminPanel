@@ -1,6 +1,7 @@
 import React from 'react';
 
-function CircleImg() {
+function CircleImg(props) {
+  console.log('props.log', props.logo);
   return (
     <img
       className='card-img-top'
@@ -9,7 +10,7 @@ function CircleImg() {
         borderRadius: '50%',
         paddingRight: '5px',
       }}
-      src='https://i.pravatar.cc/300'
+      src={props.logo}
       alt='participant'
     />
   );

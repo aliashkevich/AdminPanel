@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import ProjectDetailCard from '../components/project/ProjectDetailCard';
 
 const ProjectDetail = props => {
-  console.log('ProjectDetail', props);
   return (
     <React.Fragment>
       <Header />

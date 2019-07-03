@@ -16,18 +16,19 @@ export default class ProjectDetailCard extends React.Component {
     this.state = {
       project: {},
       id: props.id,
+      client: '',
       loading: true,
     };
     this.getProject = this.getProject.bind(this);
   }
 
   getProject() {
-    console.log('id check', this.state.id);
     fetch(`${this.props.url}/projects/${this.state.id}`)
       .then(res => res.json())
       .then(data => {
         this.setState({
           project: data.project,
+          client: data.project.client_id,
           loading: false,
         });
       })
@@ -36,7 +37,6 @@ export default class ProjectDetailCard extends React.Component {
 
   componentDidMount() {
     this.setState({id: this.props.id});
-    console.log(this.props);
     this.getProject();
   }
 
@@ -66,7 +66,7 @@ export default class ProjectDetailCard extends React.Component {
                       {/* summary */}
                       <div className='card-body'>
                         <div className='row'>
-                          <ClientInfo />
+                          <ClientInfo client={this.state.client} />
                           <ProjectSummary project={this.state.project} />
                         </div>
                         <div className='row'>
