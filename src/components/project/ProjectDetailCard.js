@@ -75,7 +75,7 @@ export default class ProjectDetailCard extends React.Component {
                           <Participants
                             participantsArr={this.state.participants}
                           />
-                          <Tasks />
+                          <Tasks projectId={this.state.project.id} />
                         </div>
                       </div>
                     </div>
