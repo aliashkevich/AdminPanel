@@ -23,8 +23,6 @@ class AddNewProject extends React.Component {
     this.handleLogoDelete = this.handleLogoDelete.bind(this);
   }
 
-  fileInputRef = React.createRef();
-
   handleChange(e) {
     e.preventDefault();
     if (e.target.name === 'email' || e.target.name === 'number') {
@@ -45,23 +43,27 @@ class AddNewProject extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const body = {
+      name: this.state.name,
+      initials: this.state.initials,
+      contact_information: this.state.contact_information,
+    };
     fetch('https://lesewert.herokuapp.com/api/v1/clients', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(body),
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          console.log(res);
           this.props.history.push('/clients');
           return res;
         } else {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(error => console.log(error));
+      .catch(error => alert(error));
     this.setState({
       name: '',
       initials: '',
@@ -109,7 +111,6 @@ class AddNewProject extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className='container-fluid'>
         <div className='card'>
