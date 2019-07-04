@@ -111,22 +111,13 @@ export default class Header extends Component {
                       aria-haspopup='true'
                       aria-expanded='false'>
                       <i className='material-icons'>person</i>
-                      ricardo schmidt
+                      {parsedUser !== null ? parsedUser.name : 'login'}
                     </a>
-                    <div
-                      className='dropdown-menu dropdown-menu-right'
-                      aria-labelledby='navbarDropdownProfile'>
-                      <Link to='/profile' className='dropdown-item'>
-                        Profile
-                      </Link>
-                      <a className='dropdown-item' href='#'>
-                        Settings
-                      </a>
-                      <div className='dropdown-divider' />
-                      <Link to='/login' className='dropdown-item'>
-                        Log out
-                      </Link>
-                    </div>
+                    {parsedUser !== null ? (
+                      <DropdownAfterLogin />
+                    ) : (
+                      <DropdownBeforeLogin />
+                    )}
                   </li>
                 </ul>
               </div>
@@ -136,4 +127,35 @@ export default class Header extends Component {
       </React.Fragment>
     );
   }
+}
+
+function DropdownBeforeLogin() {
+  return (
+    <div
+      className='dropdown-menu dropdown-menu-right'
+      aria-labelledby='navbarDropdownProfile'>
+      <Link to='/login' className='dropdown-item'>
+        Log in
+      </Link>
+    </div>
+  );
+}
+
+function DropdownAfterLogin() {
+  return (
+    <div
+      className='dropdown-menu dropdown-menu-right'
+      aria-labelledby='navbarDropdownProfile'>
+      <Link to='/profile' className='dropdown-item'>
+        Profile
+      </Link>
+      <a className='dropdown-item' href='#'>
+        Settings
+      </a>
+      <div className='dropdown-divider' />
+      <Link to='/login' className='dropdown-item'>
+        Log out
+      </Link>
+    </div>
+  );
 }
