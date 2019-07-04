@@ -2,25 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Select from 'react-select';
+import '../global/Form.css';
 
 const styles = {
-  dates: {
-    marginTop: '15px',
-  },
-  margin: {
-    marginTop: '17px',
-  },
-  participants: {
-    marginBottom: '20px',
-    padding: '0px',
-  },
-  clients: {
-    padding: '0px',
-    margin: '0px 0px 20px 0px',
-  },
-  summary: {
-    height: '400px !important',
-  },
   select: {
     theme: theme => ({
       ...theme,

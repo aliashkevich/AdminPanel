@@ -9,7 +9,7 @@ li.nav-item > a.selected i {
   color: #ffffff;
 }
 
-li.nav-item > a.selected:hover {
+li.nav-item:hover > a.selected {
   background-color: #ff9800;
   color: #ffffff;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
