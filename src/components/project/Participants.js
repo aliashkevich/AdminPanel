@@ -36,9 +36,9 @@ export default class Participants extends React.Component {
     const users = this.state.users;
 
     const participants = [];
-    if (this.state.loading == false) {
+    if (this.state.loading === false) {
       users.map(user => {
-        participantsArr.find((id, i) => {
+        participantsArr.find(id => {
           if (id === user.id) return participants.push(user);
         });
       });
@@ -51,7 +51,7 @@ export default class Participants extends React.Component {
               <i className='material-icons'>people</i>
             </div>
             <div className='container-fluid container-padding'>
-              <p className='card-category title-padding'>participants</p>
+              <p className='card-category title-padding'>Participants</p>
               {participants.map(participant => {
                 return (
                   <div>
