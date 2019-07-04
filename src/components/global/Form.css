@@ -1,0 +1,35 @@
+.input-group {
+  margin: 15px 0 0 0 !important;
+}
+
+.inner-form {
+  margin-top: 17px;
+}
+
+.client-wrap {
+  margin-top: 25px;
+}
+
+.summary {
+  height: 400px !important;
+}
+
+.logo-place-holder {
+  height: 180px;
+  width: 180px;
+}
+
+.logo {
+  max-height: 180px;
+  max-width: 220px;
+}
+
+.client-button {
+  margin: 20px 2px;
+}
+
+.select-input-button {
+  height: 50px;
+  width: 70px;
+  background-color: blueviolet;
+}

@@ -10,6 +10,7 @@ import ProjectDetail from './pages/ProjectDetail';
 import Clients from './pages/Clients';
 import ProfilePage from './pages/ProfilePage';
 import NewProject from './pages/NewProject';
+import NewClient from './pages/NewClient';
 import Tasks from './pages/Tasks';
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
           <Route path='/login' component={Login} />
           <Route path='/tables' component={Tables} />
           <Route path='/projects/:id' component={ProjectDetail} />
-          <Route path='/clients' component={Clients} />
+          <Route exact path='/clients' component={Clients} />
+          <Route path='/clients/new' component={NewClient} />
           <Route path='/profile' component={ProfilePage} />
           <Route exact path='/tasks' component={Tasks} />
         </Switch>
