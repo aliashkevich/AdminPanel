@@ -1,0 +1,18 @@
+.container-padding {
+  padding: 10px;
+}
+
+.title-padding {
+  padding-bottom: 5px;
+}
+
+.font-grey {
+  color: grey;
+}
+
+.circle-img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  padding-right: 5px;
+}
