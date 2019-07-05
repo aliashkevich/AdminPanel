@@ -29,7 +29,7 @@ export default class ProjectDetailCard extends React.Component {
       .then(data => {
         this.setState({
           project: data.project,
-          client: data.project.client_id,
+          client: data.project.clientId,
           participants: data.project.participants,
           loading: false,
         });

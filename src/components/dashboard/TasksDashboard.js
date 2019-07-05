@@ -38,8 +38,8 @@ class TasksDashboard extends React.Component {
       <Link to={`/tasks/${task.id}`} className='text-info'>
         {task.title}
       </Link>,
-      task.start_date.slice(0, 10),
-      task.due_date.slice(0, 10),
+      task.startDate.slice(0, 10),
+      task.endDate.slice(0, 10),
     ]);
     return (
       <React.Fragment>
