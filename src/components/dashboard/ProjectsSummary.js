@@ -49,7 +49,7 @@ class ProjectsSummary extends React.Component {
             tableName={'Projects'}
             tableDescription={'Projects nearing completion'}
             tableHead={['Title', 'Start', 'End']}
-            tableData={tableData}
+            tableData={tableData.slice(0, 4)}
             tableColor={'info'}
           />
         </div>
