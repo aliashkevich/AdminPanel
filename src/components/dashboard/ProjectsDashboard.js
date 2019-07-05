@@ -37,8 +37,8 @@ class ProjectsDashboard extends React.Component {
       <Link to={`/projects/${project.id}`} className='text-info'>
         {project.title}
       </Link>,
-      project.start_date.slice(0, 10),
-      project.end_date.slice(0, 10),
+      project.startDate.slice(0, 10),
+      project.endDate.slice(0, 10),
     ]);
     return (
       <React.Fragment>

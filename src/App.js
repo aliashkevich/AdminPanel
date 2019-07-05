@@ -24,27 +24,27 @@ function App() {
   const DefaultContainer = () => (
     <React.Fragment>
       <Header />
-      <Route exact path='/' component={Dashboard} />
-      <Route path='/dashboard' component={Dashboard} />
-      <Route exact path='/projects' component={Project} />
-      <Route path='/projects/new' component={NewProject} />
-      <Route path='/projects/:id' component={ProjectDetail} />
-      <Route exact path='/clients' component={Clients} />
-      <Route path='/clients/new' component={NewClient} />
-      <Route path='/profile' component={ProfilePage} />
-      <Route exact path='/tasks' component={Tasks} />
-      <Route exact path='/administration' component={Users} />
+      <Switch>
+        <Route exact path='/' component={Dashboard} />
+        <Route path='/dashboard' component={Dashboard} />
+        <Route exact path='/projects' component={Project} />
+        <Route path='/projects/new' component={NewProject} />
+        <Route path='/projects/:id' component={ProjectDetail} />
+        <Route exact path='/clients' component={Clients} />
+        <Route path='/clients/new' component={NewClient} />
+        <Route path='/profile' component={ProfilePage} />
+        <Route exact path='/tasks' component={Tasks} />
+        <Route exact path='/administration' component={Users} />
+      </Switch>
     </React.Fragment>
   );
 
   return (
     <BrowserRouter>
-      <div className='wrapper'>
-        <Switch>
-          <Route exact path='/login' component={LoginContainer} />
-          <Route component={DefaultContainer} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path='/login' component={LoginContainer} />
+        <Route component={DefaultContainer} />
+      </Switch>
     </BrowserRouter>
   );
 }
