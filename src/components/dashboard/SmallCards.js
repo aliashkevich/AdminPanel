@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Other() {
+function SmallCards() {
   return (
     <React.Fragment>
       <div className='col-lg-3 col-md-3 col-sm-6'>
@@ -39,4 +39,4 @@ function Other() {
   );
 }
 
-export default Other;
+export default SmallCards;

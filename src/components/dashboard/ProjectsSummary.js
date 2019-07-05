@@ -1,7 +1,6 @@
 import React from 'react';
 import Table from '../global/Table';
 import {Link} from 'react-router-dom';
-import Spinner from '../global/Spinner';
 
 class ProjectsSummary extends React.Component {
   static defaultProps = {
@@ -9,7 +8,6 @@ class ProjectsSummary extends React.Component {
   };
   constructor(props) {
     super(props);
-
     this.state = {
       projects: [],
       updated: false,
@@ -28,7 +26,7 @@ class ProjectsSummary extends React.Component {
           loading: false,
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => alert(error));
   }
 
   componentDidMount() {
@@ -46,18 +44,14 @@ class ProjectsSummary extends React.Component {
     return (
       <React.Fragment>
         <div className='form-group col-lg-6 col-md-12'>
-          {this.state.loading ? (
-            <Spinner />
-          ) : (
-            <Table
-              entities={this.state.projects}
-              tableName={'Projects'}
-              tableDescription={'Projects nearing completion'}
-              tableHead={['Title', 'Start', 'End']}
-              tableData={tableData}
-              tableColor={'info'}
-            />
-          )}
+          <Table
+            entities={this.state.projects}
+            tableName={'Projects'}
+            tableDescription={'Projects nearing completion'}
+            tableHead={['Title', 'Start', 'End']}
+            tableData={tableData}
+            tableColor={'info'}
+          />
         </div>
       </React.Fragment>
     );

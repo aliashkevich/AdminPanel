@@ -29,11 +29,7 @@ export default class Header extends Component {
             <ul className='nav'>
               <li className='nav-item'>
                 <NavLink
-<<<<<<< HEAD
                   to='/'
-=======
-                  to='/dashboard'
->>>>>>> develop
                   className='nav-link '
                   activeClassName='selected'
                   isActive={(match, location) => {
