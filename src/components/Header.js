@@ -107,10 +107,10 @@ export default class Header extends Component {
               </button>
               <div className='collapse navbar-collapse justify-content-end'>
                 <ul className='navbar-nav'>
-                  <li className='nav-itemdropdown'>
+                  <li className='nav-item dropdown'>
                     <a
                       className='nav-link'
-                      href={parsedUser.name}
+                      href='javascript:void(0)'
                       id='navbarDropdownProfile'
                       data-toggle='dropdown'
                       aria-haspopup='true'
