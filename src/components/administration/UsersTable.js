@@ -135,14 +135,14 @@ export default class UsersTable extends React.Component {
               {user.name}
             </Link>,
             user.email,
-            user.client_id
-              ? findInArray(this.state.clients, 'id', user.client_id, 'name')
+            user.clientId
+              ? findInArray(this.state.clients, 'id', user.clientId, 'name')
               : null,
-            user.project_id
-              ? findInArray(this.state.projects, 'id', user.project_id, 'title')
+            user.projectId
+              ? findInArray(this.state.projects, 'id', user.projectId, 'title')
               : null,
-            user.role_id
-              ? findInArray(this.state.roles, 'id', user.role_id, 'name')
+            user.roleId
+              ? findInArray(this.state.roles, 'id', user.roleId, 'name')
               : null,
           ])}
           tableColor={'success'}

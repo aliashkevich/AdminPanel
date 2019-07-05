@@ -12,7 +12,7 @@ class AddNewProject extends React.Component {
       logo: '',
       logoPreview: '',
       logoLoaded: false,
-      contact_information: {
+      contactInformation: {
         email: '',
         number: '',
       },
@@ -26,9 +26,9 @@ class AddNewProject extends React.Component {
   handleChange(e) {
     e.preventDefault();
     if (e.target.name === 'email' || e.target.name === 'number') {
-      let infoContact = this.state.contact_information;
+      let infoContact = this.state.contactInformation;
       this.setState({
-        contact_information: {
+        contactInformation: {
           ...infoContact,
           [e.target.name]: e.target.value,
         },
@@ -45,7 +45,7 @@ class AddNewProject extends React.Component {
     const body = {
       name: this.state.name,
       initials: this.state.initials,
-      contact_information: this.state.contact_information,
+      contactInformation: this.state.contactInformation,
     };
     fetch('https://lesewert.herokuapp.com/api/v1/clients', {
       method: 'POST',
@@ -66,7 +66,7 @@ class AddNewProject extends React.Component {
     this.setState({
       name: '',
       initials: '',
-      contact_information: '',
+      contactInformation: '',
     });
   }
 
