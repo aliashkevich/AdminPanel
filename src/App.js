@@ -12,6 +12,7 @@ import Tasks from './pages/Tasks';
 import Users from './pages/Users';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 
 function App() {
   const LoginContainer = () => (
@@ -24,7 +25,7 @@ function App() {
   const DefaultContainer = () => (
     <React.Fragment>
       <Header />
-      <Route exact path='/' component={Dashboard} />
+      <Route exact path='/' component={Home} />
       <Route path='/dashboard' component={Dashboard} />
       <Route exact path='/projects' component={Project} />
       <Route path='/projects/new' component={NewProject} />
