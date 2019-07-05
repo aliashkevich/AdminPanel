@@ -47,7 +47,7 @@ Table.propTypes = {
   tableName: PropTypes.string,
   tableDescription: PropTypes.string,
   tableHead: PropTypes.arrayOf(PropTypes.string),
-  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
   tableColor: PropTypes.oneOf([
     'warning',
     'primary',
