@@ -11,7 +11,7 @@ function Table(props) {
       </div>
       <div className='card-body'>
         <div className='table-responsive'>
-          <table className='table'>
+          <table className='table table-hover'>
             {tableHead !== undefined ? (
               <thead className={`text-${tableColor}`}>
                 <tr>
@@ -47,7 +47,7 @@ Table.propTypes = {
   tableName: PropTypes.string,
   tableDescription: PropTypes.string,
   tableHead: PropTypes.arrayOf(PropTypes.string),
-  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
   tableColor: PropTypes.oneOf([
     'warning',
     'primary',

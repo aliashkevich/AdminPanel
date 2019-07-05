@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
-import Home from './pages/Home';
 import Project from './pages/Projects';
 import Login from './pages/Login';
 import ProjectDetail from './pages/ProjectDetail';
@@ -12,6 +11,7 @@ import NewClient from './pages/NewClient';
 import Tasks from './pages/Tasks';
 import Users from './pages/Users';
 import Header from './components/Header';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const LoginContainer = () => (
@@ -24,8 +24,8 @@ function App() {
   const DefaultContainer = () => (
     <React.Fragment>
       <Header />
-      <Route exact path='/' component={Home} />
-      <Route path='/dashboard' component={Home} />
+      <Route exact path='/' component={Dashboard} />
+      <Route path='/dashboard' component={Dashboard} />
       <Route exact path='/projects' component={Project} />
       <Route path='/projects/new' component={NewProject} />
       <Route path='/projects/:id' component={ProjectDetail} />
