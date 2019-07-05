@@ -1,8 +1,9 @@
 import React from 'react';
 import Table from '../global/Table';
 import {Link} from 'react-router-dom';
+import Spinner from '../global/Spinner';
 
-class TasksSummary extends React.Component {
+class TasksDashboard extends React.Component {
   static defaultProps = {
     url: 'https://lesewert.herokuapp.com/api/v1',
   };
@@ -11,6 +12,7 @@ class TasksSummary extends React.Component {
 
     this.state = {
       tasks: [],
+      loading: true,
     };
     this.getTasks = this.getTasks.bind(this);
   }
@@ -21,6 +23,7 @@ class TasksSummary extends React.Component {
       .then(data => {
         this.setState({
           tasks: data.tasks,
+          loading: false,
         });
       })
       .catch(error => alert(error));
@@ -40,19 +43,23 @@ class TasksSummary extends React.Component {
     ]);
     return (
       <React.Fragment>
-        <div className='form-group col-lg-6 col-md-12'>
-          <Table
-            entities={this.state.tasks}
-            tableName={'Tasks'}
-            tableDescription={'Tasks nearing completion'}
-            tableHead={['Title', 'Start', 'End']}
-            tableData={tableData.slice(0, 4)}
-            tableColor={'rose'}
-          />
-        </div>
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <div className='form-group col-lg-6 col-md-12'>
+            <Table
+              entities={this.state.tasks}
+              tableName={'Tasks'}
+              tableDescription={'Tasks nearing completion'}
+              tableHead={['Title', 'Start', 'End']}
+              tableData={tableData.slice(0, 4)}
+              tableColor={'rose'}
+            />
+          </div>
+        )}
       </React.Fragment>
     );
   }
 }
 
-export default TasksSummary;
+export default TasksDashboard;
