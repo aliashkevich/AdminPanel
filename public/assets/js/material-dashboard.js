@@ -184,17 +184,17 @@ md = {
   },
 
   initDocumentationCharts: function() {
-    if ($('#dailySalesChart').length != 0 && $('#websiteViewsChart').length != 0) {
+    if ($('#').length != 0 && $('#websiteViewsChart').length != 0) {
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
-      dataDailySalesChart = {
+      data = {
         labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
         series: [
           [12, 17, 7, 17, 23, 18, 38]
         ]
       };
 
-      optionsDailySalesChart = {
+      options = {
         lineSmooth: Chartist.Interpolation.cardinal({
           tension: 0
         }),
@@ -208,9 +208,9 @@ md = {
         },
       }
 
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      var  = new Chartist.Line('#', data, options);
 
-      var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
+      var animationHeaderChart = new Chartist.Line('#websiteViewsChart', data, options);
     }
   },
 
@@ -309,17 +309,17 @@ md = {
 
   initDashboardPageCharts: function() {
 
-    if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
+    if ($('#').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
-      dataDailySalesChart = {
+      data = {
         labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
         series: [
           [12, 17, 7, 17, 23, 18, 38]
         ]
       };
 
-      optionsDailySalesChart = {
+      options = {
         lineSmooth: Chartist.Interpolation.cardinal({
           tension: 0
         }),
@@ -333,9 +333,9 @@ md = {
         },
       }
 
-      var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+      var  = new Chartist.Line('#', data, options);
 
-      md.startAnimationForLineChart(dailySalesChart);
+      md.startAnimationForLineChart();
 
 
 

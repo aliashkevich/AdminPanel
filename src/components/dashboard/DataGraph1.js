@@ -1,13 +1,22 @@
 import React from 'react';
 import Spinner from '../global/Spinner';
+import ChartistGraph from 'react-chartist';
+import {
+  dailySalesChart,
+  emailsSubscriptionChart,
+  completedTasksChart,
+} from '../global/ChartConfig';
 
 class DataGraph1 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      updated: this.props.updated,
+    };
   }
 
   render() {
+    console.log('render...');
     return (
       <React.Fragment>
         {this.state.loading ? (
@@ -16,7 +25,13 @@ class DataGraph1 extends React.Component {
           <div className='col-md-4'>
             <div className='card card-chart'>
               <div className='card-header card-header-success'>
-                <div className='ct-chart' id='dailySalesChart' />
+                <ChartistGraph
+                  className='ct-chart'
+                  data={dailySalesChart.data}
+                  type='Line'
+                  options={dailySalesChart.options}
+                  listener={dailySalesChart.animation}
+                />
               </div>
               <div className='card-body'>
                 <h4 className='card-title'>Completed Tasks</h4>

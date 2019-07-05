@@ -1,5 +1,11 @@
 import React from 'react';
 import Spinner from '../global/Spinner';
+import ChartistGraph from 'react-chartist';
+import {
+  dailySalesChart,
+  emailsSubscriptionChart,
+  completedTasksChart,
+} from '../global/ChartConfig';
 
 class DataGraph2 extends React.Component {
   constructor(props) {
@@ -16,7 +22,14 @@ class DataGraph2 extends React.Component {
           <div className='col-md-4'>
             <div className='card card-chart'>
               <div className='card-header card-header-warning'>
-                <div className='ct-chart' id='websiteViewsChart' />
+                <ChartistGraph
+                  className='ct-chart'
+                  data={emailsSubscriptionChart.data}
+                  type='Bar'
+                  options={emailsSubscriptionChart.options}
+                  responsiveOptions={emailsSubscriptionChart.responsiveOptions}
+                  listener={emailsSubscriptionChart.animation}
+                />
               </div>
               <div className='card-body'>
                 <h4 className='card-title'>New Clients</h4>

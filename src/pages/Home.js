@@ -9,6 +9,12 @@ import DataGraph3 from '../components/dashboard/DataGraph3.js';
 import Other from '../components/dashboard/Other.js';
 
 export default class Home extends Component {
+  state = {
+    key: '',
+  };
+  componentDidUpdate() {
+    this.setState({key: Math.random()});
+  }
   render() {
     return (
       <React.Fragment>
@@ -21,7 +27,7 @@ export default class Home extends Component {
                 <Other />
               </div>
               <div className='form-row col-md-12'>
-                <DataGraph1 />
+                <DataGraph1 key={this.state.key} />
                 <DataGraph2 />
                 <DataGraph3 />
               </div>
