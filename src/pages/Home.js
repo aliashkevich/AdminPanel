@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import Header from '../components/Header';
 
 export default class Home extends Component {
   render() {
     return (
       <div>
-        {' '}
-        <Header />
-        <div className='main-panel' />
+        <div className='main-panel'>
+          <div className='content'>
+            <div className='container-fluid text-center'>
+              <h1>Welcome to Dashboard</h1>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

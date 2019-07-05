@@ -3,6 +3,10 @@ import {Link, NavLink} from 'react-router-dom';
 import './Header.css';
 
 export default class Header extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     let userFromStorage = localStorage.getItem('user');
     let parsedUser = JSON.parse(userFromStorage);
@@ -14,31 +18,32 @@ export default class Header extends Component {
           data-background-color='white'
           data-image='../assets/img/sidebar-1.jpg'>
           <div className='logo'>
-            <a
-              href='https://www.lesewert.de/'
-              className='simple-text logo-normal'>
+            <NavLink to='/' className='simple-text logo-normal'>
               <img
                 src='https://www.lesewert.de/files/lesewert/img/lesewert_logo.svg'
                 alt='Lesewert'
               />
-            </a>
+            </NavLink>
           </div>
           <div className='sidebar-wrapper'>
             <ul className='nav'>
-              <li className='nav-item '>
+              <li className='nav-item'>
                 <NavLink
-                  to='/dashboards'
+                  to='/dashboard'
                   className='nav-link '
                   activeClassName='selected'
                   isActive={(match, location) => {
-                    return location.pathname === '/';
+                    return (
+                      location.pathname === '/' ||
+                      location.pathname === '/dashboard'
+                    );
                   }}>
                   <i className='material-icons'>dashboard</i>
                   <p>Dashboard</p>
                 </NavLink>
               </li>
 
-              <li className='nav-item '>
+              <li className='nav-item'>
                 <NavLink
                   to='/clients'
                   className='nav-link'
@@ -48,7 +53,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item '>
+              <li className='nav-item'>
                 <NavLink
                   to='/projects'
                   className='nav-link'
@@ -58,7 +63,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item '>
+              <li className='nav-item'>
                 <NavLink
                   to='/tasks'
                   className='nav-link'
@@ -68,7 +73,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item '>
+              <li className='nav-item'>
                 <NavLink
                   to='/administration'
                   className='nav-link'
@@ -93,7 +98,7 @@ export default class Header extends Component {
                 type='button'
                 data-toggle='collapse'
                 aria-controls='navigation-index'
-                aria-expanded='false'
+                aria-expanded='true'
                 aria-label='Toggle navigation'>
                 <span className='sr-only'>Toggle navigation</span>
                 <span className='navbar-toggler-icon icon-bar' />
@@ -105,7 +110,7 @@ export default class Header extends Component {
                   <li className='nav-item dropdown'>
                     <a
                       className='nav-link'
-                      href='#pablo'
+                      href='javascript:void(0)'
                       id='navbarDropdownProfile'
                       data-toggle='dropdown'
                       aria-haspopup='true'
