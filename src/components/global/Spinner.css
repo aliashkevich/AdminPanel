@@ -3,7 +3,7 @@
 }
 
 .spinner {
-  position: fixed;
+  position: relative;
   top: 45%;
 }
 

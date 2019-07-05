@@ -11,7 +11,7 @@ class ProjectsDashboard extends React.Component {
     super(props);
     this.state = {
       projects: [],
-      loading: true,
+      loading: false,
     };
     this.getProjects = this.getProjects.bind(this);
   }
@@ -42,10 +42,10 @@ class ProjectsDashboard extends React.Component {
     ]);
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner />
-        ) : (
-          <div className='form-group col-lg-6 col-md-12'>
+        <div className='form-group col-lg-6 col-md-12'>
+          {this.state.loading ? (
+            <Spinner />
+          ) : (
             <Table
               entities={this.state.projects}
               tableName={'Projects'}
@@ -54,8 +54,8 @@ class ProjectsDashboard extends React.Component {
               tableData={tableData.slice(0, 4)}
               tableColor={'info'}
             />
-          </div>
-        )}
+          )}
+        </div>
       </React.Fragment>
     );
   }
