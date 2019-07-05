@@ -116,11 +116,19 @@ export default class UsersTable extends React.Component {
           tableData={this.state.users.map(user => [
             user.image !== null ? (
               <div className='card-avatar'>
-                <img className='img user-avatar' src={user.image} />
+                <img
+                  className='img user-avatar'
+                  src={user.image}
+                  alt={user.name}
+                />
               </div>
             ) : (
               <div className='card-avatar'>
-                <img className='img user-avatar' src={nullAvatar} />
+                <img
+                  className='img user-avatar'
+                  src={nullAvatar}
+                  alt={user.name}
+                />
               </div>
             ),
             <Link to={`/users/${user.id}`} className='text-info'>

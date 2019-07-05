@@ -1,5 +1,5 @@
 li.nav-item > a.selected {
-  background-color: #ff9800;
+  background-color: #ff9800 !important;
   color: #ffffff;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(255, 152, 0, 0.4);
@@ -10,8 +10,12 @@ li.nav-item > a.selected i {
 }
 
 li.nav-item:hover > a.selected {
-  background-color: #ff9800;
+  background-color: #ff9800 !important;
   color: #ffffff;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(255, 152, 0, 0.4);
+}
+
+a#navbarDropdownProfile {
+  color: inherit;
 }
