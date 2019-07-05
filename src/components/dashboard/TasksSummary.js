@@ -3,7 +3,7 @@ import Table from '../global/Table';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 
-class ProjectsSummary extends React.Component {
+class TasksSummary extends React.Component {
   static defaultProps = {
     url: 'https://lesewert.herokuapp.com/api/v1',
   };
@@ -11,19 +11,19 @@ class ProjectsSummary extends React.Component {
     super(props);
 
     this.state = {
-      projects: [],
+      tasks: [],
       updated: false,
       loading: true,
     };
-    this.getProjects = this.getProjects.bind(this);
+    this.getTasks = this.getTasks.bind(this);
   }
 
-  getProjects() {
-    fetch(`${this.props.url}/projects`)
+  getTasks() {
+    fetch(`${this.props.url}/tasks`)
       .then(res => res.json())
       .then(data => {
         this.setState({
-          projects: data.projects,
+          tasks: data.tasks,
           updated: false,
           loading: false,
         });
@@ -32,17 +32,18 @@ class ProjectsSummary extends React.Component {
   }
 
   componentDidMount() {
-    this.getProjects();
+    this.getTasks();
   }
 
   render() {
-    const tableData = this.state.projects.map(project => [
-      <Link to={`/projects/${project.id}`} className='text-info'>
-        {project.title}
+    const tableData = this.state.tasks.map(task => [
+      <Link to={`/tasks/${task.id}`} className='text-info'>
+        {task.title}
       </Link>,
-      project.start_date.slice(0, 10),
-      project.end_date.slice(0, 10),
+      task.start_date.slice(0, 10),
+      task.due_date.slice(0, 10),
     ]);
+    console.log(tableData);
     return (
       <React.Fragment>
         <div className='form-group col-lg-6 col-md-12'>
@@ -50,12 +51,12 @@ class ProjectsSummary extends React.Component {
             <Spinner />
           ) : (
             <Table
-              entities={this.state.projects}
-              tableName={'Projects'}
-              tableDescription={'Projects nearing completion'}
+              entities={this.state.tasks}
+              tableName={'Tasks'}
+              tableDescription={'Tasks nearing completion'}
               tableHead={['Title', 'Start', 'End']}
-              tableData={tableData}
-              tableColor={'info'}
+              tableData={tableData.slice(0, 4)}
+              tableColor={'rose'}
             />
           )}
         </div>
@@ -64,4 +65,4 @@ class ProjectsSummary extends React.Component {
   }
 }
 
-export default ProjectsSummary;
+export default TasksSummary;

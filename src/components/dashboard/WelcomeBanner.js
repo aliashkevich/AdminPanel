@@ -5,8 +5,19 @@ function WelcomeBanner() {
   let parsedUser = JSON.parse(userFromStorage);
   return (
     <React.Fragment>
-      <div class='card'>
-        <div class='card-body'>Welcome {parsedUser.name}</div>
+      <div className='col-md-6'>
+        <div className='card'>
+          <div className='card-header card-header-text card-header-primary'>
+            <div className='card-text'>
+              <h4 className='card-title'>Welcome {parsedUser.name}</h4>
+            </div>
+          </div>
+          <div className='card-body'>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco...
+          </div>
+        </div>
       </div>
     </React.Fragment>
   );
