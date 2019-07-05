@@ -26,7 +26,6 @@ class AddNewProject extends React.Component {
   handleChange(e) {
     e.preventDefault();
     if (e.target.name === 'email' || e.target.name === 'number') {
-      console.log(e.target.name);
       let infoContact = this.state.contact_information;
       this.setState({
         contact_information: {
@@ -173,6 +172,7 @@ class AddNewProject extends React.Component {
                     <img
                       src={this.state.logoPreview}
                       className='fileinput-new thumbnail img-raised logo'
+                      alt='avatar'
                     />
                   ) : (
                     <div className='fileinput-new thumbnail img-raised logo-place-holder' />

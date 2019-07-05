@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import Header from '../components/Header';
 import WelcomeBanner from '../components/dashboard/WelcomeBanner';
 import ProjectsSummary from '../components/dashboard/ProjectsSummary';
@@ -7,6 +8,8 @@ import DataGraph1 from '../components/dashboard/DataGraph1.js';
 import DataGraph2 from '../components/dashboard/DataGraph2.js';
 import DataGraph3 from '../components/dashboard/DataGraph3.js';
 import Other from '../components/dashboard/Other.js';
+=======
+>>>>>>> develop
 
 export default class Home extends Component {
   state = {
@@ -17,6 +20,7 @@ export default class Home extends Component {
   }
   render() {
     return (
+<<<<<<< HEAD
       <React.Fragment>
         <Header />
         <div className='main-panel'>
@@ -39,6 +43,17 @@ export default class Home extends Component {
           </div>
         </div>
       </React.Fragment>
+=======
+      <div>
+        <div className='main-panel'>
+          <div className='content'>
+            <div className='container-fluid text-center'>
+              <h1>Welcome to Dashboard</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+>>>>>>> develop
     );
   }
 }
