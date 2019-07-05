@@ -30,7 +30,7 @@ function ActionsTable(props) {
       </div>
       <div className='card-body'>
         <div className='table-responsive'>
-          <table className='table'>
+          <table className='table table-hover'>
             {tableHead !== undefined ? (
               <thead className={`text-${tableColor}`}>
                 <tr>
