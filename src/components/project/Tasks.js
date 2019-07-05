@@ -98,7 +98,7 @@ export default class Tasks extends React.Component {
     const {projectId} = this.props;
     const tasks = this.state.tasks;
     if (this.state.loading === false) {
-      const projectTasks = tasks.filter(task => task.project_id === projectId);
+      const projectTasks = tasks.filter(task => task.projectId === projectId);
       return (
         <div className='col-lg-8 col-md-12 col-sm-12'>
           <div className='card'>

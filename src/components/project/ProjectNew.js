@@ -37,8 +37,8 @@ class AddNewProject extends React.Component {
       clientSelect: [],
       title: '',
       summary: '',
-      start_date: '',
-      end_date: '',
+      startDate: '',
+      endDate: '',
       participants: [],
       participantSelect: [],
     };
@@ -95,11 +95,11 @@ class AddNewProject extends React.Component {
       return participant.value;
     });
     const body = {
-      client_id: newClient,
+      clientId: newClient,
       title: this.state.title,
       summary: this.state.summary,
-      start_date: this.state.start_date,
-      end_date: this.state.end_date,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
       participants: newParticipants,
     };
     fetch('https://lesewert.herokuapp.com/api/v1/projects', {
@@ -123,8 +123,8 @@ class AddNewProject extends React.Component {
       clientSelect: [],
       title: '',
       summary: '',
-      start_date: '',
-      end_date: '',
+      startDate: '',
+      endDate: '',
       participants: [],
       participantSelect: [],
     });
@@ -179,7 +179,7 @@ class AddNewProject extends React.Component {
                   <label for='inputStartDate'>Start Date:</label>
                   <input
                     type='date'
-                    name='start_date'
+                    name='startDate'
                     className='form-control inner-form'
                     id='inputStartDate'
                     onChange={this.handleChange}
@@ -190,7 +190,7 @@ class AddNewProject extends React.Component {
                   <label for='inputEndDate'>End Date:</label>
                   <input
                     type='date'
-                    name='end_date'
+                    name='endDate'
                     className='form-control inner-form'
                     id='inputEndDate'
                     onChange={this.handleChange}
