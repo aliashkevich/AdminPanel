@@ -10,8 +10,6 @@ class ProjectsSummary extends React.Component {
     super(props);
     this.state = {
       projects: [],
-      updated: false,
-      loading: true,
     };
     this.getProjects = this.getProjects.bind(this);
   }
@@ -22,8 +20,6 @@ class ProjectsSummary extends React.Component {
       .then(data => {
         this.setState({
           projects: data.projects,
-          updated: false,
-          loading: false,
         });
       })
       .catch(error => alert(error));

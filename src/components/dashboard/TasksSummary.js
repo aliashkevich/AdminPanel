@@ -11,7 +11,6 @@ class TasksSummary extends React.Component {
 
     this.state = {
       tasks: [],
-      updated: false,
     };
     this.getTasks = this.getTasks.bind(this);
   }
@@ -22,7 +21,6 @@ class TasksSummary extends React.Component {
       .then(data => {
         this.setState({
           tasks: data.tasks,
-          updated: false,
         });
       })
       .catch(error => alert(error));
