@@ -1,8 +1,8 @@
 import React from 'react';
 
 function ProjectSummary(props) {
-  const start_date = props.project.start_date.slice(0, 10);
-  const end_date = props.project.end_date.slice(0, 10);
+  const startDate = props.project.startDate.slice(0, 10);
+  const endDate = props.project.endDate.slice(0, 10);
   return (
     <div className='col-lg-8 col-md-12 col-sm-12'>
       <div className='card'>
@@ -16,7 +16,7 @@ function ProjectSummary(props) {
             <p>
               Project Date:{' '}
               <span>
-                {start_date} ~ {end_date}
+                {startDate} ~ {endDate}
               </span>
             </p>
           </div>

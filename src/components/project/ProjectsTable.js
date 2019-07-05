@@ -65,8 +65,8 @@ export default class ProjectsTable extends React.Component {
         className='text-info'>
         {project.title}
       </Link>,
-      project.start_date.slice(0, 10),
-      project.end_date.slice(0, 10),
+      project.startDate.slice(0, 10),
+      project.endDate.slice(0, 10),
       project.participants.length,
     ]);
 
