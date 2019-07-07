@@ -23,7 +23,7 @@ class TasksDashboard extends React.Component {
       .then(data => {
         this.setState({
           tasks: data.tasks,
-          loading: true,
+          loading: false,
         });
       })
       .catch(error => alert(error));
