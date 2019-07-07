@@ -10,11 +10,11 @@ export default class ClientsTable extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       clients: [],
       updated: false,
       loading: true,
+      didMount: false,
     };
 
     this.getClients = this.getClients.bind(this);
@@ -23,6 +23,7 @@ export default class ClientsTable extends React.Component {
 
   componentDidMount() {
     this.getClients();
+    this.setState({didMount: true});
   }
 
   getClients() {
@@ -79,6 +80,7 @@ export default class ClientsTable extends React.Component {
             tableColor={'primary'}
             deleteOnClick={this.deleteOnClick}
             confirmationFieldName={'name'}
+            visible={`${this.state.didMount && 'visible'}`}
           />
         )}
       </React.Fragment>

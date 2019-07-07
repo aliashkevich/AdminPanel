@@ -41,6 +41,7 @@ class ProjectNew extends React.Component {
       endDate: '',
       participants: [],
       participantSelect: [],
+      didMount: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -67,6 +68,7 @@ class ProjectNew extends React.Component {
           )
           .catch(error => console.log(error)),
       );
+    this.setState({didMount: true});
   }
 
   handleChange(e) {

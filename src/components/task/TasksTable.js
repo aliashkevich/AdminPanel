@@ -15,6 +15,7 @@ export default class TasksTable extends React.Component {
       tasks: [],
       updated: false,
       loading: true,
+      didMount: false,
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -36,6 +37,7 @@ export default class TasksTable extends React.Component {
 
   componentDidMount() {
     this.getTasks();
+    this.setState({didMount: true});
   }
 
   deleteOnClick(task) {
@@ -102,6 +104,7 @@ export default class TasksTable extends React.Component {
             updateOnClick={this.updateOnClick}
             checkmarkFieldName={'status'}
             checkmarkValue={'done'}
+            visible={`${this.state.didMount && 'visible'}`}
           />
         )}
       </React.Fragment>

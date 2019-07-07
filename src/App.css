@@ -1,0 +1,59 @@
+.bounce-in.visible {
+  opacity: 1;
+  animation: bounceIn 0.3s;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.02);
+  }
+  80% {
+    opacity: 0.9;
+    transform: scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.slide-in.visible {
+  animation: slideIn ease-in-out 0.2s;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(15px);
+    /* transform: scale(0.95); */
+  }
+  50% {
+    /* transform: scale(1.01); */
+  }
+  70% {
+    /* transform: scale(0.98); */
+  }
+  90% {
+    /* transform: scale(1); */
+  }
+  100% {
+  }
+}
+
+.grow.visible {
+  animation: grow 0.4s;
+}
+
+@keyframes grow {
+  0% {
+    opacity: 3;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

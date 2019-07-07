@@ -20,15 +20,18 @@ function ActionsTable(props) {
     checkmarkFieldName,
     // value of checkmarkFieldName propery when condition to diplay checkmark equal true
     checkmarkValue,
+    //animation to start on mount
+    visible,
   } = props;
 
   return (
     <div className='card'>
-      <div className={`card-header card-header-${tableColor}`}>
+      <div
+        className={`card-header card-header-${tableColor} bounce-in ${visible}`}>
         <h4 className='card-title'>{tableName}</h4>
         <p className='card-category'>{tableDescription}</p>
       </div>
-      <div className='card-body'>
+      <div className={`card-body slide-in ${visible}`}>
         <div className='table-responsive'>
           <table className='table table-hover'>
             {tableHead !== undefined ? (
