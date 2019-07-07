@@ -1,22 +1,11 @@
 .spinner-wrapper {
-  height: 100vh;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .spinner {
-  position: relative;
-  top: 45%;
-}
-
-@media screen and (min-width: 992px) {
-  .spinner {
-    left: 55%;
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .spinner {
-    left: 45%;
-  }
 }
 
 .lds-roller {
@@ -38,7 +27,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ddd;
+  background: orange;
   margin: -3px 0 0 -3px;
 }
 

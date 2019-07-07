@@ -27,7 +27,7 @@ export default class ProjectsTable extends React.Component {
         this.setState({
           projects: data.projects,
           updated: false,
-          loading: false,
+          loading: true,
         });
       })
       .catch(error => console.log(error));
