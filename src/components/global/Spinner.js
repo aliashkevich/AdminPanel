@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Spinner.css';
 
-export default function Spinner() {
+Spinner.propTypes = {
+  spinnerPosition: PropTypes.string,
+};
+
+export default function Spinner(props) {
+  const {spinnerPosition} = props;
   return (
-    <div className='spinner-wrapper text-center'>
+    <div className={`spinner-wrapper text-center ${spinnerPosition}`}>
       <div className='spinner'>
         <div className='lds-roller'>
           <div />
@@ -15,7 +21,7 @@ export default function Spinner() {
           <div />
           <div />
         </div>
-        <p>Loading...</p>
+        <p className='loading-message'>Loading...</p>
       </div>
     </div>
   );

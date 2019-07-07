@@ -44,7 +44,7 @@ class ProjectsDashboard extends React.Component {
       <React.Fragment>
         <div className='form-group col-lg-6 col-md-12'>
           {this.state.loading ? (
-            <Spinner />
+            <Spinner spinnerPosition={'inline-spinner'} />
           ) : (
             <Table
               entities={this.state.projects}

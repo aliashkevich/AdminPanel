@@ -1,13 +1,21 @@
-.spinner-wrapper {
+.global-spinner {
+  height: 70vh;
+}
+
+.inline-spinner {
   height: 100%;
+}
+
+.spinner-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.spinner {
+.loading-message {
+  color: grey;
+  padding: 8px;
 }
-
 .lds-roller {
   display: inline-block;
   position: relative;
@@ -27,7 +35,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: orange;
+  background: lightgrey;
   margin: -3px 0 0 -3px;
 }
 

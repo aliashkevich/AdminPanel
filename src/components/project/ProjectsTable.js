@@ -27,7 +27,7 @@ export default class ProjectsTable extends React.Component {
         this.setState({
           projects: data.projects,
           updated: false,
-          loading: true,
+          loading: false,
         });
       })
       .catch(error => console.log(error));
@@ -73,7 +73,7 @@ export default class ProjectsTable extends React.Component {
     return (
       <React.Fragment>
         {this.state.loading ? (
-          <Spinner />
+          <Spinner spinnerPosition={'global-spinner'} />
         ) : (
           <ActionsTable
             entities={this.state.projects}
