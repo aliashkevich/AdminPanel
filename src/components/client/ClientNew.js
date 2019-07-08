@@ -2,11 +2,16 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import '../global/Form.css';
+import Spinner from '../global/Spinner';
 
 class AddNewProject extends React.Component {
+  static defaultProps = {
+    url: 'https://lesewert.herokuapp.com/api/v1',
+  };
   constructor(props) {
     super(props);
     this.state = {
+      clientId: '',
       name: '',
       initials: '',
       logo: '',
@@ -16,11 +21,88 @@ class AddNewProject extends React.Component {
         email: '',
         number: '',
       },
+      client: '',
+      loading: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLogoChange = this.handleLogoChange.bind(this);
     this.handleLogoDelete = this.handleLogoDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.getClient = this.getClient.bind(this);
+    this.prefillClient = this.prefillClient.bind(this);
+  }
+
+  componentDidMount() {
+    this.getClient();
+  }
+
+  getClient() {
+    fetch(
+      `${this.props.url}/clients/${this.props.location.pathname
+        .split('/')
+        .pop()}`,
+    )
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          client: data.client,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  searchName = (nameKey, myArray) => {
+    for (var i = 0; i < myArray.length; i++) {
+      if (myArray[i].id === nameKey) {
+        return myArray[i].name;
+      }
+    }
+  };
+
+  prefillClient() {
+    if (this.props.edit) {
+      this.setState({
+        id: this.state.client.id,
+        name: this.state.client.name,
+        initials: this.state.client.initials,
+        contactInformation: this.state.client.contactInformation,
+        loading: false,
+      });
+    }
+  }
+
+  handleEdit(e) {
+    e.preventDefault();
+    const body = {
+      name: this.state.name,
+      initials: this.state.initials,
+      contactInformation: this.state.contactInformation,
+    };
+    fetch(
+      `https://lesewert.herokuapp.com/api/v1/clients/${this.state.client.id}`,
+      {
+        method: 'PUT',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(body),
+      },
+    )
+      .then(res => {
+        if (res.status >= 200 && res.status < 300) {
+          this.props.history.push('/clients');
+          return res;
+        } else {
+          alert('Sorry - something went wrong.');
+        }
+      })
+      .catch(error => alert(error));
+    this.setState({
+      name: '',
+      initials: '',
+      contactInformation: '',
+    });
   }
 
   handleChange(e) {
@@ -110,14 +192,19 @@ class AddNewProject extends React.Component {
   }
 
   render() {
+    console.log(this.props.location.pathname);
+    console.log(this.state);
     return (
       <div className='container-fluid'>
         <div className='card'>
           <div className='card-header card-header-primary'>
-            <h4 className='card-title'>New Client</h4>
+            <h4 className='card-title'>
+              {this.props.edit ? 'Edit Client' : 'New Client'}
+            </h4>
           </div>
           <div className='card-body'>
-            <form onSubmit={this.handleSubmit}>
+            <form
+              onSubmit={this.props.edit ? this.handleEdit : this.handleSubmit}>
               <div className='form-row'>
                 <div className='form-row col-md-8 client-wrap'>
                   <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
@@ -232,7 +319,7 @@ class AddNewProject extends React.Component {
                 </div>
                 <div className='form-group col-xs-1 text-end ml-auto'>
                   <button type='submit' className='btn btn-success btn-right'>
-                    Add
+                    {this.props.edit ? 'Save' : 'Add'}
                   </button>
                 </div>
               </div>
