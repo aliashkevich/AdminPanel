@@ -55,11 +55,18 @@ export default class ProjectsTable extends React.Component {
   render() {
     const tableData = this.state.projects.map(project => [
       project.id,
-      <Link to={`/projects/${project.id}`} className='text-info'>
+      <Link
+        to={{
+          pathname: `/projects/${project.id}`,
+          state: {
+            id: project.id,
+          },
+        }}
+        className='text-info'>
         {project.title}
       </Link>,
-      project.start_date.slice(0, 10),
-      project.end_date.slice(0, 10),
+      project.startDate.slice(0, 10),
+      project.endDate.slice(0, 10),
       project.participants.length,
     ]);
 

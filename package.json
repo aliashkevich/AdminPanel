@@ -4,14 +4,15 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "chartist": "^0.11.2",
     "material-dashboard": "^2.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-chartist": "^0.13.3",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "react-select": "^3.0.4",
-    "reactstrap": "^8.0.0"
+    "react-select": "^3.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

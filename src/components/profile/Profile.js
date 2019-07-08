@@ -15,7 +15,7 @@ export default function Profile() {
             </div>
             <div className='card-body'>
               <h4 className='card-title'>{parsedUser.name}</h4>
-              <h6 className='card-category text-gray'>{parsedUser.role_id}</h6>
+              <h6 className='card-category text-gray'>{parsedUser.roleId}</h6>
               <p className='card-description'>{parsedUser.email}</p>
               <a href='#edit' className='btn btn-warning btn-round'>
                 Edit

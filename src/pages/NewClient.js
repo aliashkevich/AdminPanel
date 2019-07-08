@@ -1,12 +1,12 @@
 import React from 'react';
-import ProjectNew from '../components/project/ProjectNew';
+import ClientNew from '../components/client/ClientNew';
 
-export default function NewProject() {
+export default function NewClient() {
   return (
     <React.Fragment>
       <div className='main-panel'>
         <div className='content'>
-          <ProjectNew />
+          <ClientNew />
         </div>
       </div>
     </React.Fragment>

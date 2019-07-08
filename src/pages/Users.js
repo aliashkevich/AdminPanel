@@ -1,15 +1,15 @@
 import React from 'react';
-import ClientsTable from '../components/client/ClientsTable';
-import AddClientButton from '../components/client/AddClientButton';
+import UsersTable from '../components/administration/UsersTable';
+import AddUserButton from '../components/administration/AddUserButton';
 
-export default function Clients() {
+export default function Tasks() {
   return (
     <React.Fragment>
       <div className='main-panel'>
         <div className='content'>
           <div className='container-fluid'>
-            <AddClientButton />
-            <ClientsTable />
+            <AddUserButton />
+            <UsersTable />
           </div>
         </div>
       </div>
