@@ -42,11 +42,11 @@ function MemberTask(props) {
 function TaskRow(props) {
   return (
     <tr>
-      <td>{props.participantsArr}</td>
-      <td>{props.task.summary}</td>
-      <td>
+      <td>Assignee</td>
+      {/* <td>
         {props.task.startDate.slice(2, 10)} ~ {props.task.endDate.slice(2, 10)}
-      </td>
+      </td> */}
+      <td>{props.task.summary}</td>
     </tr>
   );
 }
@@ -62,6 +62,7 @@ export default class Tasks extends React.Component {
     this.state = {
       loading: true,
       tasks: {},
+      users: {},
     };
     this.getTasks = this.getTasks.bind(this);
   }
@@ -74,7 +75,18 @@ export default class Tasks extends React.Component {
           loading: false,
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .then(
+        fetch(`${this.props.url}/users`)
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+              users: data.users,
+              loading: false,
+            });
+          })
+          .catch(error => console.log(error)),
+      );
   }
 
   componentDidMount() {
@@ -82,9 +94,9 @@ export default class Tasks extends React.Component {
   }
 
   render() {
-    const {projectId, participantsArr} = this.props;
+    const {projectId} = this.props;
     const tasks = this.state.tasks;
-    console.log(participantsArr);
+    const users = this.state.users;
 
     if (this.state.loading === false) {
       const projectTasks = tasks.filter(task => task.projectId === projectId);
@@ -103,10 +115,7 @@ export default class Tasks extends React.Component {
             </div>
             <div className='card-body'>
               <div className='tab-content'>
-                <MemberTask
-                  projectTasks={projectTasks}
-                  participantsArr={participantsArr}
-                />
+                <MemberTask projectTasks={projectTasks} />
               </div>
             </div>
           </div>
