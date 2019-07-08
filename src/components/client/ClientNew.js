@@ -30,12 +30,22 @@ class AddNewProject extends React.Component {
     this.handleLogoDelete = this.handleLogoDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.getClient = this.getClient.bind(this);
-    this.prefillClient = this.prefillClient.bind(this);
   }
 
   componentDidMount() {
     this.getClient();
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.client !== this.state.client) {
+  //     this.setState({
+  //       clientId: this.state.client.id,
+  //       name: this.state.client.name,
+  //       initials: this.state.client.initials,
+  //       contactInformation: this.state.client.contactInformation,
+  //       loading: false,
+  //     });
+  //   }
+  // }
 
   getClient() {
     fetch(
@@ -46,7 +56,11 @@ class AddNewProject extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          client: data.client,
+          clientId: data.client.id,
+          name: data.client.name,
+          initials: data.client.initials,
+          contactInformation: data.client.contactInformation,
+          loading: false,
         });
       })
       .catch(error => console.log(error));
@@ -60,17 +74,17 @@ class AddNewProject extends React.Component {
     }
   };
 
-  prefillClient() {
-    if (this.props.edit) {
-      this.setState({
-        id: this.state.client.id,
-        name: this.state.client.name,
-        initials: this.state.client.initials,
-        contactInformation: this.state.client.contactInformation,
-        loading: false,
-      });
-    }
-  }
+  // prefillClient() {
+  //   if (this.props.edit) {
+  //     this.setState({
+  //       id: this.state.client.id,
+  //       name: this.state.client.name,
+  //       initials: this.state.client.initials,
+  //       contactInformation: this.state.client.contactInformation,
+  //       loading: false,
+  //     });
+  //   }
+  // }
 
   handleEdit(e) {
     e.preventDefault();
@@ -79,16 +93,13 @@ class AddNewProject extends React.Component {
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
     };
-    fetch(
-      `https://lesewert.herokuapp.com/api/v1/clients/${this.state.client.id}`,
-      {
-        method: 'PUT',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-        body: JSON.stringify(body),
-      },
-    )
+    fetch(`http://localhost:3000/${this.state.client.id}`, {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify(body),
+    })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
           this.props.history.push('/clients');
@@ -129,7 +140,7 @@ class AddNewProject extends React.Component {
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
     };
-    fetch('https://lesewert.herokuapp.com/api/v1/clients', {
+    fetch('http://localhost:3000/api/v1/clients', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -192,8 +203,7 @@ class AddNewProject extends React.Component {
   }
 
   render() {
-    console.log(this.props.location.pathname);
-    console.log(this.state);
+    console.log(this.props.edit);
     return (
       <div className='container-fluid'>
         <div className='card'>
@@ -211,6 +221,7 @@ class AddNewProject extends React.Component {
                     <label for='inputTitle'>Name:</label>
                     <input
                       type='text'
+                      value={this.state.name}
                       name='name'
                       className='form-control inner-form'
                       id='inputTitle'
@@ -222,6 +233,7 @@ class AddNewProject extends React.Component {
                     <label for='inputInitials'>Initials:</label>
                     <input
                       type='text'
+                      value={this.state.initials}
                       name='initials'
                       className='form-control inner-form'
                       id='inputInitials'
@@ -233,6 +245,7 @@ class AddNewProject extends React.Component {
                     <label for='inputEmail'>Email:</label>
                     <input
                       type='email'
+                      value={this.state.contactInformation.email}
                       name='email'
                       className='form-control inner-form'
                       id='inputEmail'
@@ -244,6 +257,7 @@ class AddNewProject extends React.Component {
                     <label for='inputNumber'>Number:</label>
                     <input
                       type='text'
+                      value={this.state.contactInformation.number}
                       name='number'
                       className='form-control inner-form'
                       id='inputNumber'

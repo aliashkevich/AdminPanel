@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import ClientNew from '../components/client/ClientNew';
 
 export default function NewClient() {
+  const {edit} = props;
   return (
     <React.Fragment>
       <Header />
