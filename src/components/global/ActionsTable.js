@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ActionsTable.css';
-import {Link} from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
 
 function ActionsTable(props) {
   const {
@@ -13,6 +11,7 @@ function ActionsTable(props) {
     tableHead,
     tableData,
     tableColor,
+    editOnClick,
     deleteOnClick,
     // property name that will be used in modal window while delete
     confirmationFieldName,
@@ -70,17 +69,12 @@ function ActionsTable(props) {
                           </button>
                         )
                       ) : null}
-                      <Link
-                        to={`${props.location.pathname}/edit/${
-                          entities[rowIndex].id
-                        }`}>
-                        <button
-                          type='button'
-                          className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
-                          title='Edit'>
-                          <i className='material-icons'>edit</i>
-                        </button>
-                      </Link>
+                      <button
+                        type='button'
+                        className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
+                        title='Edit'>
+                        <i className='material-icons'>edit</i>
+                      </button>
                       <button
                         data-toggle='modal'
                         data-target={'#confirmDelete-' + rowIndex}
@@ -162,4 +156,4 @@ ActionsTable.propTypes = {
   updateOnChange: PropTypes.func,
 };
 
-export default withRouter(ActionsTable);
+export default ActionsTable;
