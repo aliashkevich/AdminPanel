@@ -1,36 +1,5 @@
 import React from 'react';
-
-function TaskTable(props) {
-  return (
-    <div className='tab-pane active'>
-      <table className='table'>
-        <thead className='text-info'>
-          <tr>
-            <th>Assignee</th>
-            <th>Title</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.projectTasks.map((task, i) => {
-            props.users.find(user => user.id === task.userId);
-            return <TaskRow task={task} users={props.users} key={i} />;
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function TaskRow(props) {
-  return (
-    <tr>
-      <td>{props.users.find(user => user.id === props.task.userId).name}</td>
-      <td>{props.task.summary}</td>
-      <td>{props.task.status}</td>
-    </tr>
-  );
-}
+import Table from '../global/Table';
 
 export default class ProjectTasks extends React.Component {
   static defaultProps = {
@@ -80,18 +49,21 @@ export default class ProjectTasks extends React.Component {
 
     if (this.state.loading === false) {
       const projectTasks = tasks.filter(task => task.projectId === projectId);
+      const tableData = projectTasks.map(task => [
+        users.find(user => user.id === task.userId).name,
+        task.summary,
+        task.status,
+      ]);
       return (
         <div className='col-lg-8 col-md-12 col-sm-12'>
-          <div className='card'>
-            <div className='card-header card-header-info'>
-              <h4 className='card-title'>Tasks</h4>
-            </div>
-            <div className='card-body'>
-              <div className='tab-content'>
-                <TaskTable projectTasks={projectTasks} users={users} />
-              </div>
-            </div>
-          </div>
+          <Table
+            projectTasks={projectTasks}
+            users={users}
+            tableName={'Tasks'}
+            tableHead={['Assignee', 'Title', 'Status']}
+            tableData={tableData}
+            tableColor={'info'}
+          />
         </div>
       );
     } else {
