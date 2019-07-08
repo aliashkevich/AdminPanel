@@ -141,7 +141,7 @@ class AddNewTask extends React.Component {
       <div className='container-fluid'>
         <div className='card'>
           <div className='card-header card-header-rose'>
-            <h4 className='card-title'>New Project</h4>
+            <h4 className='card-title'>New Task</h4>
           </div>
           <div className='card-body'>
             <br />
@@ -160,7 +160,7 @@ class AddNewTask extends React.Component {
                 </div>
                 <div className='col-sm-12 col-md-6 has-info clients'>
                   <label for='inputClient' className='text-info'>
-                    Client:
+                    Project:
                   </label>
                   <Select
                     id='inputClient'
@@ -197,24 +197,21 @@ class AddNewTask extends React.Component {
                     required
                   />
                 </div>
-                <div className='col-sm-12 col-md-6 has-info participants'>
-                  <label for='inputParticipants' className='text-info'>
-                    Participants:
-                  </label>
-                  <Select
-                    id='inputParticipants'
-                    name='participantSelect'
-                    value={this.state.participantSelect}
-                    options={participantOptions}
-                    onChange={this.handleParticipantChange}
-                    isMulti
-                    className='select'
-                    theme={styles.select.theme}
+              </div>
+              <div className='form-row'>
+                <div className='form-group col-sm-5 col-md-3 col-lg-3 has-info'>
+                  <label for='inputEstimation'>Estimation:</label>
+                  <textarea
+                    type='text'
+                    name='estimation'
+                    className='form-control'
+                    id='inputEstimation'
+                    onChange={this.handleChange}
+                    rows={1}
+                    placeholder='hours'
                     required
                   />
                 </div>
-              </div>
-              <div className='form-row'>
                 <div className='form-group col-sm-12 col-md-12 has-info'>
                   <label for='inputSummary'>Summary:</label>
                   <textarea
@@ -223,7 +220,19 @@ class AddNewTask extends React.Component {
                     className='form-control'
                     id='inputSummary'
                     onChange={this.handleChange}
-                    rows={10}
+                    rows={1}
+                    required
+                  />
+                </div>
+                <div className='form-group col-sm-12 col-md-12 has-info'>
+                  <label for='inputSummary'>Description:</label>
+                  <textarea
+                    type='text'
+                    name='summary'
+                    className='form-control'
+                    id='inputSummary'
+                    onChange={this.handleChange}
+                    rows={3}
                     required
                   />
                 </div>
