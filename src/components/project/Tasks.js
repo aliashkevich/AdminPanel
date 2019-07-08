@@ -2,12 +2,26 @@ import React from 'react';
 
 function MemberTab(props) {
   return (
-    <li className='nav-item'>
-      <a className='nav-link' href='#name1' data-toggle='tab'>
-        participant name
-        <div className='ripple-container' />
-      </a>
-    </li>
+    <div>
+      <li className='nav-item'>
+        <a className='nav-link' href='#' data-toggle='tab'>
+          all
+          <div className='ripple-container' />
+        </a>
+      </li>
+      <li className='nav-item'>
+        <a className='nav-link' href='#messages' data-toggle='tab'>
+          <i className='material-icons'>code</i> Website
+          <div className='ripple-container' />
+        </a>
+      </li>
+      <li className='nav-item'>
+        <a className='nav-link' href='#settings' data-toggle='tab'>
+          <i className='material-icons'>cloud</i> Server
+          <div className='ripple-container' />
+        </a>
+      </li>
+    </div>
   );
 }
 
@@ -16,8 +30,8 @@ function MemberTask(props) {
     <div className='tab-pane active' id='name1'>
       <table className='table'>
         <tbody>
-          {props.projectTasks.map(task => {
-            return <TaskRow task={task} />;
+          {props.projectTasks.map((task, i) => {
+            return <TaskRow task={task} key={i} />;
           })}
         </tbody>
       </table>
@@ -28,37 +42,10 @@ function MemberTask(props) {
 function TaskRow(props) {
   return (
     <tr>
-      <td>
-        <div className='form-check'>
-          <label className='form-check-label'>
-            <input
-              className='form-check-input'
-              type='checkbox'
-              value=''
-              checked
-            />
-            <span className='form-check-sign'>
-              <span className='check' />
-            </span>
-          </label>
-        </div>
-      </td>
+      <td>{props.participantsArr}</td>
       <td>{props.task.summary}</td>
-      <td className='td-actions text-right'>
-        <button
-          type='button'
-          rel='tooltip'
-          title='Edit Task'
-          className='btn btn-primary btn-link btn-sm'>
-          <i className='material-icons'>edit</i>
-        </button>
-        <button
-          type='button'
-          rel='tooltip'
-          title='Remove'
-          className='btn btn-danger btn-link btn-sm'>
-          <i className='material-icons'>close</i>
-        </button>
+      <td>
+        {props.task.startDate.slice(2, 10)} ~ {props.task.endDate.slice(2, 10)}
       </td>
     </tr>
   );
@@ -95,8 +82,10 @@ export default class Tasks extends React.Component {
   }
 
   render() {
-    const {projectId} = this.props;
+    const {projectId, participantsArr} = this.props;
     const tasks = this.state.tasks;
+    console.log(participantsArr);
+
     if (this.state.loading === false) {
       const projectTasks = tasks.filter(task => task.projectId === projectId);
       return (
@@ -107,14 +96,17 @@ export default class Tasks extends React.Component {
                 <div className='nav-tabs-wrapper'>
                   <span className='nav-tabs-title'>Tasks:</span>
                   <ul className='nav nav-tabs' data-tabs='tabs'>
-                    <MemberTab />
+                    {/* <MemberTab /> */}
                   </ul>
                 </div>
               </div>
             </div>
             <div className='card-body'>
               <div className='tab-content'>
-                <MemberTask projectTasks={projectTasks} />
+                <MemberTask
+                  projectTasks={projectTasks}
+                  participantsArr={participantsArr}
+                />
               </div>
             </div>
           </div>

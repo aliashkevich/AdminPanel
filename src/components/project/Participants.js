@@ -52,9 +52,9 @@ export default class Participants extends React.Component {
             </div>
             <div className='container-fluid container-padding'>
               <p className='card-category title-padding'>Participants</p>
-              {participants.map(participant => {
+              {participants.map((participant, i) => {
                 return (
-                  <div>
+                  <div key={i}>
                     <div>
                       <CircleImg logo={participant.image} />
                       <span className='font-grey'>{participant.name}</span>
