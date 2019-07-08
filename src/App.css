@@ -5,7 +5,7 @@
 
 @keyframes bounceIn {
   0% {
-    opacity: 0;
+    opacity: 0.6;
     transform: scale(0.9);
   }
   30% {
