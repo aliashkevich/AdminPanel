@@ -57,7 +57,7 @@ export default class Participants extends React.Component {
                   <div key={i}>
                     <div>
                       <CircleImg logo={participant.image} />
-                      <span className='font-grey'>{participant.name}</span>
+                      <span className='font-grey ml-1'>{participant.name}</span>
                     </div>
                   </div>
                 );
