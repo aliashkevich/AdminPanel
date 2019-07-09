@@ -4,7 +4,7 @@ import {withRouter} from 'react-router';
 import '../global/Form.css';
 import {config} from '../../util/config.js';
 
-class AddNewProject extends React.Component {
+class NewClient extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,6 +47,7 @@ class AddNewProject extends React.Component {
       name: this.state.name,
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
+      logo: this.state.logoPreview,
     };
     fetch(`${config.apiUrl}/clients`, {
       method: 'POST',
@@ -117,7 +118,7 @@ class AddNewProject extends React.Component {
               <div className='form-row'>
                 <div className='form-row col-md-8 client-wrap'>
                   <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
-                    <label for='inputTitle'>Name:</label>
+                    <label htmlFor='inputTitle'>Name:</label>
                     <input
                       type='text'
                       name='name'
@@ -128,7 +129,7 @@ class AddNewProject extends React.Component {
                     />
                   </div>
                   <div className='form-group col-sm-12 col-md-3 has-primary input-group'>
-                    <label for='inputInitials'>Initials:</label>
+                    <label htmlFor='inputInitials'>Initials:</label>
                     <input
                       type='text'
                       name='initials'
@@ -139,7 +140,7 @@ class AddNewProject extends React.Component {
                     />
                   </div>
                   <div className='form-group col-sm-12 col-md-7 has-primary input-group'>
-                    <label for='inputEmail'>Email:</label>
+                    <label htmlFor='inputEmail'>Email:</label>
                     <input
                       type='email'
                       name='email'
@@ -150,7 +151,7 @@ class AddNewProject extends React.Component {
                     />
                   </div>
                   <div className='form-group col-sm-12 col-md-5 has-primary input-group'>
-                    <label for='inputNumber'>Number:</label>
+                    <label htmlFor='inputNumber'>Number:</label>
                     <input
                       type='text'
                       name='number'
@@ -191,10 +192,10 @@ class AddNewProject extends React.Component {
                         className='fileInput'
                       />
                       <button
-                        class='btn btn-fab btn-danger btn-round client-button'
+                        className='btn btn-fab btn-danger btn-round client-button'
                         type='button'
                         onClick={this.handleLogoDelete}>
-                        <i class='fa fa-times' />
+                        <i className='fa fa-times' />
                       </button>
                     </div>
                   ) : (
@@ -240,4 +241,4 @@ class AddNewProject extends React.Component {
   }
 }
 
-export default withRouter(AddNewProject);
+export default withRouter(NewClient);
