@@ -30,7 +30,7 @@ const styles = {
   },
 };
 
-class AddNewProject extends React.Component {
+class ProjectNew extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -251,4 +251,4 @@ class AddNewProject extends React.Component {
   }
 }
 
-export default withRouter(AddNewProject);
+export default withRouter(ProjectNew);
