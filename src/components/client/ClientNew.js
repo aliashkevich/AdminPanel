@@ -47,16 +47,14 @@ class AddNewProject extends React.Component {
       name: this.state.name,
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
-      logo: this.state.logoPreview,
     };
-    const options = {
+    fetch(`${config.apiUrl}/clients`, {
       method: 'POST',
-      body: body,
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
-      },
-    };
-    fetch(`${config.apiUrl}/clients`, options)
+      }),
+      body: JSON.stringify(body),
+    })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
           this.props.history.push('/clients');
@@ -115,11 +113,7 @@ class AddNewProject extends React.Component {
             <h4 className='card-title'>New Client</h4>
           </div>
           <div className='card-body'>
-            <form
-              action='/upload'
-              method='post'
-              enctype='multipart/form-data'
-              onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
               <div className='form-row'>
                 <div className='form-row col-md-8 client-wrap'>
                   <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
@@ -189,11 +183,12 @@ class AddNewProject extends React.Component {
                       </button>
                       <input
                         type='file'
-                        accept='image/*'
-                        name='logo'
                         ref={ref => (this.fileInput = ref)}
+                        name='logo'
+                        accept='image/png, image/jpeg'
                         hidden
                         onChange={this.handleLogoChange}
+                        className='fileInput'
                       />
                       <button
                         class='btn btn-fab btn-danger btn-round client-button'
@@ -216,6 +211,7 @@ class AddNewProject extends React.Component {
                         name='logo'
                         hidden
                         onChange={this.handleLogoChange}
+                        className='fileInput'
                         accept='image/png, image/jpeg'
                       />
                     </div>
