@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Spinner from '../components/global/Spinner';
 import WelcomeBanner from '../components/dashboard/WelcomeBanner';
 import ProjectsDashboard from '../components/dashboard/ProjectsDashboard';
 import TasksDashboard from '../components/dashboard/TasksDashboard';
