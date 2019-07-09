@@ -30,9 +30,13 @@ const styles = {
 };
 
 class ProjectNew extends React.Component {
+  static defaultProps = {
+    url: 'https://lesewert.herokuapp.com/api/v1',
+  };
   constructor(props) {
     super(props);
     this.state = {
+      id: props.id,
       clients: [],
       clientSelect: [],
       title: '',
@@ -48,25 +52,48 @@ class ProjectNew extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    fetch('https://lesewert.herokuapp.com/api/v1/users')
+  getProject() {
+    fetch(
+      `${this.props.url}/projects/${this.props.location.pathname
+        .split('/')
+        .pop()}`,
+    )
       .then(res => res.json())
-      .then(data =>
+      .then(data => {
+        this.setState({
+          project: data.project,
+        });
+      })
+      .then(() => this.prefillProject())
+      .catch(error => console.log(error));
+  }
+
+  getUsers() {
+    fetch(`${this.props.url}/users`)
+      .then(res => res.json())
+      .then(data => {
         this.setState({
           participants: data.users,
-        }),
-      )
-      .catch(error => console.log(error))
-      .then(
-        fetch('https://lesewert.herokuapp.com/api/v1/clients')
-          .then(res => res.json())
-          .then(data =>
-            this.setState({
-              clients: data.clients,
-            }),
-          )
-          .catch(error => console.log(error)),
-      );
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  getClients() {
+    fetch(`${this.props.url}/clients`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          clients: data.clients,
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  componentDidMount() {
+    this.getProject();
+    this.getUsers();
+    this.getClients();
   }
 
   handleChange(e) {

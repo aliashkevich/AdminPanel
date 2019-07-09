@@ -12,6 +12,7 @@ import Tasks from './pages/Tasks';
 import Users from './pages/Users';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
+import ProjectEdit from './pages/ProjectEdit';
 
 function App() {
   const LoginContainer = () => (
@@ -30,6 +31,7 @@ function App() {
         <Route exact path='/projects' component={Project} />
         <Route path='/projects/new' component={NewProject} />
         <Route path='/projects/:id' component={ProjectDetail} />
+        <Route path='/projects/edit' component={ProjectEdit} />
         <Route exact path='/clients' component={Clients} />
         <Route path='/clients/new' component={NewClient} />
         <Route path='/profile' component={ProfilePage} />
