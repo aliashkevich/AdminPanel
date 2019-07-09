@@ -33,18 +33,18 @@ class AddNewTask extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clients: [],
-      clientSelect: [],
+      projects: [],
+      selectedProject: [],
       title: '',
       summary: '',
       startDate: '',
       endDate: '',
-      participants: [],
-      participantSelect: [],
+      assignee: [],
+      assigneeSelect: [],
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClientChange = this.handleClientChange.bind(this);
-    this.handleParticipantChange = this.handleParticipantChange.bind(this);
+    this.selectProject = this.selectProject.bind(this);
+    this.selectAssignee = this.selectAssignee.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -53,16 +53,16 @@ class AddNewTask extends React.Component {
       .then(res => res.json())
       .then(data =>
         this.setState({
-          participants: data.users,
+          assignee: data.users,
         }),
       )
       .catch(error => console.log(error))
       .then(
-        fetch('https://lesewert.herokuapp.com/api/v1/clients')
+        fetch('https://lesewert.herokuapp.com/api/v1/projects')
           .then(res => res.json())
           .then(data =>
             this.setState({
-              clients: data.clients,
+              projects: data.projects,
             }),
           )
           .catch(error => console.log(error)),
@@ -76,22 +76,22 @@ class AddNewTask extends React.Component {
     });
   }
 
-  handleClientChange(option) {
+  selectProject(option) {
     this.setState({
-      clientSelect: option,
+      selectedProject: option,
     });
   }
 
-  handleParticipantChange(option) {
+  selectAssignee(option) {
     this.setState({
-      participantSelect: option,
+      assigneeelect: option,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const newClient = this.state.clientSelect.value;
-    const newParticipants = this.state.participantSelect.map(participant => {
+    const newClient = this.state.selectedProject.value;
+    const newassignee = this.state.assigneeelect.map(participant => {
       return participant.value;
     });
     const body = {
@@ -100,7 +100,7 @@ class AddNewTask extends React.Component {
       summary: this.state.summary,
       startDate: this.state.startDate,
       endDate: this.state.endDate,
-      participants: newParticipants,
+      assignee: newassignee,
     };
     fetch('https://lesewert.herokuapp.com/api/v1/projects', {
       method: 'POST',
@@ -119,22 +119,22 @@ class AddNewTask extends React.Component {
       })
       .catch(error => console.log(error));
     this.setState({
-      clients: [],
-      clientSelect: [],
+      projects: [],
+      selectedProject: [],
       title: '',
       summary: '',
       startDate: '',
       endDate: '',
-      participants: [],
-      participantSelect: [],
+      assignee: [],
+      assigneeelect: [],
     });
   }
 
   render() {
-    let clientOptions = this.state.clients.map(client => {
+    let clientOptions = this.state.projects.map(client => {
       return {value: client.id, label: client.name};
     });
-    let participantOptions = this.state.participants.map(user => {
+    let participantOptions = this.state.assignee.map(user => {
       return {value: user.id, label: user.name};
     });
     return (
@@ -148,7 +148,7 @@ class AddNewTask extends React.Component {
             <form onSubmit={this.handleSubmit}>
               <div className='form-row'>
                 <div className='form-group col-sm-12 col-md-6 has-info input-group'>
-                  <label for='inputTitle'>Title:</label>
+                  <label htmlFor='inputTitle'>Title:</label>
                   <input
                     type='text'
                     name='title'
@@ -158,16 +158,16 @@ class AddNewTask extends React.Component {
                     required
                   />
                 </div>
-                <div className='col-sm-12 col-md-6 has-info clients'>
-                  <label for='inputClient' className='text-info'>
+                <div className='col-sm-12 col-md-6 has-info projects'>
+                  <label htmlFor='inputClient' className='text-info'>
                     Project:
                   </label>
                   <Select
                     id='inputClient'
-                    name='clientSelect'
-                    value={this.state.clientSelect}
+                    name='selectedProject'
+                    value={this.state.selectedProject}
                     options={clientOptions}
-                    onChange={this.handleClientChange}
+                    onChange={this.selectProject}
                     className='select'
                     theme={styles.select.theme}
                     required
@@ -176,7 +176,7 @@ class AddNewTask extends React.Component {
               </div>
               <div className='form-row'>
                 <div className='form-group col-sm-12 col-md-3 has-info input-group'>
-                  <label for='inputStartDate'>Start Date:</label>
+                  <label htmlFor='inputStartDate'>Start Date:</label>
                   <input
                     type='date'
                     name='startDate'
@@ -187,7 +187,7 @@ class AddNewTask extends React.Component {
                   />
                 </div>
                 <div className='form-group col-sm-12 col-md-3 has-info input-group'>
-                  <label for='inputEndDate'>End Date:</label>
+                  <label htmlFor='inputEndDate'>End Date:</label>
                   <input
                     type='date'
                     name='endDate'
@@ -200,7 +200,7 @@ class AddNewTask extends React.Component {
               </div>
               <div className='form-row'>
                 <div className='form-group col-sm-5 col-md-3 col-lg-3 has-info'>
-                  <label for='inputEstimation'>Estimation:</label>
+                  <label htmlFor='inputEstimation'>Estimation:</label>
                   <textarea
                     type='text'
                     name='estimation'
@@ -213,7 +213,7 @@ class AddNewTask extends React.Component {
                   />
                 </div>
                 <div className='form-group col-sm-12 col-md-12 has-info'>
-                  <label for='inputSummary'>Summary:</label>
+                  <label htmlFor='inputSummary'>Summary:</label>
                   <textarea
                     type='text'
                     name='summary'
@@ -225,7 +225,7 @@ class AddNewTask extends React.Component {
                   />
                 </div>
                 <div className='form-group col-sm-12 col-md-12 has-info'>
-                  <label for='inputSummary'>Description:</label>
+                  <label htmlFor='inputSummary'>Description:</label>
                   <textarea
                     type='text'
                     name='summary'
