@@ -21,8 +21,8 @@ class AddNewProject extends React.Component {
         email: '',
         number: '',
       },
-      client: '',
       loading: true,
+      edit: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,17 +35,6 @@ class AddNewProject extends React.Component {
   componentDidMount() {
     this.getClient();
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.client !== this.state.client) {
-  //     this.setState({
-  //       clientId: this.state.client.id,
-  //       name: this.state.client.name,
-  //       initials: this.state.client.initials,
-  //       contactInformation: this.state.client.contactInformation,
-  //       loading: false,
-  //     });
-  //   }
-  // }
 
   getClient() {
     fetch(
@@ -61,30 +50,11 @@ class AddNewProject extends React.Component {
           initials: data.client.initials,
           contactInformation: data.client.contactInformation,
           loading: false,
+          edit: true,
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => alert(error));
   }
-
-  searchName = (nameKey, myArray) => {
-    for (var i = 0; i < myArray.length; i++) {
-      if (myArray[i].id === nameKey) {
-        return myArray[i].name;
-      }
-    }
-  };
-
-  // prefillClient() {
-  //   if (this.props.edit) {
-  //     this.setState({
-  //       id: this.state.client.id,
-  //       name: this.state.client.name,
-  //       initials: this.state.client.initials,
-  //       contactInformation: this.state.client.contactInformation,
-  //       loading: false,
-  //     });
-  //   }
-  // }
 
   handleEdit(e) {
     e.preventDefault();
@@ -93,7 +63,7 @@ class AddNewProject extends React.Component {
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
     };
-    fetch(`http://localhost:3000/${this.state.client.id}`, {
+    fetch(`${this.props.url}/clients/${this.state.clientId}`, {
       method: 'PUT',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -108,7 +78,7 @@ class AddNewProject extends React.Component {
           alert('Sorry - something went wrong.');
         }
       })
-      .catch(error => alert(error));
+      .catch(error => console.log(error));
     this.setState({
       name: '',
       initials: '',
@@ -140,7 +110,7 @@ class AddNewProject extends React.Component {
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
     };
-    fetch('http://localhost:3000/api/v1/clients', {
+    fetch('${this.props.url}/api/v1/clients', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -203,144 +173,154 @@ class AddNewProject extends React.Component {
   }
 
   render() {
-    console.log(this.props.edit);
+    console.log(this.state);
     return (
-      <div className='container-fluid'>
-        <div className='card'>
-          <div className='card-header card-header-primary'>
-            <h4 className='card-title'>
-              {this.props.edit ? 'Edit Client' : 'New Client'}
-            </h4>
-          </div>
-          <div className='card-body'>
-            <form
-              onSubmit={this.props.edit ? this.handleEdit : this.handleSubmit}>
-              <div className='form-row'>
-                <div className='form-row col-md-8 client-wrap'>
-                  <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
-                    <label for='inputTitle'>Name:</label>
-                    <input
-                      type='text'
-                      value={this.state.name}
-                      name='name'
-                      className='form-control inner-form'
-                      id='inputTitle'
-                      onChange={this.handleChange}
-                      required
-                    />
+      <React.Fragment>
+        {this.state.loading ? (
+          <Spinner spinnerPosition={'global-spinner'} />
+        ) : (
+          <div className='container-fluid'>
+            <div className='card'>
+              <div className='card-header card-header-primary'>
+                <h4 className='card-title'>
+                  {this.state.edit ? 'Edit Client' : 'New Client'}
+                </h4>
+              </div>
+              <div className='card-body'>
+                <form
+                  onSubmit={
+                    this.state.edit ? this.handleEdit : this.handleSubmit
+                  }>
+                  <div className='form-row'>
+                    <div className='form-row col-md-8 client-wrap'>
+                      <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
+                        <label for='inputTitle'>Name:</label>
+                        <input
+                          type='text'
+                          value={this.state.name}
+                          name='name'
+                          className='form-control inner-form'
+                          id='inputTitle'
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
+                      <div className='form-group col-sm-12 col-md-3 has-primary input-group'>
+                        <label for='inputInitials'>Initials:</label>
+                        <input
+                          type='text'
+                          value={this.state.initials}
+                          name='initials'
+                          className='form-control inner-form'
+                          id='inputInitials'
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
+                      <div className='form-group col-sm-12 col-md-7 has-primary input-group'>
+                        <label for='inputEmail'>Email:</label>
+                        <input
+                          type='email'
+                          value={this.state.contactInformation.email}
+                          name='email'
+                          className='form-control inner-form'
+                          id='inputEmail'
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
+                      <div className='form-group col-sm-12 col-md-5 has-primary input-group'>
+                        <label for='inputNumber'>Number:</label>
+                        <input
+                          type='text'
+                          value={this.state.contactInformation.number}
+                          name='number'
+                          className='form-control inner-form'
+                          id='inputNumber'
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className='form-group col-sm-12 col-md-4 has-primary'
+                      align='center'>
+                      {this.state.logoLoaded === true ? (
+                        <img
+                          src={this.state.logoPreview}
+                          className='fileinput-new thumbnail img-raised logo'
+                          alt='avatar'
+                        />
+                      ) : (
+                        <div className='fileinput-new thumbnail img-raised logo-place-holder' />
+                      )}
+                      {this.state.logoLoaded === true ? (
+                        <div>
+                          <button
+                            className='btn btn-round btn-primary client-button'
+                            type='button'
+                            onClick={e => this.fileInput.click()}>
+                            Change Logo
+                          </button>
+                          <input
+                            type='file'
+                            ref={ref => (this.fileInput = ref)}
+                            name='logo'
+                            accept='image/png, image/jpeg'
+                            hidden
+                            onChange={this.handleLogoChange}
+                            className='fileInput'
+                          />
+                          <button
+                            class='btn btn-fab btn-danger btn-round client-button'
+                            type='button'
+                            onClick={this.handleLogoDelete}>
+                            <i class='fa fa-times' />
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            className='btn btn-round btn-primary client-button'
+                            type='button'
+                            onClick={e => this.fileInput.click()}>
+                            Select Logo
+                          </button>
+                          <input
+                            type='file'
+                            ref={ref => (this.fileInput = ref)}
+                            name='logo'
+                            hidden
+                            onChange={this.handleLogoChange}
+                            className='fileInput'
+                            accept='image/png, image/jpeg'
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className='form-group col-sm-12 col-md-3 has-primary input-group'>
-                    <label for='inputInitials'>Initials:</label>
-                    <input
-                      type='text'
-                      value={this.state.initials}
-                      name='initials'
-                      className='form-control inner-form'
-                      id='inputInitials'
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
-                  <div className='form-group col-sm-12 col-md-7 has-primary input-group'>
-                    <label for='inputEmail'>Email:</label>
-                    <input
-                      type='email'
-                      value={this.state.contactInformation.email}
-                      name='email'
-                      className='form-control inner-form'
-                      id='inputEmail'
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
-                  <div className='form-group col-sm-12 col-md-5 has-primary input-group'>
-                    <label for='inputNumber'>Number:</label>
-                    <input
-                      type='text'
-                      value={this.state.contactInformation.number}
-                      name='number'
-                      className='form-control inner-form'
-                      id='inputNumber'
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <div
-                  className='form-group col-sm-12 col-md-4 has-primary'
-                  align='center'>
-                  {this.state.logoLoaded === true ? (
-                    <img
-                      src={this.state.logoPreview}
-                      className='fileinput-new thumbnail img-raised logo'
-                      alt='avatar'
-                    />
-                  ) : (
-                    <div className='fileinput-new thumbnail img-raised logo-place-holder' />
-                  )}
-                  {this.state.logoLoaded === true ? (
-                    <div>
+                  <div className='form-row'>
+                    <div className=' form-group col-xs-1'>
+                      <Link to='/clients'>
+                        <button type='reset' className='btn btn-danger'>
+                          Cancel
+                        </button>
+                      </Link>
+                    </div>
+                    <div className='form-group col-xs-1 text-end ml-auto'>
                       <button
-                        className='btn btn-round btn-primary client-button'
-                        type='button'
-                        onClick={e => this.fileInput.click()}>
-                        Change Logo
-                      </button>
-                      <input
-                        type='file'
-                        ref={ref => (this.fileInput = ref)}
-                        name='logo'
-                        accept='image/png, image/jpeg'
-                        hidden
-                        onChange={this.handleLogoChange}
-                        className='fileInput'
-                      />
-                      <button
-                        class='btn btn-fab btn-danger btn-round client-button'
-                        type='button'
-                        onClick={this.handleLogoDelete}>
-                        <i class='fa fa-times' />
+                        type='submit'
+                        className='btn btn-success btn-right'>
+                        {this.state.edit ? 'Save' : 'Add'}
                       </button>
                     </div>
-                  ) : (
-                    <div>
-                      <button
-                        className='btn btn-round btn-primary client-button'
-                        type='button'
-                        onClick={e => this.fileInput.click()}>
-                        Select Logo
-                      </button>
-                      <input
-                        type='file'
-                        ref={ref => (this.fileInput = ref)}
-                        name='logo'
-                        hidden
-                        onChange={this.handleLogoChange}
-                        className='fileInput'
-                        accept='image/png, image/jpeg'
-                      />
-                    </div>
-                  )}
-                </div>
+                  </div>
+                </form>
               </div>
-              <div className='form-row'>
-                <div className=' form-group col-xs-1'>
-                  <Link to='/clients'>
-                    <button type='reset' className='btn btn-danger'>
-                      Cancel
-                    </button>
-                  </Link>
-                </div>
-                <div className='form-group col-xs-1 text-end ml-auto'>
-                  <button type='submit' className='btn btn-success btn-right'>
-                    {this.props.edit ? 'Save' : 'Add'}
-                  </button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+      </React.Fragment>
     );
   }
 }
