@@ -2,7 +2,7 @@ import React from 'react';
 import ClientInfo from './ClientInfo';
 import Participants from './Participants';
 import ProjectSummary from './ProjectSummary';
-import Tasks from './Tasks';
+import ProjectTasks from './ProjectTasks';
 import Spinner from '../global/Spinner';
 import './ProjectDetailCard.css';
 
@@ -75,7 +75,7 @@ export default class ProjectDetailCard extends React.Component {
                           <Participants
                             participantsArr={this.state.participants}
                           />
-                          <Tasks projectId={this.state.project.id} />
+                          <ProjectTasks projectId={this.state.project.id} />
                         </div>
                       </div>
                     </div>
