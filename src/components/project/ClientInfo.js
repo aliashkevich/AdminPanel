@@ -1,11 +1,8 @@
 import React from 'react';
 import CircleImg from './CircleImg';
+import {config} from '../../util/config.js';
 
 export default class ClientInfo extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -15,7 +12,7 @@ export default class ClientInfo extends React.Component {
     this.getClient = this.getClient.bind(this);
   }
   getClient() {
-    fetch(`${this.props.url}/clients/${this.props.clientId}`)
+    fetch(`${config.apiUrl}/clients/${this.props.clientId}`)
       .then(res => res.json())
       .then(data => {
         this.setState({

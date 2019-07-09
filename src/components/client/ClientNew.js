@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import '../global/Form.css';
+import {config} from '../../util/config.js';
 
 class AddNewProject extends React.Component {
   constructor(props) {
@@ -46,14 +47,16 @@ class AddNewProject extends React.Component {
       name: this.state.name,
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
+      logo: this.state.logoPreview,
     };
-    fetch('https://lesewert.herokuapp.com/api/v1/clients', {
+    const options = {
       method: 'POST',
-      headers: new Headers({
+      body: body,
+      headers: {
         'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(body),
-    })
+      },
+    };
+    fetch(`${config.apiUrl}/clients`, options)
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
           this.props.history.push('/clients');
@@ -63,11 +66,6 @@ class AddNewProject extends React.Component {
         }
       })
       .catch(error => alert(error));
-    this.setState({
-      name: '',
-      initials: '',
-      contactInformation: '',
-    });
   }
 
   handleLogoChange(e) {
@@ -117,7 +115,11 @@ class AddNewProject extends React.Component {
             <h4 className='card-title'>New Client</h4>
           </div>
           <div className='card-body'>
-            <form onSubmit={this.handleSubmit}>
+            <form
+              action='/upload'
+              method='post'
+              enctype='multipart/form-data'
+              onSubmit={this.handleSubmit}>
               <div className='form-row'>
                 <div className='form-row col-md-8 client-wrap'>
                   <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
@@ -187,12 +189,11 @@ class AddNewProject extends React.Component {
                       </button>
                       <input
                         type='file'
-                        ref={ref => (this.fileInput = ref)}
+                        accept='image/*'
                         name='logo'
-                        accept='image/png, image/jpeg'
+                        ref={ref => (this.fileInput = ref)}
                         hidden
                         onChange={this.handleLogoChange}
-                        className='fileInput'
                       />
                       <button
                         class='btn btn-fab btn-danger btn-round client-button'
@@ -215,7 +216,6 @@ class AddNewProject extends React.Component {
                         name='logo'
                         hidden
                         onChange={this.handleLogoChange}
-                        className='fileInput'
                         accept='image/png, image/jpeg'
                       />
                     </div>

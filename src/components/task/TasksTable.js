@@ -2,12 +2,10 @@ import React from 'react';
 import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
+import {getLocalDateFromUTC} from '../../util/date';
+import {config} from '../../util/config.js';
 
 export default class TasksTable extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -22,7 +20,7 @@ export default class TasksTable extends React.Component {
   }
 
   getTasks() {
-    fetch(`${this.props.url}/tasks`)
+    fetch(`${config.apiUrl}/tasks`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -42,7 +40,7 @@ export default class TasksTable extends React.Component {
     const options = {
       method: 'DELETE',
     };
-    fetch(`${this.props.url}/tasks/${task.id}`, options)
+    fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
@@ -56,7 +54,7 @@ export default class TasksTable extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-    fetch(`${this.props.url}/tasks/${task.id}`, options)
+    fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
@@ -73,8 +71,8 @@ export default class TasksTable extends React.Component {
       <Link to={`/tasks/${task.id}`} className='text-info'>
         {task.title}
       </Link>,
-      task.startDate.slice(0, 10),
-      task.endDate.slice(0, 10),
+      getLocalDateFromUTC(task.startDate),
+      getLocalDateFromUTC(task.endDate),
       task.estimation,
       task.assignee,
     ]);
