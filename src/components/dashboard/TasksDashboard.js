@@ -43,10 +43,10 @@ class TasksDashboard extends React.Component {
     ]);
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner />
-        ) : (
-          <div className='form-group col-lg-6 col-md-12'>
+        <div className='form-group col-lg-6 col-md-12'>
+          {this.state.loading ? (
+            <Spinner spinnerPosition={'inline-spinner'} />
+          ) : (
             <Table
               entities={this.state.tasks}
               tableName={'Tasks'}
@@ -55,8 +55,8 @@ class TasksDashboard extends React.Component {
               tableData={tableData.slice(0, 4)}
               tableColor={'rose'}
             />
-          </div>
-        )}
+          )}
+        </div>
       </React.Fragment>
     );
   }
