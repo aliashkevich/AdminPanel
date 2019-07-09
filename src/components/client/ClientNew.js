@@ -173,7 +173,6 @@ class AddNewProject extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <React.Fragment>
         {this.state.loading ? (
