@@ -3,8 +3,8 @@ import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import './UsersTable.css';
-import nullAvatar from '../../img/nullAvatar.png';
 import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class UsersTable extends React.Component {
   constructor(props) {
@@ -111,23 +111,7 @@ export default class UsersTable extends React.Component {
           tableName={'Users'}
           tableHead={['', 'Name', 'Email', 'Client', 'Project', 'Role']}
           tableData={this.state.users.map(user => [
-            user.image !== null ? (
-              <div className='card-avatar'>
-                <img
-                  className='img user-avatar'
-                  src={user.image}
-                  alt={user.name}
-                />
-              </div>
-            ) : (
-              <div className='card-avatar'>
-                <img
-                  className='img user-avatar'
-                  src={nullAvatar}
-                  alt={user.name}
-                />
-              </div>
-            ),
+            <CircleImg logo={user.image} />,
             <Link to={`/users/${user.id}`} className='text-info'>
               {user.name}
             </Link>,
