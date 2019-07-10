@@ -51,6 +51,9 @@ class ProjectNew extends React.Component {
       edit: false,
       projects: [],
       loading: true,
+      participantFlag: false,
+      clientFlag: false,
+      projectFlag: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -110,7 +113,7 @@ class ProjectNew extends React.Component {
           participantId: data.project.participants,
           projects: data.project,
           projectFlag: true,
-          loading: false,
+          edit: true,
         });
       })
       .catch(error => console.log(error));
@@ -128,24 +131,49 @@ class ProjectNew extends React.Component {
       let clientSelect = clientOptions.find(
         c => c.value === this.state.clientId,
       );
-      console.log(clientOptions);
-      console.log(clientSelect);
-      this.setState({
-        clientSelect,
-      });
       let participantOptions = this.state.participants.map(participant => {
         return {value: participant.id, label: participant.name};
       });
-      const participantSelect = participantOptions.map(
-        part => part.value[this.state.participantId],
-      );
-      console.log(participantOptions);
-      console.log(participantSelect);
+      const participantId = this.state.participantId;
+      const participantSelect = participantOptions.filter(currentObj => {
+        return participantId.includes(currentObj.value);
+      });
       this.setState({
+        clientSelect,
         participantSelect,
+        loading: false,
       });
     }
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(nextState);
+  //   console.log(this.state);
+  //   if (
+  //     nextState.clientFlag &&
+  //     nextState.projectFlag &&
+  //     nextState.participantFlag
+  //   ) {
+  //     let clientOptions = nextState.clients.map(client => {
+  //       return {value: client.id, label: client.name};
+  //     });
+  //     let clientSelect = clientOptions.find(
+  //       c => c.value === nextState.clientId,
+  //     );
+  //     let participantOptions = nextState.participants.map(participant => {
+  //       return {value: participant.id, label: participant.name};
+  //     });
+  //     const participantId = nextState.participantId;
+  //     const participantSelect = participantOptions.filter(currentObj => {
+  //       return participantId.includes(currentObj.value);
+  //     });
+  //     console.log(clientSelect);
+  //     console.log(participantSelect);
+  //     return {
+  //       clientSelect,
+  //       participantSelect,
+  //     };
+  //   }
 
   handleChange(e) {
     e.preventDefault();
