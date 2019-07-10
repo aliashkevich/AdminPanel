@@ -69,7 +69,6 @@ class ProjectNew extends React.Component {
     this.getUsers();
     this.getClients();
     this.getProject();
-    this.setState({});
   }
   getUsers() {
     fetch(`${this.props.url}/users`)
@@ -96,27 +95,29 @@ class ProjectNew extends React.Component {
   }
 
   getProject() {
-    fetch(
-      `${this.props.url}/projects/${this.props.location.pathname
-        .split('/')
-        .pop()}`,
-    )
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          id: data.project.id,
-          title: data.project.title,
-          summary: data.project.summary,
-          startDate: data.project.startDate.slice(0, 10),
-          endDate: data.project.endDate.slice(0, 10),
-          clientId: data.project.clientId,
-          participantId: data.project.participants,
-          projects: data.project,
-          projectFlag: true,
-          edit: true,
-        });
-      })
-      .catch(error => console.log(error));
+    if (this.props.location.pathname.split('/').pop() !== 'new') {
+      fetch(
+        `${this.props.url}/projects/${this.props.location.pathname
+          .split('/')
+          .pop()}`,
+      )
+        .then(res => res.json())
+        .then(data => {
+          this.setState({
+            id: data.project.id,
+            title: data.project.title,
+            summary: data.project.summary,
+            startDate: data.project.startDate.slice(0, 10),
+            endDate: data.project.endDate.slice(0, 10),
+            clientId: data.project.clientId,
+            participantId: data.project.participants,
+            projects: data.project,
+            projectFlag: true,
+            edit: true,
+          });
+        })
+        .catch(error => console.log(error));
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -235,6 +236,7 @@ class ProjectNew extends React.Component {
       participantSelect: [],
     });
   }
+
   handleEdit(e) {
     e.preventDefault();
     const newClient = this.state.clientSelect.value;
@@ -242,11 +244,11 @@ class ProjectNew extends React.Component {
       return participant.value;
     });
     const body = {
-      client_id: newClient,
+      clientId: newClient,
       title: this.state.title,
       summary: this.state.summary,
-      start_date: this.state.startDate,
-      end_date: this.state.endDate,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
       participants: newParticipants,
     };
     fetch(
@@ -270,11 +272,11 @@ class ProjectNew extends React.Component {
       .catch(error => console.log(error));
     this.setState({
       clients: [],
-      clientSelect: undefined,
+      clientSelect: [],
       title: '',
       summary: '',
-      start_date: '',
-      end_date: '',
+      startDate: '',
+      endDate: '',
       participants: [],
       participantSelect: [],
     });
