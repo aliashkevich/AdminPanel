@@ -21,7 +21,7 @@ class AddNewProject extends React.Component {
         email: '',
         number: '',
       },
-      loading: true,
+      loading: false,
       edit: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -37,23 +37,25 @@ class AddNewProject extends React.Component {
   }
 
   getClient() {
-    fetch(
-      `${this.props.url}/clients/${this.props.location.pathname
-        .split('/')
-        .pop()}`,
-    )
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          clientId: data.client.id,
-          name: data.client.name,
-          initials: data.client.initials,
-          contactInformation: data.client.contactInformation,
-          loading: false,
-          edit: true,
-        });
-      })
-      .catch(error => alert(error));
+    if (this.props.location.pathname.split('/').pop() !== 'new') {
+      fetch(
+        `${this.props.url}/clients/${this.props.location.pathname
+          .split('/')
+          .pop()}`,
+      )
+        .then(res => res.json())
+        .then(data => {
+          this.setState({
+            clientId: data.client.id,
+            name: data.client.name,
+            initials: data.client.initials,
+            contactInformation: data.client.contactInformation,
+            edit: true,
+            loading: false,
+          });
+        })
+        .catch(error => alert(error));
+    }
   }
 
   handleEdit(e) {

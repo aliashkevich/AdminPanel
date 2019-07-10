@@ -78,7 +78,8 @@ function ActionsTable(props) {
                         <button
                           type='button'
                           className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
-                          title='Edit'>
+                          title='Edit'
+                          props={entities[rowIndex].id}>
                           <i className='material-icons'>edit</i>
                         </button>
                       </Link>
