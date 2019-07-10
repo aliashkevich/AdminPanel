@@ -30,8 +30,8 @@ function App() {
         <Route path='/dashboard' component={Dashboard} />
         <Route exact path='/projects' component={Project} />
         <Route path='/projects/new' component={NewProject} />
-        <Route path='/projects/:id' component={ProjectDetail} />
-        <Route path='/projects/edit' component={ProjectEdit} />
+        <Route exact path='/projects/:id' component={ProjectDetail} />
+        <Route exact path='/projects/edit/:id' component={ProjectEdit} />
         <Route exact path='/clients' component={Clients} />
         <Route path='/clients/new' component={NewClient} />
         <Route path='/profile' component={ProfilePage} />

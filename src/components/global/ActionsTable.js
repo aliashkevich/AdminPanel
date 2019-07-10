@@ -72,9 +72,11 @@ function ActionsTable(props) {
                         )
                       ) : null}
                       <Link
-                        to={`${props.location.pathname}/edit/${
-                          entities[rowIndex].id
-                        }`}>
+                        to={{
+                          pathname: `${props.location.pathname}/edit/${
+                            entities[rowIndex].id
+                          }`,
+                        }}>
                         <button
                           type='button'
                           className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'

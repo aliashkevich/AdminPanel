@@ -4,8 +4,11 @@ import ProjectNew from '../components/project/ProjectNew';
 export default function NewProject() {
   return (
     <React.Fragment>
-      <ProjectNew />
-      <h1>Hello?</h1>
+      <div className='main-panel'>
+        <div className='content'>
+          <ProjectNew />
+        </div>
+      </div>
     </React.Fragment>
   );
 }
