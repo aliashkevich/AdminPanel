@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 function AddButton(props) {
   const {buttonName, visible} = props;
   return (
-    <button type='button' className={`btn btn-success grow ${visible}`}>
+    <button
+      type='button'
+      className={`btn btn-success add-button grow ${visible}`}>
       <i className='material-icons'>add_circle</i>
       {` ${buttonName}`}
     </button>

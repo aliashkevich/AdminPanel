@@ -17,10 +17,8 @@ class SmallCards extends React.Component {
       <React.Fragment>
         <div className='col-lg-3 col-md-3 col-sm-6'>
           <div className='card card-stats'>
-            <div
-              className={`card-header card-header-success card-header-icon bounce-in ${didMount &&
-                'visible'}`}>
-              <div className='card-icon'>
+            <div className='card-header card-header-success card-header-icon'>
+              <div className={`card-icon rotate-in ${didMount && 'visible'}`}>
                 <i className='material-icons'>group</i>
               </div>
               <p className='card-category'>Clients</p>
@@ -35,10 +33,8 @@ class SmallCards extends React.Component {
         </div>
         <div className='col-lg-3 col-md-3 col-sm-6'>
           <div className='card card-stats'>
-            <div
-              className={`card-header card-header-info card-header-icon bounce-in ${didMount &&
-                'visible'}`}>
-              <div className='card-icon'>
+            <div className='card-header card-header-info card-header-icon'>
+              <div className={`card-icon rotate-in ${didMount && 'visible'}`}>
                 <i className='material-icons'>person_outline</i>
               </div>
               <p className='card-category'>Users</p>

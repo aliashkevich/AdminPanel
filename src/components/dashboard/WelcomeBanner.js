@@ -19,17 +19,15 @@ class WelcomeBanner extends React.Component {
     return (
       <React.Fragment>
         <div className='col-md-6'>
-          <div className={`card grow ${didMount && 'visible'}`}>
-            <div
-              className={`card-header card-header-text card-header-primary bounce-in ${didMount &&
-                'visible'}`}>
-              <div className='card-text'>
+          <div className='card'>
+            <div className='card-header card-header-text card-header-primary'>
+              <div className={`card-text slide-down ${didMount && 'visible'}`}>
                 <h4 className='card-title'>
                   Welcome {parsedUser ? parsedUser.name : 'user'}
                 </h4>
               </div>
             </div>
-            <div className='card-body'>
+            <div className={`card-body grow ${didMount && 'visible'}`}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco...
