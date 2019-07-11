@@ -37,7 +37,7 @@ class NewClient extends React.Component {
   getClient() {
     if (this.props.location.pathname.split('/').pop() !== 'new') {
       fetch(
-        `${this.props.url}/clients/${this.props.location.pathname
+        `${config.apiUrl}/clients/${this.props.location.pathname
           .split('/')
           .pop()}`,
       )
@@ -63,7 +63,7 @@ class NewClient extends React.Component {
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
     };
-    fetch(`${this.props.url}/clients/${this.state.clientId}`, {
+    fetch(`${config.apiUrl}/clients/${this.state.clientId}`, {
       method: 'PUT',
       headers: new Headers({
         'Content-Type': 'application/json',
