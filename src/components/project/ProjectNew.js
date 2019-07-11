@@ -147,35 +147,6 @@ class ProjectNew extends React.Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(nextState);
-  //   console.log(this.state);
-  //   if (
-  //     nextState.clientFlag &&
-  //     nextState.projectFlag &&
-  //     nextState.participantFlag
-  //   ) {
-  //     let clientOptions = nextState.clients.map(client => {
-  //       return {value: client.id, label: client.name};
-  //     });
-  //     let clientSelect = clientOptions.find(
-  //       c => c.value === nextState.clientId,
-  //     );
-  //     let participantOptions = nextState.participants.map(participant => {
-  //       return {value: participant.id, label: participant.name};
-  //     });
-  //     const participantId = nextState.participantId;
-  //     const participantSelect = participantOptions.filter(currentObj => {
-  //       return participantId.includes(currentObj.value);
-  //     });
-  //     console.log(clientSelect);
-  //     console.log(participantSelect);
-  //     return {
-  //       clientSelect,
-  //       participantSelect,
-  //     };
-  //   }
-
   handleChange(e) {
     e.preventDefault();
     this.setState({
@@ -252,7 +223,9 @@ class ProjectNew extends React.Component {
       participants: newParticipants,
     };
     fetch(
-      `https://lesewert.herokuapp.com/api/v1/projects/${this.state.project.id}`,
+      `https://lesewert.herokuapp.com/api/v1/projects/${
+        this.state.projects.id
+      }`,
       {
         method: 'PUT',
         headers: new Headers({
@@ -289,7 +262,6 @@ class ProjectNew extends React.Component {
     let participantOptions = this.state.participants.map(user => {
       return {value: user.id, label: user.name};
     });
-    console.log(this.state);
     return (
       <React.Fragment>
         {this.state.loading ? (
