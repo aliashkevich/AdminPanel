@@ -267,10 +267,10 @@ class NewClient extends React.Component {
                             className='fileInput'
                           />
                           <button
-                            classNamer='btn btn-fab btn-danger btn-round client-button'
+                            className='btn btn-fab btn-danger btn-round client-button'
                             type='button'
                             onClick={this.handleLogoDelete}>
-                            <i classNamer='fa fa-times' />
+                            <i className='fa fa-times' />
                           </button>
                         </div>
                       ) : (
