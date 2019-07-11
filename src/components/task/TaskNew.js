@@ -99,6 +99,7 @@ class AddNewTask extends React.Component {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
       assignee: newAssignee,
+      status: 'new',
     };
     fetch('https://lesewert.herokuapp.com/api/v1/tasks', {
       method: 'POST',
