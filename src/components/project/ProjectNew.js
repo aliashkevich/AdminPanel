@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Select from 'react-select';
 import '../global/Form.css';
+import {config} from '../../util/config.js';
 
 const styles = {
   select: {
@@ -29,7 +30,7 @@ const styles = {
   },
 };
 
-class AddNewProject extends React.Component {
+class ProjectNew extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +50,7 @@ class AddNewProject extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://lesewert.herokuapp.com/api/v1/users')
+    fetch(`${config.apiUrl}/users`)
       .then(res => res.json())
       .then(data =>
         this.setState({
@@ -58,7 +59,7 @@ class AddNewProject extends React.Component {
       )
       .catch(error => console.log(error))
       .then(
-        fetch('https://lesewert.herokuapp.com/api/v1/clients')
+        fetch(`${config.apiUrl}/clients`)
           .then(res => res.json())
           .then(data =>
             this.setState({
@@ -98,11 +99,11 @@ class AddNewProject extends React.Component {
       clientId: newClient,
       title: this.state.title,
       summary: this.state.summary,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
+      startDate: new Date(this.state.startDate).toISOString(),
+      endDate: new Date(this.state.endDate).toISOString(),
       participants: newParticipants,
     };
-    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
+    fetch(`${config.apiUrl}/projects`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -250,4 +251,4 @@ class AddNewProject extends React.Component {
   }
 }
 
-export default withRouter(AddNewProject);
+export default withRouter(ProjectNew);

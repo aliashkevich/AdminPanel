@@ -1,24 +1,21 @@
+.global-spinner {
+  height: 70vh;
+}
+
+.inline-spinner {
+  height: 100%;
+}
+
 .spinner-wrapper {
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.spinner {
-  position: fixed;
-  top: 45%;
+.loading-message {
+  color: grey;
+  padding: 8px;
 }
-
-@media screen and (min-width: 992px) {
-  .spinner {
-    left: 55%;
-  }
-}
-
-@media screen and (max-width: 991px) {
-  .spinner {
-    left: 45%;
-  }
-}
-
 .lds-roller {
   display: inline-block;
   position: relative;
@@ -38,7 +35,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ddd;
+  background: lightgrey;
   margin: -3px 0 0 -3px;
 }
 

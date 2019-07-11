@@ -2,19 +2,19 @@ import React from 'react';
 import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
+import {getLocalDateFromUTC} from '../../util/date';
+import {config} from '../../util/config.js';
 
 export default class TasksTable extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
     this.state = {
       tasks: [],
+      loadingTasks: true,
+      users: [],
+      loadingUsers: true,
       updated: false,
-      loading: true,
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -22,16 +22,27 @@ export default class TasksTable extends React.Component {
   }
 
   getTasks() {
-    fetch(`${this.props.url}/tasks`)
+    fetch(`${config.apiUrl}/tasks`)
       .then(res => res.json())
       .then(data => {
         this.setState({
           tasks: data.tasks,
-          updated: false,
-          loading: false,
+          loadingTasks: false,
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .then(
+        fetch(`${config.apiUrl}/users`)
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+              users: data.users,
+              updated: false,
+              loadingUsers: false,
+            });
+          })
+          .catch(error => console.log(error)),
+      );
   }
 
   componentDidMount() {
@@ -42,7 +53,7 @@ export default class TasksTable extends React.Component {
     const options = {
       method: 'DELETE',
     };
-    fetch(`${this.props.url}/tasks/${task.id}`, options)
+    fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
@@ -56,7 +67,7 @@ export default class TasksTable extends React.Component {
         'Content-Type': 'application/json',
       },
     };
-    fetch(`${this.props.url}/tasks/${task.id}`, options)
+    fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
@@ -68,21 +79,28 @@ export default class TasksTable extends React.Component {
   }
 
   render() {
+    function findInArray(array, arrayItemKey, value, arrayItemProperty) {
+      var item = array.find(arrayItem => arrayItem[arrayItemKey] === value);
+      return item ? item[arrayItemProperty] : '';
+    }
+
     const tableData = this.state.tasks.map(task => [
       task.id,
       <Link to={`/tasks/${task.id}`} className='text-info'>
         {task.title}
       </Link>,
-      task.startDate.slice(0, 10),
-      task.endDate.slice(0, 10),
+      getLocalDateFromUTC(task.startDate),
+      getLocalDateFromUTC(task.endDate),
       task.estimation,
-      task.assignee,
+      task.userId
+        ? findInArray(this.state.users, 'id', task.userId, 'name')
+        : null,
     ]);
 
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner />
+        {this.state.loadingClients || this.state.loadingUsers ? (
+          <Spinner spinnerPosition={'global-spinner'} />
         ) : (
           <ActionsTable
             entities={this.state.tasks}

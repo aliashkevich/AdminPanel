@@ -1,11 +1,8 @@
 import React from 'react';
-import CircleImg from './CircleImg';
+import CircleImg from '../global/CircleImg';
+import {config} from '../../util/config.js';
 
 export default class Participants extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -16,7 +13,7 @@ export default class Participants extends React.Component {
     this.getUsers = this.getUsers.bind(this);
   }
   getUsers() {
-    fetch(`${this.props.url}/users`)
+    fetch(`${config.apiUrl}/users`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -52,12 +49,12 @@ export default class Participants extends React.Component {
             </div>
             <div className='container-fluid container-padding'>
               <p className='card-category title-padding'>Participants</p>
-              {participants.map(participant => {
+              {participants.map((participant, i) => {
                 return (
-                  <div>
+                  <div key={i}>
                     <div>
                       <CircleImg logo={participant.image} />
-                      <span className='font-grey'>{participant.name}</span>
+                      <span className='font-grey ml-1'>{participant.name}</span>
                     </div>
                   </div>
                 );

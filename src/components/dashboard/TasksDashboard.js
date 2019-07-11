@@ -2,11 +2,10 @@ import React from 'react';
 import Table from '../global/Table';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
+import {getLocalDateFromUTC} from '../../util/date';
+import {config} from '../../util/config.js';
 
 class TasksDashboard extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
   constructor(props) {
     super(props);
 
@@ -18,7 +17,7 @@ class TasksDashboard extends React.Component {
   }
 
   getTasks() {
-    fetch(`${this.props.url}/tasks`)
+    fetch(`${config.apiUrl}/tasks`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -38,15 +37,15 @@ class TasksDashboard extends React.Component {
       <Link to={`/tasks/${task.id}`} className='text-info'>
         {task.title}
       </Link>,
-      task.startDate.slice(0, 10),
-      task.endDate.slice(0, 10),
+      getLocalDateFromUTC(task.startDate),
+      getLocalDateFromUTC(task.endDate),
     ]);
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner />
-        ) : (
-          <div className='form-group col-lg-6 col-md-12'>
+        <div className='form-group col-lg-6 col-md-12'>
+          {this.state.loading ? (
+            <Spinner spinnerPosition={'inline-spinner'} />
+          ) : (
             <Table
               entities={this.state.tasks}
               tableName={'Tasks'}
@@ -55,8 +54,8 @@ class TasksDashboard extends React.Component {
               tableData={tableData.slice(0, 4)}
               tableColor={'rose'}
             />
-          </div>
-        )}
+          )}
+        </div>
       </React.Fragment>
     );
   }

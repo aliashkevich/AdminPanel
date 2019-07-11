@@ -2,12 +2,10 @@ import React from 'react';
 import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
+import {getLocalDateFromUTC} from '../../util/date';
+import {config} from '../../util/config.js';
 
 export default class ProjectsTable extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -21,7 +19,7 @@ export default class ProjectsTable extends React.Component {
   }
 
   getProjects() {
-    fetch(`${this.props.url}/projects`)
+    fetch(`${config.apiUrl}/projects`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -41,7 +39,7 @@ export default class ProjectsTable extends React.Component {
     const options = {
       method: 'DELETE',
     };
-    fetch(`${this.props.url}/projects/${project.id}`, options)
+    fetch(`${config.apiUrl}/projects/${project.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
@@ -65,15 +63,15 @@ export default class ProjectsTable extends React.Component {
         className='text-info'>
         {project.title}
       </Link>,
-      project.startDate.slice(0, 10),
-      project.endDate.slice(0, 10),
+      getLocalDateFromUTC(project.startDate),
+      getLocalDateFromUTC(project.endDate),
       project.participants.length,
     ]);
 
     return (
       <React.Fragment>
         {this.state.loading ? (
-          <Spinner />
+          <Spinner spinnerPosition={'global-spinner'} />
         ) : (
           <ActionsTable
             entities={this.state.projects}

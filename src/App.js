@@ -33,6 +33,7 @@ function App() {
         <Route path='/projects/:id' component={ProjectDetail} />
         <Route exact path='/clients' component={Clients} />
         <Route path='/clients/new' component={NewClient} />
+        <Route path='/clients/edit' component={NewClient} />
         <Route path='/profile' component={ProfilePage} />
         <Route exact path='/tasks' component={Tasks} />
         <Route path='/tasks/new' component={NewTask} />

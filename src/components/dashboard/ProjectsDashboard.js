@@ -2,22 +2,21 @@ import React from 'react';
 import Table from '../global/Table';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
+import {getLocalDateFromUTC} from '../../util/date';
+import {config} from '../../util/config.js';
 
 class ProjectsDashboard extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
   constructor(props) {
     super(props);
     this.state = {
       projects: [],
-      loading: true,
+      loading: false,
     };
     this.getProjects = this.getProjects.bind(this);
   }
 
   getProjects() {
-    fetch(`${this.props.url}/projects`)
+    fetch(`${config.apiUrl}/projects`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -37,15 +36,15 @@ class ProjectsDashboard extends React.Component {
       <Link to={`/projects/${project.id}`} className='text-info'>
         {project.title}
       </Link>,
-      project.startDate.slice(0, 10),
-      project.endDate.slice(0, 10),
+      getLocalDateFromUTC(project.startDate),
+      getLocalDateFromUTC(project.endDate),
     ]);
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner />
-        ) : (
-          <div className='form-group col-lg-6 col-md-12'>
+        <div className='form-group col-lg-6 col-md-12'>
+          {this.state.loading ? (
+            <Spinner spinnerPosition={'inline-spinner'} />
+          ) : (
             <Table
               entities={this.state.projects}
               tableName={'Projects'}
@@ -54,8 +53,8 @@ class ProjectsDashboard extends React.Component {
               tableData={tableData.slice(0, 4)}
               tableColor={'info'}
             />
-          </div>
-        )}
+          )}
+        </div>
       </React.Fragment>
     );
   }
