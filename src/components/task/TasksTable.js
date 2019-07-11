@@ -84,7 +84,7 @@ export default class TasksTable extends React.Component {
     return (
       <React.Fragment>
         {this.state.loading ? (
-          <Spinner />
+          <Spinner spinnerPosition={'global-spinner'} />
         ) : (
           <ActionsTable
             entities={this.state.tasks}

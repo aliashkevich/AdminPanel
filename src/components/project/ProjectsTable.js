@@ -74,7 +74,7 @@ export default class ProjectsTable extends React.Component {
     return (
       <React.Fragment>
         {this.state.loading ? (
-          <Spinner />
+          <Spinner spinnerPosition={'global-spinner'} />
         ) : (
           <ActionsTable
             entities={this.state.projects}

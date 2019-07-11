@@ -1,43 +1,53 @@
 import React from 'react';
 import ChartistGraph from 'react-chartist';
 import {completedTasksChart} from '../global/ChartConfig';
+import Spinner from '../global/Spinner';
 
 class DataGraph3 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       didMount: false,
+      loading: true,
     };
   }
-  componentDidMount() {
-    this.setState({didMount: true});
-  }
 
+  componentDidMount() {
+    this.setState({
+      loading: false,
+      idMount: true,
+    });
+  }
   render() {
     const {didMount} = this.state;
     return (
       <React.Fragment>
         <div className='col-md-4'>
-          <div className='card card-chart'>
-            <div className='card-header card-header-danger'>
-              <ChartistGraph
-                className='ct-chart'
-                data={completedTasksChart.data}
-                type='Line'
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </div>
-            <div className='card-body'>
-              <h4 className='card-title'>Active Projects</h4>
-              <p className='card-category'>Last Campaign Performance</p>
-            </div>
-            <div className={`card-footer bounce-in ${didMount && 'visible'}`}>
-              <div className='stats'>
-                <i className='material-icons'>access_time</i> updated 1 day ago
+          {this.state.loading ? (
+            <Spinner spinnerPosition={'inline-spinner'} />
+          ) : (
+            <div className='card card-chart'>
+              <div className='card-header card-header-danger'>
+                <ChartistGraph
+                  className='ct-chart'
+                  data={completedTasksChart.data}
+                  type='Line'
+                  options={completedTasksChart.options}
+                  listener={completedTasksChart.animation}
+                />
+              </div>
+              <div className='card-body'>
+                <h4 className='card-title'>Active Projects</h4>
+                <p className='card-category'>Last Campaign Performance</p>
+              </div>
+              <div className='card-footer'>
+                <div className='stats'>
+                  <i className='material-icons'>access_time</i> updated 1 day
+                  ago
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </React.Fragment>
     );

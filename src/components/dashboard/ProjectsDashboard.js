@@ -44,10 +44,10 @@ class ProjectsDashboard extends React.Component {
     ]);
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner />
-        ) : (
-          <div className='form-group col-lg-6 col-md-12'>
+        <div className='form-group col-lg-6 col-md-12'>
+          {this.state.loading ? (
+            <Spinner spinnerPosition={'inline-spinner'} />
+          ) : (
             <Table
               entities={this.state.projects}
               tableName={'Projects'}
@@ -57,8 +57,8 @@ class ProjectsDashboard extends React.Component {
               tableColor={'info'}
               visible={`${this.state.didMount && 'visible'}`}
             />
-          </div>
-        )}
+          )}
+        </div>
       </React.Fragment>
     );
   }

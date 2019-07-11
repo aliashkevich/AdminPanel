@@ -70,7 +70,7 @@ export default class ClientsTable extends React.Component {
     return (
       <React.Fragment>
         {this.state.loading ? (
-          <Spinner />
+          <Spinner spinnerPosition={'global-spinner'} />
         ) : (
           <ActionsTable
             entities={this.state.clients}

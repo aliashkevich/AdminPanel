@@ -106,7 +106,7 @@ export default class UsersTable extends React.Component {
       this.state.loadingRoles ||
       this.state.loadingUsers
     ) {
-      return <Spinner />;
+      return <Spinner spinnerPosition={'global-spinner'} />;
     } else {
       return (
         <ActionsTable
