@@ -1,8 +1,9 @@
 import React from 'react';
+import {getLocalDateFromUTC} from '../../util/date';
 
 function ProjectSummary(props) {
-  const startDate = props.project.startDate.slice(0, 10);
-  const endDate = props.project.endDate.slice(0, 10);
+  const startDate = getLocalDateFromUTC(props.project.startDate);
+  const endDate = getLocalDateFromUTC(props.project.endDate);
   return (
     <div className='col-lg-8 col-md-12 col-sm-12'>
       <div className='card'>

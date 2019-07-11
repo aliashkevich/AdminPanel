@@ -13,7 +13,6 @@ function ActionsTable(props) {
     tableHead,
     tableData,
     tableColor,
-    editOnClick,
     deleteOnClick,
     // property name that will be used in modal window while delete
     confirmationFieldName,
@@ -44,92 +43,99 @@ function ActionsTable(props) {
               </thead>
             ) : null}
             <tbody>
-              {tableData.map((dataRow, rowIndex) => {
-                return (
-                  <tr key={rowIndex}>
-                    {dataRow.map((dataColumn, columnIndex) => {
-                      return <td key={columnIndex}>{dataColumn}</td>;
-                    })}
-                    <td className='td-actions text-right'>
-                      {checkmarkFieldName ? (
-                        entities[rowIndex][checkmarkFieldName].toLowerCase() ===
-                        checkmarkValue.toLowerCase() ? (
-                          <span title='Task is done'>
-                            <a
-                              href='#'
-                              className='btn btn-success btn-fab btn-fab-mini btn-round btn-action disabled'>
+              {tableData !== undefined && tableData.length > 0 ? (
+                tableData.map((dataRow, rowIndex) => {
+                  return (
+                    <tr key={rowIndex}>
+                      {dataRow.map((dataColumn, columnIndex) => {
+                        return <td key={columnIndex}>{dataColumn}</td>;
+                      })}
+                      <td className='td-actions text-right'>
+                        {checkmarkFieldName ? (
+                          entities[rowIndex][
+                            checkmarkFieldName
+                          ].toLowerCase() === checkmarkValue.toLowerCase() ? (
+                            <span title='Task is done'>
+                              <a
+                                href='#'
+                                className='btn btn-success btn-fab btn-fab-mini btn-round btn-action disabled'>
+                                <i className='material-icons'>done</i>
+                              </a>
+                            </span>
+                          ) : (
+                            <button
+                              type='button'
+                              className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
+                              onClick={() => updateOnClick(entities[rowIndex])}
+                              title='Mark as done'>
                               <i className='material-icons'>done</i>
-                            </a>
-                          </span>
-                        ) : (
+                            </button>
+                          )
+                        ) : null}
+                        <Link
+                          to={`${props.location.pathname}/edit/${
+                            entities[rowIndex].id
+                          }`}>
                           <button
                             type='button'
-                            className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
-                            onClick={() => updateOnClick(entities[rowIndex])}
-                            title='Mark as done'>
-                            <i className='material-icons'>done</i>
+                            className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
+                            title='Edit'
+                            props={entities[rowIndex].id}>
+                            <i className='material-icons'>edit</i>
                           </button>
-                        )
-                      ) : null}
-                      <Link
-                        to={`${props.location.pathname}/edit/${
-                          entities[rowIndex].id
-                        }`}>
+                        </Link>
                         <button
+                          data-toggle='modal'
+                          data-target={'#confirmDelete-' + rowIndex}
                           type='button'
-                          className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
-                          title='Edit'
-                          props={entities[rowIndex].id}>
-                          <i className='material-icons'>edit</i>
+                          title='Delete'
+                          className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
+                          <i className='material-icons'>delete</i>
                         </button>
-                      </Link>
-                      <button
-                        data-toggle='modal'
-                        data-target={'#confirmDelete-' + rowIndex}
-                        type='button'
-                        title='Delete'
-                        className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
-                        <i className='material-icons'>delete</i>
-                      </button>
-                      <div
-                        className='modal fade text-left'
-                        id={'confirmDelete-' + rowIndex}
-                        tabIndex='-1'
-                        role='dialog'
-                        aria-labelledby='confirmDelete'
-                        aria-hidden='true'>
-                        <div className='modal-dialog' role='document'>
-                          <div className='modal-content'>
-                            <div className='modal-body'>
-                              Are you sure you wish to delete{' '}
-                              <span className={`text-${tableColor}`}>
-                                {entities[rowIndex][confirmationFieldName]}?
-                              </span>
-                            </div>
-                            <div className='modal-footer justify-content-end'>
-                              <button
-                                type='button'
-                                className='btn btn-modal btn-secondary'
-                                data-dismiss='modal'>
-                                Cancel
-                              </button>
-                              <button
-                                type='button'
-                                className={`btn btn-modal btn-${tableColor}`}
-                                data-dismiss='modal'
-                                onClick={() =>
-                                  deleteOnClick(entities[rowIndex])
-                                }>
-                                Delete
-                              </button>
+                        <div
+                          className='modal fade text-left'
+                          id={'confirmDelete-' + rowIndex}
+                          tabIndex='-1'
+                          role='dialog'
+                          aria-labelledby='confirmDelete'
+                          aria-hidden='true'>
+                          <div className='modal-dialog' role='document'>
+                            <div className='modal-content'>
+                              <div className='modal-body'>
+                                Are you sure you wish to delete{' '}
+                                <span className={`text-${tableColor}`}>
+                                  {entities[rowIndex][confirmationFieldName]}?
+                                </span>
+                              </div>
+                              <div className='modal-footer justify-content-end'>
+                                <button
+                                  type='button'
+                                  className='btn btn-modal btn-secondary'
+                                  data-dismiss='modal'>
+                                  Cancel
+                                </button>
+                                <button
+                                  type='button'
+                                  className={`btn btn-modal btn-${tableColor}`}
+                                  data-dismiss='modal'
+                                  onClick={() =>
+                                    deleteOnClick(entities[rowIndex])
+                                  }>
+                                  Delete
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td>There are no active {tableName.toLowerCase()}</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -156,7 +162,6 @@ ActionsTable.propTypes = {
     'info',
     'rose',
   ]),
-  editOnClick: PropTypes.func,
   deleteOnClick: PropTypes.func,
   confirmationFieldName: PropTypes.string,
   checkmarkFieldName: PropTypes.string,

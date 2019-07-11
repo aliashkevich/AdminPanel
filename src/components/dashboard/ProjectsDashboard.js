@@ -2,11 +2,10 @@ import React from 'react';
 import Table from '../global/Table';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
+import {getLocalDateFromUTC} from '../../util/date';
+import {config} from '../../util/config.js';
 
 class ProjectsDashboard extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +16,7 @@ class ProjectsDashboard extends React.Component {
   }
 
   getProjects() {
-    fetch(`${this.props.url}/projects`)
+    fetch(`${config.apiUrl}/projects`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -37,8 +36,8 @@ class ProjectsDashboard extends React.Component {
       <Link to={`/projects/${project.id}`} className='text-info'>
         {project.title}
       </Link>,
-      project.startDate.slice(0, 10),
-      project.endDate.slice(0, 10),
+      getLocalDateFromUTC(project.startDate),
+      getLocalDateFromUTC(project.endDate),
     ]);
     return (
       <React.Fragment>

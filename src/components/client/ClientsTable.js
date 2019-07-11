@@ -2,12 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import ActionsTable from '../global/ActionsTable';
 import Spinner from '../global/Spinner';
+import {config} from '../../util/config.js';
 
 export default class ClientsTable extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -26,7 +23,7 @@ export default class ClientsTable extends React.Component {
   }
 
   getClients() {
-    fetch(`${this.props.url}/clients`)
+    fetch(`${config.apiUrl}/clients`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -42,7 +39,7 @@ export default class ClientsTable extends React.Component {
     const options = {
       method: 'DELETE',
     };
-    fetch(`${this.props.url}/clients/${client.id}`, options)
+    fetch(`${config.apiUrl}/clients/${client.id}`, options)
       .then(res => res.json())
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));

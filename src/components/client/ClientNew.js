@@ -2,12 +2,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import '../global/Form.css';
+import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
 
-class AddNewProject extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
+class NewClient extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +37,7 @@ class AddNewProject extends React.Component {
   getClient() {
     if (this.props.location.pathname.split('/').pop() !== 'new') {
       fetch(
-        `${this.props.url}/clients/${this.props.location.pathname
+        `${config.apiUrl}/clients/${this.props.location.pathname
           .split('/')
           .pop()}`,
       )
@@ -65,7 +63,7 @@ class AddNewProject extends React.Component {
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
     };
-    fetch(`${this.props.url}/clients/${this.state.clientId}`, {
+    fetch(`${config.apiUrl}/clients/${this.state.clientId}`, {
       method: 'PUT',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -111,8 +109,9 @@ class AddNewProject extends React.Component {
       name: this.state.name,
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
+      logo: this.state.logoPreview,
     };
-    fetch('${this.props.url}/api/v1/clients', {
+    fetch(`${config.apiUrl}/clients`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -128,11 +127,6 @@ class AddNewProject extends React.Component {
         }
       })
       .catch(error => alert(error));
-    this.setState({
-      name: '',
-      initials: '',
-      contactInformation: '',
-    });
   }
 
   handleLogoChange(e) {
@@ -195,7 +189,7 @@ class AddNewProject extends React.Component {
                   <div className='form-row'>
                     <div className='form-row col-md-8 client-wrap'>
                       <div className='form-group col-sm-12 col-md-9 has-primary input-group'>
-                        <label for='inputTitle'>Name:</label>
+                        <label htmlFor='inputTitle'>Name:</label>
                         <input
                           type='text'
                           value={this.state.name}
@@ -207,7 +201,7 @@ class AddNewProject extends React.Component {
                         />
                       </div>
                       <div className='form-group col-sm-12 col-md-3 has-primary input-group'>
-                        <label for='inputInitials'>Initials:</label>
+                        <label htmlFor='inputInitials'>Initials:</label>
                         <input
                           type='text'
                           value={this.state.initials}
@@ -219,7 +213,7 @@ class AddNewProject extends React.Component {
                         />
                       </div>
                       <div className='form-group col-sm-12 col-md-7 has-primary input-group'>
-                        <label for='inputEmail'>Email:</label>
+                        <label htmlFor='inputEmail'>Email:</label>
                         <input
                           type='email'
                           value={this.state.contactInformation.email}
@@ -231,7 +225,7 @@ class AddNewProject extends React.Component {
                         />
                       </div>
                       <div className='form-group col-sm-12 col-md-5 has-primary input-group'>
-                        <label for='inputNumber'>Number:</label>
+                        <label htmlFor='inputNumber'>Number:</label>
                         <input
                           type='text'
                           value={this.state.contactInformation.number}
@@ -273,10 +267,10 @@ class AddNewProject extends React.Component {
                             className='fileInput'
                           />
                           <button
-                            class='btn btn-fab btn-danger btn-round client-button'
+                            className='btn btn-fab btn-danger btn-round client-button'
                             type='button'
                             onClick={this.handleLogoDelete}>
-                            <i class='fa fa-times' />
+                            <i className='fa fa-times' />
                           </button>
                         </div>
                       ) : (
@@ -326,4 +320,4 @@ class AddNewProject extends React.Component {
   }
 }
 
-export default withRouter(AddNewProject);
+export default withRouter(NewClient);
