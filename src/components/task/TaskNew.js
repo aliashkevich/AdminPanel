@@ -34,7 +34,7 @@ class AddNewTask extends React.Component {
     super(props);
     this.state = {
       projects: [],
-      selectedProject: [],
+      projectSelect: [],
       title: '',
       summary: '',
       startDate: '',
@@ -43,8 +43,8 @@ class AddNewTask extends React.Component {
       assigneeSelect: [],
     };
     this.handleChange = this.handleChange.bind(this);
-    this.selectProject = this.selectProject.bind(this);
-    this.selectAssignee = this.selectAssignee.bind(this);
+    this.handleProjectChange = this.handleProjectChange.bind(this);
+    this.handleAssigneeChange = this.handleAssigneeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -76,33 +76,31 @@ class AddNewTask extends React.Component {
     });
   }
 
-  selectProject(option) {
+  handleProjectChange(option) {
     this.setState({
-      selectedProject: option,
+      projectSelect: option,
     });
   }
 
-  selectAssignee(option) {
+  handleAssigneeChange(option) {
     this.setState({
-      assigneeelect: option,
+      assigneeSelect: option,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const newClient = this.state.selectedProject.value;
-    const newassignee = this.state.assigneeelect.map(participant => {
-      return participant.value;
-    });
+    const newProject = this.state.projectSelect.value;
+    const newAssignee = this.state.assigneeSelect.value;
     const body = {
-      clientId: newClient,
+      projectId: newProject,
       title: this.state.title,
       summary: this.state.summary,
       startDate: this.state.startDate,
       endDate: this.state.endDate,
-      assignee: newassignee,
+      assignee: newAssignee,
     };
-    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
+    fetch('https://lesewert.herokuapp.com/api/v1/tasks', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -111,7 +109,7 @@ class AddNewTask extends React.Component {
     })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
-          this.props.history.push('/projects');
+          this.props.history.push('/tasks');
           return res;
         } else {
           alert('Sorry - something went wrong.');
@@ -120,7 +118,7 @@ class AddNewTask extends React.Component {
       .catch(error => console.log(error));
     this.setState({
       projects: [],
-      selectedProject: [],
+      projectSelect: [],
       title: '',
       summary: '',
       startDate: '',
@@ -131,10 +129,10 @@ class AddNewTask extends React.Component {
   }
 
   render() {
-    let clientOptions = this.state.projects.map(client => {
-      return {value: client.id, label: client.name};
+    let projectOptions = this.state.projects.map(project => {
+      return {value: project.id, label: project.title};
     });
-    let participantOptions = this.state.assignee.map(user => {
+    let assigneeOptions = this.state.assignee.map(user => {
       return {value: user.id, label: user.name};
     });
     return (
@@ -164,10 +162,10 @@ class AddNewTask extends React.Component {
                   </label>
                   <Select
                     id='inputClient'
-                    name='selectedProject'
-                    value={this.state.selectedProject}
-                    options={clientOptions}
-                    onChange={this.selectProject}
+                    name='projectSelect'
+                    value={this.state.projectSelect}
+                    options={projectOptions}
+                    onChange={this.handleProjectChange}
                     className='select'
                     theme={styles.select.theme}
                     required
@@ -194,6 +192,21 @@ class AddNewTask extends React.Component {
                     className='form-control inner-form'
                     id='inputEndDate'
                     onChange={this.handleChange}
+                    required
+                  />
+                </div>
+                <div className='col-sm-12 col-md-6 has-info projects'>
+                  <label htmlFor='inputClient' className='text-info'>
+                    Assignee:
+                  </label>
+                  <Select
+                    id='inputClient'
+                    name='projectSelect'
+                    value={this.state.assigneeSelect}
+                    options={assigneeOptions}
+                    onChange={this.handleAssigneeChange}
+                    className='select'
+                    theme={styles.select.theme}
                     required
                   />
                 </div>
