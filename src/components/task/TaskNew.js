@@ -234,7 +234,7 @@ class AddNewTask extends React.Component {
                   className='form-control'
                   id='inputSummary'
                   onChange={this.handleChange}
-                  rows={1}
+                  rows={10}
                   required
                 />
               </div>
@@ -246,7 +246,7 @@ class AddNewTask extends React.Component {
                   className='form-control'
                   id='inputSummary'
                   onChange={this.handleChange}
-                  rows={3}
+                  rows={10}
                   required
                 />
               </div>
