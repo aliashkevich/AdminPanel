@@ -220,7 +220,7 @@ class ProjectNew extends React.Component {
       endDate: this.state.endDate,
       participants: newParticipants,
     };
-    fetch(`${config.apiUrl}/${this.state.projects.id}`, {
+    fetch(`${config.apiUrl}/projects/${this.state.projects.id}`, {
       method: 'PUT',
       headers: new Headers({
         'Content-Type': 'application/json',
