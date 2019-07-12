@@ -4,13 +4,10 @@ import Participants from './Participants';
 import ProjectSummary from './ProjectSummary';
 import ProjectTasks from './ProjectTasks';
 import Spinner from '../global/Spinner';
+import {config} from '../../util/config.js';
 import './ProjectDetailCard.css';
 
 export default class ProjectDetailCard extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -24,7 +21,7 @@ export default class ProjectDetailCard extends React.Component {
   }
 
   getProject() {
-    fetch(`${this.props.url}/projects/${this.state.id}`)
+    fetch(`${config.apiUrl}/projects/${this.state.id}`)
       .then(res => res.json())
       .then(data => {
         this.setState({

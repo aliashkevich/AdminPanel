@@ -4,6 +4,7 @@ import {withRouter} from 'react-router';
 import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
+import {config} from '../../util/config.js';
 
 const styles = {
   select: {
@@ -71,7 +72,7 @@ class ProjectNew extends React.Component {
     this.getProject();
   }
   getUsers() {
-    fetch(`${this.props.url}/users`)
+    fetch(`${config.apiUrl}/users`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -83,7 +84,7 @@ class ProjectNew extends React.Component {
   }
 
   getClients() {
-    fetch(`${this.props.url}/clients`)
+    fetch(`${config.apiUrl}/clients`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -97,7 +98,7 @@ class ProjectNew extends React.Component {
   getProject() {
     if (this.props.location.pathname.split('/').pop() !== 'new') {
       fetch(
-        `${this.props.url}/projects/${this.props.location.pathname
+        `${config.apiUrl}/projects/${this.props.location.pathname
           .split('/')
           .pop()}`,
       )
@@ -176,11 +177,11 @@ class ProjectNew extends React.Component {
       clientId: newClient,
       title: this.state.title,
       summary: this.state.summary,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
+      startDate: new Date(this.state.startDate).toISOString(),
+      endDate: new Date(this.state.endDate).toISOString(),
       participants: newParticipants,
     };
-    fetch('https://lesewert.herokuapp.com/api/v1/projects', {
+    fetch(`${config.apiUrl}/projects`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',

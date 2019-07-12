@@ -1,23 +1,22 @@
 import React from 'react';
 import Table from '../global/Table';
+import {config} from '../../util/config.js';
+import Spinner from '../global/Spinner';
 
 export default class ProjectTasks extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
     this.state = {
       loading: true,
-      tasks: {},
-      users: {},
+      tasks: [],
+      users: [],
     };
     this.getTasks = this.getTasks.bind(this);
   }
+
   getTasks() {
-    fetch(`${this.props.url}/tasks`)
+    fetch(`${config.apiUrl}/tasks`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -26,7 +25,7 @@ export default class ProjectTasks extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${this.props.url}/users`)
+        fetch(`${config.apiUrl}/users`)
           .then(res => res.json())
           .then(data => {
             this.setState({
@@ -43,31 +42,35 @@ export default class ProjectTasks extends React.Component {
   }
 
   render() {
-    const {projectId} = this.props;
-    const tasks = this.state.tasks;
-    const users = this.state.users;
+    function findInArray(array, arrayItemKey, value, arrayItemProperty) {
+      var item = array.find(arrayItem => arrayItem[arrayItemKey] === value);
+      return item ? item[arrayItemProperty] : '';
+    }
 
-    if (this.state.loading === false) {
-      const projectTasks = tasks.filter(task => task.projectId === projectId);
-      const tableData = projectTasks.map(task => [
-        users.find(user => user.id === task.userId).name,
-        task.summary,
-        task.status,
-      ]);
-      return (
-        <div className='col-lg-8 col-md-12 col-sm-12'>
+    const projectTasks = this.state.tasks.filter(
+      task => task.projectId === this.props.projectId,
+    );
+
+    const tableData = projectTasks.map(task => [
+      task.userId
+        ? findInArray(this.state.users, 'id', task.userId, 'name')
+        : null,
+      task.title,
+      task.status,
+    ]);
+    return (
+      <div className='col-lg-8 col-md-12 col-sm-12'>
+        {this.state.loading ? (
+          <Spinner spinnerPosition={'inline-spinner'} />
+        ) : (
           <Table
-            projectTasks={projectTasks}
-            users={users}
             tableName={'Tasks'}
             tableHead={['Assignee', 'Title', 'Status']}
             tableData={tableData}
             tableColor={'info'}
           />
-        </div>
-      );
-    } else {
-      return null;
-    }
+        )}
+      </div>
+    );
   }
 }

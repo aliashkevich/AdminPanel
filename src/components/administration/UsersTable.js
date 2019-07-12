@@ -3,13 +3,10 @@ import ActionsTable from '../global/ActionsTable';
 import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import './UsersTable.css';
-import nullAvatar from '../../img/nullAvatar.png';
+import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class UsersTable extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -30,7 +27,7 @@ export default class UsersTable extends React.Component {
   }
 
   getUsersData() {
-    fetch(`${this.props.url}/clients`)
+    fetch(`${config.apiUrl}/clients`)
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -40,7 +37,7 @@ export default class UsersTable extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${this.props.url}/projects`)
+        fetch(`${config.apiUrl}/projects`)
           .then(res => res.json())
           .then(data => {
             this.setState({
@@ -50,7 +47,7 @@ export default class UsersTable extends React.Component {
           })
           .catch(error => console.log(error))
           .then(
-            fetch(`${this.props.url}/roles`)
+            fetch(`${config.apiUrl}/roles`)
               .then(res => res.json())
               .then(data => {
                 this.setState({
@@ -60,7 +57,7 @@ export default class UsersTable extends React.Component {
               })
               .catch(error => console.log(error))
               .then(
-                fetch(`${this.props.url}/users`)
+                fetch(`${config.apiUrl}/users`)
                   .then(res => res.json())
                   .then(data => {
                     this.setState({
@@ -83,7 +80,7 @@ export default class UsersTable extends React.Component {
     const options = {
       method: 'DELETE',
     };
-    fetch(`${this.props.url}/users/${user.id}`, options)
+    fetch(`${config.apiUrl}/users/${user.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
@@ -114,23 +111,7 @@ export default class UsersTable extends React.Component {
           tableName={'Users'}
           tableHead={['', 'Name', 'Email', 'Client', 'Project', 'Role']}
           tableData={this.state.users.map(user => [
-            user.image !== null ? (
-              <div className='card-avatar'>
-                <img
-                  className='img user-avatar'
-                  src={user.image}
-                  alt={user.name}
-                />
-              </div>
-            ) : (
-              <div className='card-avatar'>
-                <img
-                  className='img user-avatar'
-                  src={nullAvatar}
-                  alt={user.name}
-                />
-              </div>
-            ),
+            <CircleImg logo={user.image} />,
             <Link to={`/users/${user.id}`} className='text-info'>
               {user.name}
             </Link>,

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/login/LoginForm';
 import {Redirect} from 'react-router-dom';
+import {config} from '../util/config';
 
 class Login extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    fetch('https://lesewert.herokuapp.com/api/v1/users')
+    fetch(`${config.apiUrl}/users`)
       .then(res => res.json())
       .then(data => {
         this.setState({
