@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Select from 'react-select';
 import '../global/Form.css';
+import {config} from '../../util/config.js';
 
 const styles = {
   select: {
@@ -101,7 +102,7 @@ class AddNewTask extends React.Component {
       assignee: newAssignee,
       status: 'new',
     };
-    fetch('https://lesewert.herokuapp.com/api/v1/tasks', {
+    fetch(`${config.apiUrl}/tasks`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -174,7 +175,7 @@ class AddNewTask extends React.Component {
                 </div>
               </div>
               <div className='form-row'>
-                <div className='form-group col-sm-12 col-md-3 has-info input-group'>
+                <div className='form-group col-sm-12 col-md-2 col-lg-2 has-info input-group'>
                   <label htmlFor='inputStartDate'>Start Date:</label>
                   <input
                     type='date'
@@ -185,7 +186,7 @@ class AddNewTask extends React.Component {
                     required
                   />
                 </div>
-                <div className='form-group col-sm-12 col-md-3 has-info input-group'>
+                <div className='form-group col-sm-12 col-md-2 col-lg-2 has-info input-group'>
                   <label htmlFor='inputEndDate'>End Date:</label>
                   <input
                     type='date'
@@ -196,7 +197,20 @@ class AddNewTask extends React.Component {
                     required
                   />
                 </div>
-                <div className='col-sm-12 col-md-6 has-info projects'>
+                <div className='form-group col-sm-5 col-md-2 col-lg-2 has-info input-group'>
+                  <label htmlFor='inputEstimation'>Estimation: (hours)</label>
+                  <textarea
+                    type='text'
+                    name='estimation'
+                    className='form-control'
+                    id='inputEstimation'
+                    onChange={this.handleChange}
+                    rows={1}
+                    placeholder='hours'
+                    required
+                  />
+                </div>
+                <div className='col-sm-12 col-md-6 col-lg-6 has-info projects'>
                   <label htmlFor='inputClient' className='text-info'>
                     Assignee:
                   </label>
@@ -212,44 +226,29 @@ class AddNewTask extends React.Component {
                   />
                 </div>
               </div>
-              <div className='form-row'>
-                <div className='form-group col-sm-5 col-md-3 col-lg-3 has-info'>
-                  <label htmlFor='inputEstimation'>Estimation:</label>
-                  <textarea
-                    type='text'
-                    name='estimation'
-                    className='form-control'
-                    id='inputEstimation'
-                    onChange={this.handleChange}
-                    rows={1}
-                    placeholder='hours'
-                    required
-                  />
-                </div>
-                <div className='form-group col-sm-12 col-md-12 has-info'>
-                  <label htmlFor='inputSummary'>Summary:</label>
-                  <textarea
-                    type='text'
-                    name='summary'
-                    className='form-control'
-                    id='inputSummary'
-                    onChange={this.handleChange}
-                    rows={1}
-                    required
-                  />
-                </div>
-                <div className='form-group col-sm-12 col-md-12 has-info'>
-                  <label htmlFor='inputSummary'>Description:</label>
-                  <textarea
-                    type='text'
-                    name='summary'
-                    className='form-control'
-                    id='inputSummary'
-                    onChange={this.handleChange}
-                    rows={3}
-                    required
-                  />
-                </div>
+              <div className='form-group col-sm-12 col-md-12 has-info'>
+                <label htmlFor='inputSummary'>Summary:</label>
+                <textarea
+                  type='text'
+                  name='summary'
+                  className='form-control'
+                  id='inputSummary'
+                  onChange={this.handleChange}
+                  rows={1}
+                  required
+                />
+              </div>
+              <div className='form-group col-sm-12 col-md-12 has-info'>
+                <label htmlFor='inputSummary'>Description:</label>
+                <textarea
+                  type='text'
+                  name='summary'
+                  className='form-control'
+                  id='inputSummary'
+                  onChange={this.handleChange}
+                  rows={3}
+                  required
+                />
               </div>
               <div className='form-row'>
                 <div className=' form-group col-xs-1'>
