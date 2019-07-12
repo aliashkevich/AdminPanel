@@ -32,9 +32,6 @@ const styles = {
 };
 
 class ProjectNew extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -223,18 +220,13 @@ class ProjectNew extends React.Component {
       endDate: this.state.endDate,
       participants: newParticipants,
     };
-    fetch(
-      `https://lesewert.herokuapp.com/api/v1/projects/${
-        this.state.projects.id
-      }`,
-      {
-        method: 'PUT',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-        body: JSON.stringify(body),
-      },
-    )
+    fetch(`${config.apiUrl}/${this.state.projects.id}`, {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify(body),
+    })
       .then(res => {
         if (res.status >= 200 && res.status < 300) {
           this.props.history.push('/projects');
@@ -324,7 +316,7 @@ class ProjectNew extends React.Component {
                         <input
                           style={styles.margin}
                           type='date'
-                          name='start_date'
+                          name='startDate'
                           className='form-control'
                           id='inputStartDate'
                           onChange={this.handleChange}
@@ -339,7 +331,7 @@ class ProjectNew extends React.Component {
                         <input
                           style={styles.margin}
                           type='date'
-                          name='end_date'
+                          name='endDate'
                           className='form-control'
                           id='inputEndDate'
                           onChange={this.handleChange}
