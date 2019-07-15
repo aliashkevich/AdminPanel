@@ -4,7 +4,7 @@ import {config} from '../../util/config.js';
 import './TaskDetailCard.css';
 import TaskSummaryCard from './TaskSummaryCard';
 import TaskDescriptionCard from './TaskDescriptionCard';
-import {getLocalDateFromUTC} from '../../util/date';
+import TaskInfo from './TaskInfo';
 
 export default class TaskDetailCard extends React.Component {
   constructor(props) {
@@ -67,27 +67,7 @@ export default class TaskDetailCard extends React.Component {
                 {/* summary */}
                 <div className='card-body'>
                   <div className='row'>
-                    <div className='col-lg-4 col-md-4 col-sm-12'>
-                      <div className='card'>
-                        <div class='card-header card-header-text card-header-success'>
-                          <div class='card-text'>
-                            <h4 class='card-title '>
-                              Status: {this.state.task.status}
-                            </h4>
-                          </div>
-                        </div>
-                        <div className='card-footer'>
-                          <p>
-                            <b>Start Date:</b>{' '}
-                            {getLocalDateFromUTC(this.state.task.startDate)}
-                          </p>
-                          <p>
-                            <b>End Date:</b>{' '}
-                            {getLocalDateFromUTC(this.state.task.endDate)}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    <TaskInfo task={this.state.task} />
                     <TaskSummaryCard task={this.state.task} />
                     <TaskDescriptionCard task={this.state.task} />
                   </div>

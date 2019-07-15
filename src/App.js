@@ -14,11 +14,8 @@ import Users from './pages/Users';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import ProjectEdit from './pages/ProjectEdit';
-<<<<<<< HEAD
 import TaskDetail from './pages/TaskDetail';
-=======
 import ClientDetail from './pages/ClientDetail';
->>>>>>> develop
 
 function App() {
   const LoginContainer = () => (
