@@ -34,9 +34,6 @@ export default class ClientsDetail extends React.Component {
   }
 
   render() {
-    if (this.state.clients === {}) {
-      return null;
-    }
     return (
       <React.Fragment>
         {this.state.loading ? (
