@@ -1,9 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import ActionsTable from '../global/ActionsTable';
+import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 
-export default class ClientsTable extends React.Component {
+export default class ProjectsTable extends React.Component {
   static defaultProps = {
     url: 'https://lesewert.herokuapp.com/api/v1',
   };
@@ -12,25 +12,20 @@ export default class ClientsTable extends React.Component {
     super(props);
 
     this.state = {
-      clients: [],
+      projects: [],
       updated: false,
       loading: true,
     };
-
-    this.getClients = this.getClients.bind(this);
+    this.getProjects = this.getProjects.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
   }
 
-  componentDidMount() {
-    this.getClients();
-  }
-
-  getClients() {
-    fetch(`${this.props.url}/clients`)
+  getProjects() {
+    fetch(`${this.props.url}/projects`)
       .then(res => res.json())
       .then(data => {
         this.setState({
-          clients: data.clients,
+          projects: data.projects,
           updated: false,
           loading: false,
         });
@@ -38,32 +33,34 @@ export default class ClientsTable extends React.Component {
       .catch(error => console.log(error));
   }
 
-  deleteOnClick(client) {
+  componentDidMount() {
+    this.getProjects();
+  }
+
+  deleteOnClick(project) {
     const options = {
       method: 'DELETE',
     };
-    fetch(`${this.props.url}/clients/${client.id}`, options)
-      .then(res => res.json())
+    fetch(`${this.props.url}/projects/${project.id}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
-    if (this.state.updated) {
-      this.getClients();
-    }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.updated !== prevState.updated) {
-      this.getClients();
+      this.getProjects();
     }
   }
 
   render() {
-    const tableData = this.state.clients.map(client => [
-      client.id,
-      <Link to={`/clients/${client.id}`} className='text-info'>
-        {client.initials}
+    const tableData = this.state.projects.map(project => [
+      project.id,
+      <Link to={`/projects/${project.id}`} className='text-info'>
+        {project.title}
       </Link>,
-      client.name,
+      project.start_date.slice(0, 10),
+      project.end_date.slice(0, 10),
+      project.participants.length,
     ]);
 
     return (
@@ -72,13 +69,13 @@ export default class ClientsTable extends React.Component {
           <Spinner />
         ) : (
           <ActionsTable
-            entities={this.state.clients}
-            tableName={'Clients'}
-            tableHead={['ID', 'Initials', 'Name']}
+            entities={this.state.projects}
+            tableName={'Projects'}
+            tableHead={['ID', 'Title', 'Start', 'End', 'Participants']}
             tableData={tableData}
-            tableColor={'primary'}
+            tableColor={'info'}
             deleteOnClick={this.deleteOnClick}
-            confirmationFieldName={'name'}
+            confirmationFieldName={'title'}
           />
         )}
       </React.Fragment>

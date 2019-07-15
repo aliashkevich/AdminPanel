@@ -11,7 +11,7 @@ function Table(props) {
       </div>
       <div className='card-body'>
         <div className='table-responsive'>
-          <table className='table'>
+          <table className='table table-hover'>
             {tableHead !== undefined ? (
               <thead className={`text-${tableColor}`}>
                 <tr>
@@ -22,15 +22,21 @@ function Table(props) {
               </thead>
             ) : null}
             <tbody>
-              {tableData.map((prop, key) => {
-                return (
-                  <tr key={key}>
-                    {prop.map((prop, key) => {
-                      return <td key={key}>{prop}</td>;
-                    })}
-                  </tr>
-                );
-              })}
+              {tableData !== undefined && tableData.length > 0 ? (
+                tableData.map((prop, key) => {
+                  return (
+                    <tr key={key}>
+                      {prop.map((prop, key) => {
+                        return <td key={key}>{prop}</td>;
+                      })}
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td>There are no active {tableName.toLowerCase()}</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -47,7 +53,7 @@ Table.propTypes = {
   tableName: PropTypes.string,
   tableDescription: PropTypes.string,
   tableHead: PropTypes.arrayOf(PropTypes.string),
-  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+  tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)),
   tableColor: PropTypes.oneOf([
     'warning',
     'primary',
