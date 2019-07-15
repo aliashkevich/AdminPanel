@@ -147,6 +147,14 @@ class ProjectNew extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
+    checkDateValidation(startDate, endDate) {
+      // check the dates
+      if ((new Date(startDate) > new Date(endDate)) || (new Date(endDate) < new Date(startDate))) {
+        // set date error validation true 
+      } else {
+        // null or false date error validation 
+      }
+    }
     this.setState({
       [e.target.name]: e.target.value,
     });
