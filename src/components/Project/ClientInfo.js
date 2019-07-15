@@ -1,5 +1,4 @@
 import React from 'react';
-import CircleImg from '../global/CircleImg';
 import {config} from '../../util/config.js';
 
 export default class ClientInfo extends React.Component {

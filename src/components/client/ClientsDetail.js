@@ -1,5 +1,5 @@
 import React from 'react';
-import ClientInfo from './ClientInfoCard';
+import ClientInfo from '../project/ClientInfo';
 import ProjectTasksTable from './ProjectTasksTable';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
@@ -39,27 +39,23 @@ export default class ClientsDetail extends React.Component {
     }
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner spinnerPosition={'global-spinner'} />
-        ) : (
-          <div className='row'>
-            <div className='col-lg-12 col-md-12 col-sm-12'>
-              <div className='card'>
-                <div className='card-header card-header-primary'>
-                  <h4 className='card-title'>{this.state.clients.name}</h4>
+        <div className='row'>
+          <div className='col-lg-12 col-md-12 col-sm-12'>
+            <div className='card'>
+              <div className='card-header card-header-primary'>
+                <h4 className='card-title'>{this.state.clients.name}</h4>
+              </div>
+              {/* summary */}
+              <div className='card-body'>
+                <div className='row'>
+                  <ClientInfo clientId={this.state.id} />
+                  <ProjectTasksTable clientId={this.state.id} />
                 </div>
-                {/* summary */}
-                <div className='card-body'>
-                  <div className='row'>
-                    <ClientInfo clientId={this.state.id} />
-                    <ProjectTasksTable clientId={this.state.id} />
-                  </div>
-                  <div className='row' />
-                </div>
+                <div className='row' />
               </div>
             </div>
           </div>
-        )}
+        </div>
       </React.Fragment>
     );
   }
