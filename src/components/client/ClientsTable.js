@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import ActionsTable from '../global/ActionsTable';
 import Spinner from '../global/Spinner';
 
-export default class ClientsTable extends React.Component {
+export default class ProjectTaskTable extends React.Component {
   static defaultProps = {
     url: 'https://lesewert.herokuapp.com/api/v1',
   };
@@ -60,7 +60,14 @@ export default class ClientsTable extends React.Component {
   render() {
     const tableData = this.state.clients.map(client => [
       client.id,
-      <Link to={`/clients/${client.id}`} className='text-info'>
+      <Link
+        to={{
+          pathname: `/clients/${client.id}`,
+          state: {
+            id: client.id,
+          },
+        }}
+        className='text-info'>
         {client.initials}
       </Link>,
       client.name,
