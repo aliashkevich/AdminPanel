@@ -54,7 +54,6 @@ export default class ClientInfo extends React.Component {
               <h3 className='card-title font-grey'>
                 {this.state.client.initials}
               </h3>
-              <p className='card-category'>Client Id: {this.state.client.id}</p>
             </div>
             <div className='container-fluid container-padding'>
               <p className='card-category font-grey'>
