@@ -14,6 +14,7 @@ import Users from './pages/Users';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import ProjectEdit from './pages/ProjectEdit';
+import TaskDetail from './pages/TaskDetail';
 
 function App() {
   const LoginContainer = () => (
@@ -38,7 +39,8 @@ function App() {
         <Route path='/clients/edit' component={NewClient} />
         <Route path='/profile' component={ProfilePage} />
         <Route exact path='/tasks' component={Tasks} />
-        <Route path='/tasks/new' component={NewTask} />
+        <Route exact path='/tasks/:id' component={TaskDetail} />
+        <Route exact path='/tasks/new' component={NewTask} />
         <Route exact path='/administration' component={Users} />
       </Switch>
     </React.Fragment>
