@@ -5,7 +5,7 @@ export default function BackButton(props) {
   const {buttonName} = props;
   return (
     <button type='button' className='btn'>
-      <i className='material-icons'>remove_circle</i>
+      <i className='material-icons'>arrow_back</i>
       {` ${buttonName}`}
     </button>
   );
