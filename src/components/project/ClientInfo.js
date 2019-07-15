@@ -1,7 +1,6 @@
 import React from 'react';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
-import {tryStatement} from '@babel/types';
 
 export default class ClientInfo extends React.Component {
   constructor(props) {
