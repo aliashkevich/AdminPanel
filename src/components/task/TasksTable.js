@@ -91,7 +91,7 @@ export default class TasksTable extends React.Component {
       </Link>,
       getLocalDateFromUTC(task.startDate),
       getLocalDateFromUTC(task.endDate),
-      task.estimation,
+      `${task.estimation} hours`,
       task.userId
         ? findInArray(this.state.users, 'id', task.userId, 'name')
         : null,

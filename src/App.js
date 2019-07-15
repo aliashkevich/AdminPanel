@@ -8,6 +8,7 @@ import Clients from './pages/Clients';
 import ProfilePage from './pages/ProfilePage';
 import NewProject from './pages/NewProject';
 import NewClient from './pages/NewClient';
+import NewTask from './pages/NewTask';
 import Tasks from './pages/Tasks';
 import Users from './pages/Users';
 import Header from './components/Header';
@@ -39,6 +40,7 @@ function App() {
         <Route path='/clients/edit' component={NewClient} />
         <Route path='/profile' component={ProfilePage} />
         <Route exact path='/tasks' component={Tasks} />
+        <Route path='/tasks/new' component={NewTask} />
         <Route exact path='/administration' component={Users} />
       </Switch>
     </React.Fragment>
