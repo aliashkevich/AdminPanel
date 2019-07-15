@@ -30,26 +30,35 @@ export default class ClientInfo extends React.Component {
   }
 
   render() {
-    // console.log(this.state);
     return (
       <div className='col-lg-4 col-md-12 col-sm-12'>
         <div className='card card-stats'>
           <div className='card-header card-header-primary card-header-icon'>
-            <div className='card-icon'>
-              <i className='material-icons'>location_city</i>
+            <div className='card-icon client-logo-wrapper'>
+              <img
+                className='card-img-top client-logo'
+                src={
+                  this.state.client.logo ? (
+                    this.state.client.logo
+                  ) : (
+                    <i className='material-icons'>location_city</i>
+                  )
+                }
+                alt='client logo'
+              />
             </div>
+            <h3 className='card-title text-grey'>
+              {this.state.client.initials}
+            </h3>
+            <p className='card-category'>Client Id: {this.state.client.id}</p>
+          </div>
+          <div className='card-footer'>
             <div className='container-fluid container-padding'>
               <p className='card-category font-grey'>
-                Id: {this.state.client.id}
+                <b>Email:</b> {this.state.contactInformation.email}
               </p>
               <p className='card-category font-grey'>
-                Initials: {this.state.client.initials}
-              </p>
-              <p className='card-category font-grey'>
-                Email: {this.state.contactInformation.email}
-              </p>
-              <p className='card-category font-grey'>
-                Number: {this.state.contactInformation.number}
+                <b>Number:</b> {this.state.contactInformation.number}
               </p>
             </div>
           </div>

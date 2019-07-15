@@ -10,7 +10,7 @@ export default class ClientsDetail extends React.Component {
     super(props);
     this.state = {
       clients: {},
-      id: props.id,
+      id: 'props.id',
       loading: true,
     };
     this.getClient = this.getClient.bind(this);
@@ -37,33 +37,24 @@ export default class ClientsDetail extends React.Component {
     if (this.state.clients === {}) {
       return null;
     }
-    // console.log(this.state);
     return (
       <React.Fragment>
         {this.state.loading ? (
-          <Spinner />
+          <Spinner spinnerPosition={'global-spinner'} />
         ) : (
-          <div className='main-panel'>
-            <div className='content'>
-              <div className='container-fluid'>
-                <div className='row'>
-                  <div className='col-lg-12 col-md-12 col-sm-12'>
-                    <div className='card'>
-                      <div className='card-header card-header-primary'>
-                        <h4 className='card-title'>
-                          {this.state.clients.name}
-                        </h4>
-                      </div>
-                      {/* summary */}
-                      <div className='card-body'>
-                        <div className='row'>
-                          <ClientInfo clientId={this.state.id} />
-                          <ProjectTasksTable clientId={this.state.id} />
-                        </div>
-                        <div className='row' />
-                      </div>
-                    </div>
+          <div className='row'>
+            <div className='col-lg-12 col-md-12 col-sm-12'>
+              <div className='card'>
+                <div className='card-header card-header-primary'>
+                  <h4 className='card-title'>{this.state.clients.name}</h4>
+                </div>
+                {/* summary */}
+                <div className='card-body'>
+                  <div className='row'>
+                    <ClientInfo clientId={this.state.id} />
+                    <ProjectTasksTable clientId={this.state.id} />
                   </div>
+                  <div className='row' />
                 </div>
               </div>
             </div>
