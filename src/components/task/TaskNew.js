@@ -38,8 +38,10 @@ class AddNewTask extends React.Component {
       projectSelect: [],
       title: '',
       summary: '',
+      description: '',
       startDate: '',
       endDate: '',
+      estimation: '',
       assignee: [],
       assigneeSelect: [],
     };
@@ -50,7 +52,7 @@ class AddNewTask extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://lesewert.herokuapp.com/api/v1/users')
+    fetch(`${config.apiUrl}/users`)
       .then(res => res.json())
       .then(data =>
         this.setState({
@@ -59,7 +61,7 @@ class AddNewTask extends React.Component {
       )
       .catch(error => console.log(error))
       .then(
-        fetch('https://lesewert.herokuapp.com/api/v1/projects')
+        fetch(`${config.apiUrl}/projects`)
           .then(res => res.json())
           .then(data =>
             this.setState({
@@ -97,8 +99,10 @@ class AddNewTask extends React.Component {
       projectId: newProject,
       title: this.state.title,
       summary: this.state.summary,
+      description: this.state.description,
       startDate: this.state.startDate,
       endDate: this.state.endDate,
+      estimation: this.state.estimation,
       assignee: newAssignee,
       status: 'new',
     };
@@ -123,10 +127,12 @@ class AddNewTask extends React.Component {
       projectSelect: [],
       title: '',
       summary: '',
+      description: '',
       startDate: '',
       endDate: '',
+      estimation: '',
       assignee: [],
-      assigneeelect: [],
+      assigneeSelect: [],
     });
   }
 
@@ -242,7 +248,7 @@ class AddNewTask extends React.Component {
                 <label htmlFor='inputSummary'>Description:</label>
                 <textarea
                   type='text'
-                  name='summary'
+                  name='description'
                   className='form-control'
                   id='inputSummary'
                   onChange={this.handleChange}
