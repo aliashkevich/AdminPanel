@@ -14,7 +14,11 @@ import Users from './pages/Users';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import ProjectEdit from './pages/ProjectEdit';
+<<<<<<< HEAD
 import TaskDetail from './pages/TaskDetail';
+=======
+import ClientDetail from './pages/ClientDetail';
+>>>>>>> develop
 
 function App() {
   const LoginContainer = () => (
@@ -36,6 +40,7 @@ function App() {
         <Route exact path='/projects/edit/:id' component={ProjectEdit} />
         <Route exact path='/clients' component={Clients} />
         <Route path='/clients/new' component={NewClient} />
+        <Route exact path='/clients/:id' component={ClientDetail} />
         <Route path='/clients/edit' component={NewClient} />
         <Route path='/profile' component={ProfilePage} />
         <Route exact path='/tasks' component={Tasks} />
