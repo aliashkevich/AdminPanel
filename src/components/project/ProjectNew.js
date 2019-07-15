@@ -5,6 +5,7 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import {getLocalDateFromUTC} from '../../util/date';
 
 const styles = {
   select: {
@@ -56,6 +57,7 @@ class ProjectNew extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
     this.handleParticipantChange = this.handleParticipantChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.getProject = this.getProject.bind(this);
@@ -145,16 +147,20 @@ class ProjectNew extends React.Component {
     }
   }
 
+  handleDateChange(e) {
+    if (e.target.value > this.state.endDate) {
+      this.setState({
+        startDate: 'error',
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
+  }
+
   handleChange(e) {
     e.preventDefault();
-    checkDateValidation(startDate, endDate) {
-      // check the dates
-      if ((new Date(startDate) > new Date(endDate)) || (new Date(endDate) < new Date(startDate))) {
-        // set date error validation true 
-      } else {
-        // null or false date error validation 
-      }
-    }
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -327,7 +333,7 @@ class ProjectNew extends React.Component {
                           name='startDate'
                           className='form-control'
                           id='inputStartDate'
-                          onChange={this.handleChange}
+                          onChange={this.handleDateChange}
                           value={this.state.startDate.slice(0, 10)}
                           required
                         />
@@ -342,7 +348,7 @@ class ProjectNew extends React.Component {
                           name='endDate'
                           className='form-control'
                           id='inputEndDate'
-                          onChange={this.handleChange}
+                          onChange={this.handleDateChange}
                           value={this.state.endDate.slice(0, 10)}
                           required
                         />
