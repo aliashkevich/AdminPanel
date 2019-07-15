@@ -1,6 +1,7 @@
 import React from 'react';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
+import {tryStatement} from '@babel/types';
 
 export default class ClientInfo extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class ClientInfo extends React.Component {
     this.state = {
       client: {},
       contactInformation: {},
+      loading: true,
     };
     this.getClient = this.getClient.bind(this);
   }
@@ -19,6 +21,7 @@ export default class ClientInfo extends React.Component {
         this.setState({
           client: data.client,
           contactInformation: data.client.contactInformation,
+          loading: false,
         });
       })
       .catch(error => console.log(error));
