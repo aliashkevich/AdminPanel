@@ -10,7 +10,7 @@ export default class ClientsDetail extends React.Component {
     super(props);
     this.state = {
       clients: {},
-      id: 'props.id',
+      id: props.id,
       loading: true,
     };
     this.getClient = this.getClient.bind(this);
