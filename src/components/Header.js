@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import logo from '../img/lesewert-logo.svg';
 import './Header.css';
 
 export default class Header extends Component {
@@ -19,10 +20,7 @@ export default class Header extends Component {
           data-image='../assets/img/sidebar-1.jpg'>
           <div className='logo'>
             <NavLink to='/' className='simple-text logo-normal'>
-              <img
-                src='https://www.lesewert.de/files/lesewert/img/lesewert_logo.svg'
-                alt='Lesewert'
-              />
+              <img src={logo} alt='Lesewert' />
             </NavLink>
           </div>
           <div className='sidebar-wrapper'>
