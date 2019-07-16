@@ -5,7 +5,6 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
-import {getLocalDateFromUTC} from '../../util/date';
 
 const styles = {
   select: {
@@ -35,6 +34,13 @@ const styles = {
 class ProjectNew extends React.Component {
   constructor(props) {
     super(props);
+    var today = new Date(),
+      date =
+        today.getFullYear() +
+        '-' +
+        (today.getMonth() + 1) +
+        '-' +
+        today.getDate();
     this.state = {
       id: '',
       clients: [],
@@ -53,11 +59,11 @@ class ProjectNew extends React.Component {
       participantFlag: false,
       clientFlag: false,
       projectFlag: false,
+      date: date,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
     this.handleParticipantChange = this.handleParticipantChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.getProject = this.getProject.bind(this);
@@ -147,18 +153,6 @@ class ProjectNew extends React.Component {
     }
   }
 
-  handleDateChange(e) {
-    if (e.target.value > this.state.endDate) {
-      this.setState({
-        startDate: 'error',
-      });
-    } else {
-      this.setState({
-        [e.target.name]: e.target.value,
-      });
-    }
-  }
-
   handleChange(e) {
     e.preventDefault();
     this.setState({
@@ -180,6 +174,15 @@ class ProjectNew extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (
+      this.state.startDate > this.state.endDate ||
+      this.state.startDate < this.state.date
+    ) {
+      this.setState({
+        startDate: '',
+        endDate: '',
+      });
+    }
     const newClient = this.state.clientSelect.value;
     const newParticipants = this.state.participantSelect.map(participant => {
       return participant.value;
@@ -269,6 +272,7 @@ class ProjectNew extends React.Component {
     let participantOptions = this.state.participants.map(user => {
       return {value: user.id, label: user.name};
     });
+    console.log(this.state);
     return (
       <React.Fragment>
         {this.state.loading ? (
@@ -333,7 +337,7 @@ class ProjectNew extends React.Component {
                           name='startDate'
                           className='form-control'
                           id='inputStartDate'
-                          onChange={this.handleDateChange}
+                          onChange={this.handleChange}
                           value={this.state.startDate.slice(0, 10)}
                           required
                         />
@@ -348,7 +352,7 @@ class ProjectNew extends React.Component {
                           name='endDate'
                           className='form-control'
                           id='inputEndDate'
-                          onChange={this.handleDateChange}
+                          onChange={this.handleChange}
                           value={this.state.endDate.slice(0, 10)}
                           required
                         />
