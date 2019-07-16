@@ -390,7 +390,7 @@ class AddNewTask extends React.Component {
                   </div>
                   <div className='form-row'>
                     <div className=' form-group col-xs-1'>
-                      <Link to='/projects'>
+                      <Link to='/tasks'>
                         <button type='reset' className='btn btn-danger'>
                           Cancel
                         </button>
