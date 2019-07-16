@@ -52,14 +52,14 @@ export default class ProjectTasksTable extends React.Component {
                         id: project.id,
                       },
                     }}>
-                    <div class='project-summary-title card-text'>
+                    <div class='project-summary-title card-text project-sum'>
                       <h4 class='card-title'>
                         Project: {project.title}{' '}
                         <i class='material-icons'>arrow_forward</i>
                       </h4>
                     </div>
                   </Link>
-                  <div class='card-body font-grey'>
+                  <div class='card-body'>
                     <b>
                       {getLocalDateFromUTC(project.startDate)}-
                       {getLocalDateFromUTC(project.endDate)}
