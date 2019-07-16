@@ -45,9 +45,6 @@ class ProjectNew extends React.Component {
       endDate: '',
       participants: [],
       participantSelect: [],
-<<<<<<< HEAD
-      didMount: false,
-=======
       participantId: [],
       edit: false,
       projects: [],
@@ -55,7 +52,6 @@ class ProjectNew extends React.Component {
       participantFlag: false,
       clientFlag: false,
       projectFlag: false,
->>>>>>> develop
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -134,9 +130,6 @@ class ProjectNew extends React.Component {
       let clientSelect = clientOptions.find(
         c => c.value === this.state.clientId,
       );
-<<<<<<< HEAD
-    this.setState({didMount: true});
-=======
       let participantOptions = this.state.participants.map(participant => {
         return {value: participant.id, label: participant.name};
       });
@@ -150,7 +143,6 @@ class ProjectNew extends React.Component {
         loading: false,
       });
     }
->>>>>>> develop
   }
 
   handleChange(e) {

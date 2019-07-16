@@ -15,11 +15,6 @@ export default class TasksTable extends React.Component {
       users: [],
       loadingUsers: true,
       updated: false,
-<<<<<<< HEAD
-      loading: true,
-      didMount: false,
-=======
->>>>>>> develop
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
