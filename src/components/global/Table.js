@@ -31,15 +31,21 @@ function Table(props) {
               </thead>
             ) : null}
             <tbody>
-              {tableData.map((prop, key) => {
-                return (
-                  <tr key={key}>
-                    {prop.map((prop, key) => {
-                      return <td key={key}>{prop}</td>;
-                    })}
-                  </tr>
-                );
-              })}
+              {tableData !== undefined && tableData.length > 0 ? (
+                tableData.map((prop, key) => {
+                  return (
+                    <tr key={key}>
+                      {prop.map((prop, key) => {
+                        return <td key={key}>{prop}</td>;
+                      })}
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td>There are no active {tableName.toLowerCase()}</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

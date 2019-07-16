@@ -1,11 +1,8 @@
 import React from 'react';
-import CircleImg from './CircleImg';
+import CircleImg from '../global/CircleImg';
+import {config} from '../../util/config.js';
 
 export default class Participants extends React.Component {
-  static defaultProps = {
-    url: 'https://lesewert.herokuapp.com/api/v1',
-  };
-
   constructor(props) {
     super(props);
 
@@ -16,7 +13,7 @@ export default class Participants extends React.Component {
     this.getUsers = this.getUsers.bind(this);
   }
   getUsers() {
-    fetch(`${this.props.url}/users`)
+    fetch(`${config.apiUrl}/users`)
       .then(res => res.json())
       .then(data => {
         this.setState({
