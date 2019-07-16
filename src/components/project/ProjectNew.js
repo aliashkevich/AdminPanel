@@ -5,6 +5,25 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import Popup from '../global/Popup';
+
+function validate(startDate, endDate, participants, clientId, date) {
+  const errors = [];
+
+  if (startDate > endDate) {
+    errors.push('End date must be after the start date');
+  }
+  if (startDate <= date) {
+    errors.push('Start date cant be in the past');
+  }
+  if (participants.length === 0) {
+    errors.push('One or more participants must be selected');
+  }
+  if (clientId.length === 0) {
+    errors.push('One client must be selected');
+  }
+  return errors;
+}
 
 const styles = {
   select: {
@@ -60,6 +79,8 @@ class ProjectNew extends React.Component {
       clientFlag: false,
       projectFlag: false,
       date: date,
+      errors: [],
+      showPopup: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -69,6 +90,7 @@ class ProjectNew extends React.Component {
     this.getProject = this.getProject.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getClients = this.getClients.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
   }
 
   componentDidMount() {
@@ -172,16 +194,25 @@ class ProjectNew extends React.Component {
     });
   }
 
+  togglePopup() {
+    setTimeout(() => {
+      this.setState({
+        showPopup: false,
+        errors: '',
+      });
+    }, 5000);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    if (
-      this.state.startDate > this.state.endDate ||
-      this.state.startDate < this.state.date
-    ) {
+    const {startDate, endDate, participants, clientId, date} = this.state;
+    const errors = validate(startDate, endDate, participants, clientId, date);
+    if (errors.length > 0) {
       this.setState({
-        startDate: '',
-        endDate: '',
+        showPopup: true,
+        errors,
       });
+      return;
     }
     const newClient = this.state.clientSelect.value;
     const newParticipants = this.state.participantSelect.map(participant => {
@@ -292,6 +323,15 @@ class ProjectNew extends React.Component {
                     onSubmit={
                       this.state.edit ? this.handleEdit : this.handleSubmit
                     }>
+                    <div
+                      onSubmit={this.togglePopup}
+                      className='validation-alert'>
+                      {this.state.showPopup
+                        ? this.state.errors.map(error => {
+                            return <Popup error={error} />;
+                          })
+                        : null}
+                    </div>
                     <div className='form-row'>
                       <div
                         className='form-group col-sm-12 col-md-6 has-info'

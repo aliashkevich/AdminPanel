@@ -1,9 +1,9 @@
-.validation-alert {
+/* .validation-alert {
   position: fixed;
   bottom: 30px;
   left: 30px;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   z-index: 100;
 }
 
@@ -11,4 +11,4 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+} */
