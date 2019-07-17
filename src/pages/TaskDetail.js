@@ -2,7 +2,7 @@ import React from 'react';
 import TaskDetailCard from '../components/task/TaskDetailCard';
 import BackTaskButton from '../components/task/BackTaskButton.js';
 
-const ClientDetail = props => {
+const TaskDetail = props => {
   return (
     <React.Fragment>
       <div className='main-panel'>
@@ -17,4 +17,4 @@ const ClientDetail = props => {
   );
 };
 
-export default ClientDetail;
+export default TaskDetail;

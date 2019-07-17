@@ -40,9 +40,6 @@ export default class ProjectDetailCard extends React.Component {
   }
 
   render() {
-    if (this.state.project === {}) {
-      return null;
-    }
     return (
       <React.Fragment>
         {this.state.loading ? (
