@@ -51,7 +51,7 @@ function LoginForm({email, password, onSubmit, handleInputChange, flash}) {
       {flash ? (
         <div className='alert-container'>
           <div
-            class='alert alert-warning alert-dismissible fade show'
+            className='alert alert-warning alert-dismissible fade show'
             role='alert'>
             {flash}
             <button

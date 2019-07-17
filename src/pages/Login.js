@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/login/LoginForm';
-import {Redirect} from 'react-router-dom';
 import {config} from '../util/config';
 
 class Login extends Component {
@@ -13,12 +12,12 @@ class Login extends Component {
       flash: '',
       user: {},
       token: '',
-      redirect: false,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.setLocalStorage = this.setLocalStorage.bind(this);
+    this.notify = this.notify.bind(this);
   }
 
   handleInputChange = e => {
@@ -52,7 +51,6 @@ class Login extends Component {
                 token: res.token,
                 flash: res.flash,
                 user: res.data,
-                redirect: true,
               },
               () => this.setLocalStorage(),
             )
@@ -66,24 +64,27 @@ class Login extends Component {
   setLocalStorage() {
     localStorage.setItem('token', this.state.token);
     localStorage.setItem('user', JSON.stringify(this.state.user));
+
+    this.notify();
+  }
+
+  notify() {
+    var event = new Event('authenticated');
+    document.dispatchEvent(event);
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to='/' />;
-    } else {
-      return (
-        <React.Fragment>
-          <LoginForm
-            email={this.state.email}
-            password={this.state.password}
-            onSubmit={this.onSubmit}
-            handleInputChange={this.handleInputChange}
-            flash={this.state.flash}
-          />
-        </React.Fragment>
-      );
-    }
+    return (
+      <React.Fragment>
+        <LoginForm
+          email={this.state.email}
+          password={this.state.password}
+          onSubmit={this.onSubmit}
+          handleInputChange={this.handleInputChange}
+          flash={this.state.flash}
+        />
+      </React.Fragment>
+    );
   }
 }
 
