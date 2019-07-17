@@ -10,6 +10,7 @@ export default class Header extends Component {
   render() {
     let userFromStorage = localStorage.getItem('user');
     let parsedUser = JSON.parse(userFromStorage);
+    const root = document.getElementsByTagName('html')[0];
     return (
       <React.Fragment>
         <div
