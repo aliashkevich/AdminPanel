@@ -59,7 +59,7 @@ export default class ProjectTasksTable extends React.Component {
                       </h4>
                     </div>
                   </Link>
-                  <div class='card-body'>
+                  <div class='card-body text-dark'>
                     <b>
                       {getLocalDateFromUTC(project.startDate)}-
                       {getLocalDateFromUTC(project.endDate)}
