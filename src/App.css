@@ -3,12 +3,17 @@
   bottom: 30px;
   left: 30px;
   display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
   flex-direction: column-reverse;
   z-index: 100;
 }
 
-.popupWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+button.close-alert {
+  margin-top: 10px;
+}
+
+div.popup {
+  width: 370px;
 }
