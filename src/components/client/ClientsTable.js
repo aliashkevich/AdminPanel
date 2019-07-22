@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import ActionsTable from '../global/ActionsTable';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class ClientsTable extends React.Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class ClientsTable extends React.Component {
 
   render() {
     const tableData = this.state.clients.map(client => [
-      client.id,
+      <CircleImg logo={client.logo} />,
       <Link
         to={{
           pathname: `/clients/${client.id}`,
@@ -78,7 +79,7 @@ export default class ClientsTable extends React.Component {
           <ActionsTable
             entities={this.state.clients}
             tableName={'Clients'}
-            tableHead={['ID', 'Initials', 'Name']}
+            tableHead={['Logo', 'Initials', 'Name']}
             tableData={tableData}
             tableColor={'primary'}
             deleteOnClick={this.deleteOnClick}
