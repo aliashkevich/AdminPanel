@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/login/LoginForm';
 import {config} from '../util/config';
+import {authHeader} from '../util/authHeader.js';
 
 class Login extends Component {
   constructor(props) {
@@ -38,9 +39,7 @@ class Login extends Component {
     };
     fetch(`${config.apiUrl}/auth/login`, {
       method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
+      headers: authHeader,
       body: JSON.stringify(payload),
     })
       .then(res => res.json())

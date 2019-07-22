@@ -144,7 +144,18 @@ function DropdownBeforeLogin() {
   );
 }
 
-function DropdownAfterLogin() {
+function DropdownAfterLogin(props) {
+  const logOut = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    notify();
+  };
+
+  const notify = () => {
+    var event = new Event('authenticated');
+    document.dispatchEvent(event);
+  };
+
   return (
     <div
       className='dropdown-menu dropdown-menu-right'
@@ -152,11 +163,8 @@ function DropdownAfterLogin() {
       <Link to='/profile' className='dropdown-item'>
         Profile
       </Link>
-      <a className='dropdown-item' href='#'>
-        Settings
-      </a>
       <div className='dropdown-divider' />
-      <Link to='/login' className='dropdown-item'>
+      <Link to='/login' className='dropdown-item' onClick={logOut}>
         Log out
       </Link>
     </div>

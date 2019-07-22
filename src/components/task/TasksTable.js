@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
+import {authHeader} from '../../util/authHeader.js';
 
 export default class TasksTable extends React.Component {
   constructor(props) {
@@ -52,6 +53,7 @@ export default class TasksTable extends React.Component {
   deleteOnClick(task) {
     const options = {
       method: 'DELETE',
+      headers: authHeader,
     };
     fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
@@ -63,9 +65,7 @@ export default class TasksTable extends React.Component {
     const options = {
       method: 'PUT',
       body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: authHeader,
     };
     fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
