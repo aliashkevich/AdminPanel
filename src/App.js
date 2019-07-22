@@ -41,8 +41,8 @@ function App() {
         <Route path='/clients/edit' component={NewClient} />
         <Route path='/profile' component={ProfilePage} />
         <Route exact path='/tasks' component={Tasks} />
+        <Route exact path='/tasks/new' component={NewTask} />
         <Route exact path='/tasks/:id' component={TaskDetail} />
-        <Route path='/tasks/new' component={NewTask} />
         <Route exact path='/administration' component={Users} />
       </Switch>
     </React.Fragment>
