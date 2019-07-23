@@ -7,7 +7,7 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
     <div className='container-fluid'>
       <div className='row vertical-center'>
         <div
-          className='card card-nav-tabs text-center p-3 mx-auto col-lg-8 col-md-10 col-sm-12'
+          className='card card-nav-tabs text-center p-3 mx-auto col-xl-3 col-lg-4 col-md-6 col-xs-12'
           data-color='orange'>
           <div className='card-header card-header-warning'>
             <div className='logo'>
@@ -32,7 +32,6 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
                 className='form-control'
                 id='exampleInputEmail1'
                 aria-describedby='emailHelp'
-                placeholder='Enter email'
                 required
               />
             </div>
@@ -45,7 +44,6 @@ function LoginForm({email, password, onSubmit, handleInputChange}) {
                 onChange={handleInputChange}
                 className='form-control'
                 id='exampleInputPassword1'
-                placeholder='Password'
                 required
               />
             </div>

@@ -4,12 +4,14 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class ProjectsTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      clients: [],
       projects: [],
       updated: false,
       loading: true,
@@ -25,10 +27,20 @@ export default class ProjectsTable extends React.Component {
         this.setState({
           projects: data.projects,
           updated: false,
-          loading: false,
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .then(
+        fetch(`${config.apiUrl}/clients`)
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+              clients: data.clients,
+              loading: false,
+            });
+          })
+          .catch(error => console.log(error)),
+      );
   }
 
   componentDidMount() {
@@ -51,7 +63,19 @@ export default class ProjectsTable extends React.Component {
   }
 
   render() {
+    function findInArray(array, arrayItemKey, value, arrayItemProperty) {
+      var item = array.find(arrayItem => arrayItem[arrayItemKey] === value);
+      return item ? item[arrayItemProperty] : '';
+    }
+
     const tableData = this.state.projects.map(project => [
+      <CircleImg
+        logo={
+          project.clientId
+            ? findInArray(this.state.clients, 'id', project.clientId, 'logo')
+            : null
+        }
+      />,
       project.id,
       <Link
         to={{
@@ -76,7 +100,14 @@ export default class ProjectsTable extends React.Component {
           <ActionsTable
             entities={this.state.projects}
             tableName={'Projects'}
-            tableHead={['ID', 'Title', 'Start', 'End', 'Participants']}
+            tableHead={[
+              'Client',
+              'ID',
+              'Title',
+              'Start',
+              'End',
+              'Participants',
+            ]}
             tableData={tableData}
             tableColor={'info'}
             deleteOnClick={this.deleteOnClick}

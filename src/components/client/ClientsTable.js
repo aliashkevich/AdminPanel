@@ -57,7 +57,7 @@ export default class ClientsTable extends React.Component {
 
   render() {
     const tableData = this.state.clients.map(client => [
-      <CircleImg logo={client.logo} />,
+      <CircleImg logo={client.logo ? client.logo : null} />,
       <Link
         to={{
           pathname: `/clients/${client.id}`,

@@ -175,7 +175,6 @@ class NewClient extends React.Component {
   componentWillUpdate() {}
 
   render() {
-    console.log(this.state);
     return (
       <React.Fragment>
         {this.state.loading ? (
