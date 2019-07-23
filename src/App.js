@@ -51,7 +51,7 @@ export default class App extends React.Component {
     const LoginContainer = () => (
       <React.Fragment>
         <Route exact path='/' render={() => <Redirect to='/login' />} />
-        <Route path='/login' component={Login} />
+        <Route exact path='/login' component={Login} />
         <Route path='/dashboard' render={() => <Redirect to='/login' />} />
         <Route exact path='/projects' render={() => <Redirect to='/login' />} />
         <Route exact path='/clients' render={() => <Redirect to='/login' />} />
@@ -93,13 +93,11 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          {function() {
-            if (this.state.isAuthenticated) {
-              return <Route component={DefaultContainer} />;
-            } else {
-              return <Route component={LoginContainer} />;
-            }
-          }.call(this)}
+          {this.state.isAuthenticated ? (
+            <Route component={DefaultContainer} />
+          ) : (
+            <Route component={LoginContainer} />
+          )}
         </Switch>
       </BrowserRouter>
     );

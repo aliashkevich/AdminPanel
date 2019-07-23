@@ -42,7 +42,6 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    console.log(JSON.parse(localStorage.getItem('user')).id);
     if (this.state.loadingRoles) {
       return <Spinner />;
     } else {
