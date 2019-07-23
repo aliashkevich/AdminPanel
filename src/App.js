@@ -50,6 +50,16 @@ export default class App extends React.Component {
       <React.Fragment>
         <Route exact path='/' render={() => <Redirect to='/login' />} />
         <Route path='/login' component={Login} />
+        <Route path='/dashboard' render={() => <Redirect to='/login' />} />
+        <Route exact path='/projects' render={() => <Redirect to='/login' />} />
+        <Route exact path='/clients' render={() => <Redirect to='/login' />} />
+        <Route path='/profile' render={() => <Redirect to='/login' />} />
+        <Route exact path='/tasks' render={() => <Redirect to='/login' />} />
+        <Route
+          exact
+          path='/administration'
+          render={() => <Redirect to='/login' />}
+        />
       </React.Fragment>
     );
 
