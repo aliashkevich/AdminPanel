@@ -84,6 +84,7 @@ export default class App extends React.Component {
           <Route exact path='/tasks' component={Tasks} />
           <Route path='/tasks/new' component={NewTask} />
           <Route exact path='/tasks/:id' component={TaskDetail} />
+          <Route exact path='/tasks/edit/:id' component={NewTask} />
           <Route exact path='/administration' component={Users} />
         </Switch>
       </React.Fragment>
