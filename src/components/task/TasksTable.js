@@ -84,6 +84,24 @@ export default class TasksTable extends React.Component {
       return item ? item[arrayItemProperty] : '';
     }
 
+    // unique by project ID
+    // create a table per project id
+    //inside this table only render tasks from this id  = entities with a filter?
+    //table name is project name matched with id
+
+    // const taskTables = this.state.tasks.map(task => [task.projectId );
+
+    const finalArr = [];
+    const projects = this.state.tasks.map(task => {
+      if (!finalArr[task.projectId]) {
+        finalArr[task.projectId] = [];
+      } else {
+        finalArr[task.projectId].push({...task});
+      }
+    });
+
+    console.log(finalArr);
+
     const tableData = this.state.tasks.map(task => [
       task.id,
       <Link to={`/tasks/${task.id}`} className='text-info'>
@@ -102,25 +120,27 @@ export default class TasksTable extends React.Component {
         {this.state.loadingClients || this.state.loadingUsers ? (
           <Spinner spinnerPosition={'global-spinner'} />
         ) : (
-          <ActionsTable
-            entities={this.state.tasks}
-            tableName={'Tasks'}
-            tableHead={[
-              'ID',
-              'Title',
-              'Start',
-              'End',
-              'Estimation',
-              'Assignee',
-            ]}
-            tableData={tableData}
-            tableColor={'rose'}
-            deleteOnClick={this.deleteOnClick}
-            confirmationFieldName={'title'}
-            updateOnClick={this.updateOnClick}
-            checkmarkFieldName={'status'}
-            checkmarkValue={'done'}
-          />
+          this.state.tasks.map(task => (
+            <ActionsTable
+              entities={this.state.tasks}
+              tableName={task.projectId}
+              tableHead={[
+                'ID',
+                'Title',
+                'Start',
+                'End',
+                'Estimation',
+                'Assignee',
+              ]}
+              tableData={tableData}
+              tableColor={'rose'}
+              deleteOnClick={this.deleteOnClick}
+              confirmationFieldName={'title'}
+              updateOnClick={this.updateOnClick}
+              checkmarkFieldName={'status'}
+              checkmarkValue={'done'}
+            />
+          ))
         )}
       </React.Fragment>
     );
