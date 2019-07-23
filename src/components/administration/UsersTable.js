@@ -5,7 +5,6 @@ import Spinner from '../global/Spinner';
 import './UsersTable.css';
 import {config} from '../../util/config.js';
 import CircleImg from '../global/CircleImg';
-import {authHeader} from '../../util/authHeader.js';
 
 export default class UsersTable extends React.Component {
   constructor(props) {
@@ -80,7 +79,10 @@ export default class UsersTable extends React.Component {
   deleteOnClick(user) {
     const options = {
       method: 'DELETE',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/users/${user.id}`, options)
       .then(this.setState({updated: true}))

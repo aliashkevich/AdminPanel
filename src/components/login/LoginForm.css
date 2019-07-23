@@ -13,7 +13,7 @@ div.alert-container {
 div.alert {
   margin: 0 auto;
   text-align: center;
-  min-width: 258px;
+  min-width: 300px;
 }
 
 button.close-alert {

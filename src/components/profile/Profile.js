@@ -9,6 +9,8 @@ export default class Profile extends React.Component {
     this.state = {
       roles: [],
       loadingRoles: true,
+      user: {},
+      loadingUser: true,
     };
   }
 
@@ -21,13 +23,26 @@ export default class Profile extends React.Component {
           loadingRoles: false,
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
+      .then(
+        fetch(
+          `${config.apiUrl}/users/${
+            JSON.parse(localStorage.getItem('user')).id
+          }`,
+        )
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+              user: data.user,
+              loadingUser: false,
+            });
+          })
+          .catch(error => console.log(error)),
+      );
   }
 
   render() {
-    let userFromStorage = localStorage.getItem('user');
-    let parsedUser = JSON.parse(userFromStorage);
-
+    console.log(JSON.parse(localStorage.getItem('user')).id);
     if (this.state.loadingRoles) {
       return <Spinner />;
     } else {
@@ -37,23 +52,22 @@ export default class Profile extends React.Component {
             <div className='col-lg-4 col-md-8 col-sm-10 text-center'>
               <div className='card card-profile'>
                 <div className='card-avatar'>
-                  <a href='#edit'>
-                    <img className='img' src={parsedUser.image} alt='profile' />
-                  </a>
+                  <img
+                    className='img'
+                    src={this.state.user.image}
+                    alt='profile'
+                  />
                 </div>
                 <div className='card-body'>
-                  <h4 className='card-title'>{parsedUser.name}</h4>
+                  <h4 className='card-title'>{this.state.user.name}</h4>
                   <h6 className='card-category text-gray'>
-                    {parsedUser.roleId
+                    {this.state.user.roleId
                       ? this.state.roles.find(
-                          role => role.id === parsedUser.roleId,
+                          role => role.id === this.state.user.roleId,
                         ).name
                       : null}
                   </h6>
-                  <p className='card-description'>{parsedUser.email}</p>
-                  <a href='#edit' className='btn btn-warning btn-round'>
-                    Edit
-                  </a>
+                  <p className='card-description'>{this.state.user.email}</p>
                 </div>
               </div>
             </div>

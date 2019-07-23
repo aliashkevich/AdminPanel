@@ -4,7 +4,6 @@ import {withRouter} from 'react-router';
 import Select from 'react-select';
 import '../global/Form.css';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 
 const styles = {
   select: {
@@ -109,7 +108,10 @@ class AddNewTask extends React.Component {
     };
     fetch(`${config.apiUrl}/tasks`, {
       method: 'POST',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify(body),
     })
       .then(res => {
