@@ -5,6 +5,7 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import {authHeader} from '../../util/authHeader.js';
 
 const styles = {
   select: {
@@ -61,7 +62,9 @@ class AddNewTask extends React.Component {
   }
 
   getUsers = () => {
-    fetch(`${config.apiUrl}/users`)
+    fetch(`${config.apiUrl}/users`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -73,7 +76,9 @@ class AddNewTask extends React.Component {
   };
 
   getProjects = () => {
-    fetch(`${config.apiUrl}/projects`)
+    fetch(`${config.apiUrl}/projects`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data =>
         this.setState({
@@ -87,7 +92,9 @@ class AddNewTask extends React.Component {
   getTask = () => {
     let lastParam = this.props.location.pathname.split('/').pop();
     if (lastParam !== 'new') {
-      fetch(`${config.apiUrl}/tasks/${lastParam}`)
+      fetch(`${config.apiUrl}/tasks/${lastParam}`, {
+        headers: authHeader,
+      })
         .then(res => res.json())
         .then(data => {
           this.setState({
@@ -177,10 +184,7 @@ class AddNewTask extends React.Component {
     };
     fetch(`${config.apiUrl}/tasks`, {
       method: 'POST',
-      headers: new Headers({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      }),
+      headers: authHeader,
       body: JSON.stringify(body),
     })
       .then(res => {
@@ -223,10 +227,7 @@ class AddNewTask extends React.Component {
     };
     fetch(`${config.apiUrl}/tasks/${this.state.taskId}`, {
       method: 'PUT',
-      headers: new Headers({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      }),
+      headers: authHeader,
       body: JSON.stringify(body),
     })
       .then(res => {

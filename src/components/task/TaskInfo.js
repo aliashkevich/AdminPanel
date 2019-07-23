@@ -3,6 +3,7 @@ import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import CircleImg from '../global/CircleImg';
+import {authHeader} from '../../util/authHeader.js';
 
 class TaskInfo extends React.Component {
   constructor(props) {
@@ -16,7 +17,9 @@ class TaskInfo extends React.Component {
   }
 
   getUsers() {
-    fetch(`${config.apiUrl}/users`)
+    fetch(`${config.apiUrl}/users`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({

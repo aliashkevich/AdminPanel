@@ -5,6 +5,7 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import {authHeader} from '../../util/authHeader.js';
 
 const styles = {
   select: {
@@ -69,7 +70,9 @@ class ProjectNew extends React.Component {
     this.getProject();
   }
   getUsers() {
-    fetch(`${config.apiUrl}/users`)
+    fetch(`${config.apiUrl}/users`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -81,7 +84,9 @@ class ProjectNew extends React.Component {
   }
 
   getClients() {
-    fetch(`${config.apiUrl}/clients`)
+    fetch(`${config.apiUrl}/clients`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -98,6 +103,9 @@ class ProjectNew extends React.Component {
         `${config.apiUrl}/projects/${this.props.location.pathname
           .split('/')
           .pop()}`,
+        {
+          headers: authHeader,
+        },
       )
         .then(res => res.json())
         .then(data => {
@@ -180,10 +188,7 @@ class ProjectNew extends React.Component {
     };
     fetch(`${config.apiUrl}/projects`, {
       method: 'POST',
-      headers: new Headers({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      }),
+      headers: authHeader,
       body: JSON.stringify(body),
     })
       .then(res => {
@@ -223,10 +228,7 @@ class ProjectNew extends React.Component {
     };
     fetch(`${config.apiUrl}/projects/${this.state.projects.id}`, {
       method: 'PUT',
-      headers: new Headers({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      }),
+      headers: authHeader,
       body: JSON.stringify(body),
     })
       .then(res => {

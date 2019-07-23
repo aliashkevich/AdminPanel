@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
+import {authHeader} from '../../util/authHeader.js';
 
 class TasksDashboard extends React.Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class TasksDashboard extends React.Component {
   }
 
   getTasks() {
-    fetch(`${config.apiUrl}/tasks`)
+    fetch(`${config.apiUrl}/tasks`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({

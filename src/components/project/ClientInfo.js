@@ -1,6 +1,7 @@
 import React from 'react';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
+import {authHeader} from '../../util/authHeader.js';
 
 export default class ClientInfo extends React.Component {
   constructor(props) {
@@ -14,7 +15,9 @@ export default class ClientInfo extends React.Component {
     this.getClient = this.getClient.bind(this);
   }
   getClient() {
-    fetch(`${config.apiUrl}/clients/${this.props.clientId}`)
+    fetch(`${config.apiUrl}/clients/${this.props.clientId}`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({

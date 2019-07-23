@@ -1,6 +1,7 @@
 import React from 'react';
 import CircleImg from '../global/CircleImg';
 import {config} from '../../util/config.js';
+import {authHeader} from '../../util/authHeader.js';
 
 export default class Participants extends React.Component {
   constructor(props) {
@@ -13,7 +14,9 @@ export default class Participants extends React.Component {
     this.getUsers = this.getUsers.bind(this);
   }
   getUsers() {
-    fetch(`${config.apiUrl}/users`)
+    fetch(`${config.apiUrl}/users`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({

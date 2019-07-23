@@ -2,6 +2,7 @@ import React from 'react';
 import Table from '../global/Table';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
+import {authHeader} from '../../util/authHeader.js';
 
 export default class ProjectTasks extends React.Component {
   constructor(props) {
@@ -16,7 +17,9 @@ export default class ProjectTasks extends React.Component {
   }
 
   getTasks() {
-    fetch(`${config.apiUrl}/tasks`)
+    fetch(`${config.apiUrl}/tasks`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -25,7 +28,9 @@ export default class ProjectTasks extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${config.apiUrl}/users`)
+        fetch(`${config.apiUrl}/users`, {
+          headers: authHeader,
+        })
           .then(res => res.json())
           .then(data => {
             this.setState({

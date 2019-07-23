@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import '../global/Form.css';
 import {config} from '../../util/config.js';
+import {authHeader} from '../../util/authHeader.js';
 import Spinner from '../global/Spinner';
 
 class NewClient extends React.Component {
@@ -40,6 +41,9 @@ class NewClient extends React.Component {
         `${config.apiUrl}/clients/${this.props.location.pathname
           .split('/')
           .pop()}`,
+        {
+          headers: authHeader,
+        },
       )
         .then(res => res.json())
         .then(data => {
@@ -65,10 +69,7 @@ class NewClient extends React.Component {
     };
     fetch(`${config.apiUrl}/clients/${this.state.clientId}`, {
       method: 'PUT',
-      headers: new Headers({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      }),
+      headers: authHeader,
       body: JSON.stringify(body),
     })
       .then(res => {
@@ -114,10 +115,7 @@ class NewClient extends React.Component {
     };
     fetch(`${config.apiUrl}/clients`, {
       method: 'POST',
-      headers: new Headers({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Content-Type': 'application/json',
-      }),
+      headers: authHeader,
       body: JSON.stringify(body),
     })
       .then(res => {

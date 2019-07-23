@@ -2,6 +2,7 @@ import React from 'react';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
 import {Link} from 'react-router-dom';
+import {authHeader} from '../../util/authHeader.js';
 
 export default class ProjectInfo extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ export default class ProjectInfo extends React.Component {
     this.getData = this.getData.bind(this);
   }
   getData() {
-    fetch(`${config.apiUrl}/projects/`)
+    fetch(`${config.apiUrl}/projects/`, {
+      headers: authHeader,
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({

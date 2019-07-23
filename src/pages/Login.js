@@ -20,9 +20,9 @@ class Login extends Component {
     this.notify = this.notify.bind(this);
   }
 
-  handleInputChange = e => {
+  handleInputChange = event => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
       flash: '',
     });
   };
