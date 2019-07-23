@@ -86,12 +86,19 @@ export default class TasksTable extends React.Component {
 
     const tableData = this.state.tasks.map(task => [
       task.id,
-      <Link to={`/tasks/${task.id}`} className='text-info'>
+      <Link
+        to={{
+          pathname: `/tasks/${task.id}`,
+          state: {
+            id: task.id,
+          },
+        }}
+        className='text-info'>
         {task.title}
       </Link>,
       getLocalDateFromUTC(task.startDate),
       getLocalDateFromUTC(task.endDate),
-      task.estimation,
+      `${task.estimation} hours`,
       task.userId
         ? findInArray(this.state.users, 'id', task.userId, 'name')
         : null,
