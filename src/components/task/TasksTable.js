@@ -91,40 +91,77 @@ export default class TasksTable extends React.Component {
     }
   }
 
-  createNewArray = tasksArray => {
-    const resultArray = [];
-    const initialArray = tasksArray;
-    for (let index = 0; index < initialArray.length; index++) {
-      const array1 = [];
-      array1.push(initialArray[index]);
-      initialArray.splice(index, 1);
+  // createNewArray = tasksArray => {
+  //   const resultArray = [];
+  //   const initialArray = tasksArray;
 
-      const other = initialArray.filter(currentObj => {
-        return Object.values(currentObj)[1] == array1[0].projectId;
-      });
+  // initialArray.map(item => {
+  //   const array1 = [];
+  //   array1.push(item);
+  //   // initialArray.splice(index, 1);
 
-      array1.push(...other);
-      // console.log(other);
+  //   const other = initialArray.filter(currentObj => {
+  //     return Object.values(currentObj)[1] == array1[0].projectId;
+  //   });
 
-      // const element = initialArray[index].projectId;
-      resultArray.push(array1);
-      console.log('resultArray', resultArray, index);
-    }
-  };
+  //   array1.push(...other);
+  //   // console.log(other);
+
+  //   // const element = initialArray[index].projectId;
+  //   resultArray.push(array1);
+  //   console.log('resultArray', resultArray);
+  // });
+  // for (let index = 0; index < initialArray.length; index++) {
+  //   const array1 = [];
+  //   array1.push(initialArray[index]);
+  //   initialArray.splice(index, 1);
+
+  //   const other = initialArray.filter(currentObj => {
+  //     return Object.values(currentObj)[1] == array1[0].projectId;
+  //   });
+
+  //   array1.push(...other);
+  //   // console.log(other);
+
+  //   // const element = initialArray[index].projectId;
+  //   resultArray.push(array1);
+  //   console.log('resultArray', resultArray, index);
+  // }
+  // for (let index = 0; index < initialArray.length; index++) {
+  //   const array1 = [];
+  //   array1.push(initialArray[index]);
+  //   console.log(array1);
+
+  //   const other = initialArray.filter(currentObj => {
+  //     return Object.values(currentObj)[1] == array1[0].projectId;
+  //   });
+
+  //   array1.push(...other);
+  //   // console.log(other);
+
+  //   // const element = initialArray[index].projectId;
+  //   resultArray.push(array1);
+  //   console.log('resultArray', resultArray, index);
+  // }
+  // };
 
   render() {
     function findInArray(array, arrayItemKey, value, arrayItemProperty) {
       var item = array.find(arrayItem => arrayItem[arrayItemKey] === value);
       return item ? item[arrayItemProperty] : '';
     }
-    if (this.state.tasks.length > 0) {
-      console.log(this.createNewArray(this.state.tasks));
-    }
+    // if (this.state.tasks.length > 0) {
+    //   console.log(this.createNewArray(this.state.tasks));
+    // }
 
-    // const finalArr = [];
-    // const tasksByProject = this.state.tasks.map(task => )
+    var orderedTasks = this.state.tasks,
+      tasksByProjects = orderedTasks.reduce(function(r, a) {
+        r[a.projectId] = r[a.projectId] || [];
+        r[a.projectId].push(a);
+        return r;
+      }, Object.create(null));
 
-    // console.log(finalArr);
+    console.log(tasksByProjects);
 
     const tableData = this.state.tasks.map(task => [
       task.id,
