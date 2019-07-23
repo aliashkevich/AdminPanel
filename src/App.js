@@ -13,6 +13,8 @@ import Users from './pages/Users';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import ProjectEdit from './pages/ProjectEdit';
+import TaskDetail from './pages/TaskDetail';
+import ClientDetail from './pages/ClientDetail';
 import './App.css';
 
 export default class App extends React.Component {
@@ -77,9 +79,11 @@ export default class App extends React.Component {
           <Route exact path='/clients' component={Clients} />
           <Route path='/clients/new' component={NewClient} />
           <Route path='/clients/edit' component={NewClient} />
+          <Route exact path='/clients/:id' component={ClientDetail} />
           <Route path='/profile' component={ProfilePage} />
           <Route exact path='/tasks' component={Tasks} />
           <Route path='/tasks/new' component={NewTask} />
+          <Route exact path='/tasks/:id' component={TaskDetail} />
           <Route exact path='/administration' component={Users} />
         </Switch>
       </React.Fragment>
