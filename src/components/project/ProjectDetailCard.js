@@ -40,41 +40,31 @@ export default class ProjectDetailCard extends React.Component {
   }
 
   render() {
-    if (this.state.project === {}) {
-      return null;
-    }
     return (
       <React.Fragment>
         {this.state.loading ? (
           <Spinner />
         ) : (
-          <div className='main-panel'>
-            <div className='content'>
-              <div className='container-fluid'>
-                <div className='row'>
-                  <div className='col-lg-12 col-md-12 col-sm-12'>
-                    <div className='card'>
-                      <div className='card-header card-header-info'>
-                        <h4 className='card-title'>
-                          {this.state.project.title}
-                        </h4>
-                        <p className='category'>
-                          Project ID: <span>{this.state.project.id}</span>
-                        </p>
-                      </div>
-                      {/* summary */}
-                      <div className='card-body'>
-                        <div className='row'>
-                          <ClientInfo clientId={this.state.client} />
-                          <ProjectSummary project={this.state.project} />
-                        </div>
-                        <div className='row'>
-                          <Participants
-                            participantsArr={this.state.participants}
-                          />
-                          <ProjectTasks projectId={this.state.project.id} />
-                        </div>
-                      </div>
+          <div className='row'>
+            <div className='col-lg-12 col-md-12 col-sm-12'>
+              <div className='card'>
+                <div className='card-header card-header-info'>
+                  <h4 className='card-title'>{this.state.project.title}</h4>
+                  <p className='category'>
+                    Project ID: <span>{this.state.project.id}</span>
+                  </p>
+                </div>
+                {/* summary */}
+                <div className='card-body'>
+                  <div className='row'>
+                    <div className=' col-lg-4 col-md-6-col-sm-12s'>
+                      <ClientInfo clientId={this.state.client} />
+                      <Participants participantsArr={this.state.participants} />
+                    </div>
+
+                    <div className='col-lg-8 col-md-12 col-sm-12'>
+                      <ProjectTasks projectId={this.state.project.id} />
+                      <ProjectSummary project={this.state.project} />
                     </div>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ class ProjectsDashboard extends React.Component {
     super(props);
     this.state = {
       projects: [],
-      loading: false,
+      loading: true,
     };
     this.getProjects = this.getProjects.bind(this);
   }
