@@ -121,7 +121,6 @@ class NewClient extends React.Component {
       body: JSON.stringify(body),
     })
       .then(res => {
-        console.log(res);
         if (res.status >= 200 && res.status < 300) {
           this.props.history.push('/clients');
           return res;

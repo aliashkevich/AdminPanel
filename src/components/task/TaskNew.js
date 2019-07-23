@@ -224,6 +224,7 @@ class AddNewTask extends React.Component {
     fetch(`${config.apiUrl}/tasks/${this.state.taskId}`, {
       method: 'PUT',
       headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify(body),
