@@ -164,7 +164,6 @@ class AddNewTask extends React.Component {
     e.preventDefault();
     const newProject = this.state.projectSelect.value;
     const newAssignee = this.state.assigneeSelect.value;
-    console.log(newAssignee);
     const body = {
       projectId: newProject,
       title: this.state.title,

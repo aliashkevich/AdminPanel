@@ -41,25 +41,24 @@ export default class Participants extends React.Component {
       });
     }
     return (
-      <div className='col-lg-4 col-md-12 col-sm-12'>
-        <div className='card card-stats'>
-          <div className='card-header card-header-info card-header-icon'>
-            <div className='card-icon'>
-              <i className='material-icons'>people</i>
-            </div>
-            <div className='container-fluid container-padding'>
-              <p className='card-category title-padding'>Participants</p>
-              {participants.map((participant, i) => {
-                return (
-                  <div key={i}>
-                    <div>
-                      <CircleImg logo={participant.image} />
-                      <span className='font-grey ml-1'>{participant.name}</span>
-                    </div>
+      <div className='card'>
+        <div className='card-header card-header-info card-header-text'>
+          <div className='card-text'>
+            <h4 className='card-title'>Participants</h4>
+          </div>
+          <div className='card-body'>
+            <hr />
+            {participants.map((participant, i) => {
+              return (
+                <div key={i}>
+                  <div className='participant-wrapper'>
+                    <span className='font-grey ml-1'>{participant.name}</span>
+                    <CircleImg logo={participant.image} />
                   </div>
-                );
-              })}
-            </div>
+                  <hr />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

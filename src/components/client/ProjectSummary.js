@@ -41,36 +41,37 @@ export default class ProjectTasksTable extends React.Component {
     } else {
       return (
         <React.Fragment>
-          <div className='col-lg-8 col-md-12 col-sm-12'>
-            {clientProjects.map((project, index) => {
-              return (
-                <div class='card' key={index}>
-                  <div class='card-header card-header-text card-header-primary'>
-                    <Link
-                      to={{
-                        pathname: `/projects/${project.id}`,
-                        state: {
-                          id: project.id,
-                        },
-                      }}>
-                      <div class='project-summary-title card-text'>
-                        <h4 class='card-title'>Project: {project.title}</h4>
-                      </div>
-                    </Link>
-                    <div class='card-body font-grey'>
-                      <b>
-                        {getLocalDateFromUTC(project.startDate)}-
-                        {getLocalDateFromUTC(project.endDate)}
-                      </b>
-                      <br />
-                      <br />
-                      {project.summary}
+          {clientProjects.map((project, index) => {
+            return (
+              <div class='card' key={index}>
+                <div class='card-header card-header-text card-header-success'>
+                  <Link
+                    to={{
+                      pathname: `/projects/${project.id}`,
+                      state: {
+                        id: project.id,
+                      },
+                    }}>
+                    <div class='project-summary-title card-text project-sum'>
+                      <h4 class='card-title'>
+                        Project: {project.title}{' '}
+                        <i class='material-icons'>arrow_forward</i>
+                      </h4>
                     </div>
+                  </Link>
+                  <div class='card-body text-dark'>
+                    <b>
+                      {getLocalDateFromUTC(project.startDate)}-
+                      {getLocalDateFromUTC(project.endDate)}
+                    </b>
+                    <br />
+                    <br />
+                    {project.summary}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </React.Fragment>
       );
     }
