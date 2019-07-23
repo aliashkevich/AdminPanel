@@ -5,7 +5,6 @@ import ProjectSummary from './ProjectSummary';
 import ProjectTasks from './ProjectTasks';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 import './ProjectDetailCard.css';
 
 export default class ProjectDetailCard extends React.Component {
@@ -23,7 +22,10 @@ export default class ProjectDetailCard extends React.Component {
 
   getProject() {
     fetch(`${config.apiUrl}/projects/${this.state.id}`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {

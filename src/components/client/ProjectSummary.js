@@ -3,7 +3,6 @@ import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {Link} from 'react-router-dom';
-import {authHeader} from '../../util/authHeader.js';
 
 export default class ProjectTasksTable extends React.Component {
   constructor(props) {
@@ -18,7 +17,10 @@ export default class ProjectTasksTable extends React.Component {
 
   getProjects() {
     fetch(`${config.apiUrl}/projects`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {

@@ -6,7 +6,6 @@ import ProjectInfo from './ProjectInfo';
 import TaskSummaryCard from './TaskSummaryCard';
 import TaskDescriptionCard from './TaskDescriptionCard';
 import TaskInfo from './TaskInfo';
-import {authHeader} from '../../util/authHeader.js';
 
 export default class TaskDetailCard extends React.Component {
   constructor(props) {
@@ -24,7 +23,10 @@ export default class TaskDetailCard extends React.Component {
 
   getTask() {
     fetch(`${config.apiUrl}/tasks/${this.state.id}`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -36,7 +38,10 @@ export default class TaskDetailCard extends React.Component {
       .catch(error => console.log(error))
       .then(
         fetch(`${config.apiUrl}/projects/`, {
-          headers: authHeader,
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
         })
           .then(res => res.json())
           .then(data => {

@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import ActionsTable from '../global/ActionsTable';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 
 export default class ClientsTable extends React.Component {
   constructor(props) {
@@ -25,7 +24,10 @@ export default class ClientsTable extends React.Component {
 
   getClients() {
     fetch(`${config.apiUrl}/clients`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -41,7 +43,10 @@ export default class ClientsTable extends React.Component {
   deleteOnClick(client) {
     const options = {
       method: 'DELETE',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/clients/${client.id}`, options)
       .then(res => res.json())

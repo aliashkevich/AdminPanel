@@ -5,7 +5,6 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 
 const styles = {
   select: {
@@ -71,7 +70,10 @@ class ProjectNew extends React.Component {
   }
   getUsers() {
     fetch(`${config.apiUrl}/users`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -85,7 +87,10 @@ class ProjectNew extends React.Component {
 
   getClients() {
     fetch(`${config.apiUrl}/clients`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -104,7 +109,10 @@ class ProjectNew extends React.Component {
           .split('/')
           .pop()}`,
         {
-          headers: authHeader,
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
         },
       )
         .then(res => res.json())
@@ -188,7 +196,10 @@ class ProjectNew extends React.Component {
     };
     fetch(`${config.apiUrl}/projects`, {
       method: 'POST',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify(body),
     })
       .then(res => {
@@ -228,7 +239,10 @@ class ProjectNew extends React.Component {
     };
     fetch(`${config.apiUrl}/projects/${this.state.projects.id}`, {
       method: 'PUT',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify(body),
     })
       .then(res => {

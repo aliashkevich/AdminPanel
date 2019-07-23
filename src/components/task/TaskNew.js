@@ -5,7 +5,6 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 
 const styles = {
   select: {
@@ -63,7 +62,10 @@ class AddNewTask extends React.Component {
 
   getUsers = () => {
     fetch(`${config.apiUrl}/users`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -77,7 +79,10 @@ class AddNewTask extends React.Component {
 
   getProjects = () => {
     fetch(`${config.apiUrl}/projects`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data =>
@@ -93,7 +98,10 @@ class AddNewTask extends React.Component {
     let lastParam = this.props.location.pathname.split('/').pop();
     if (lastParam !== 'new') {
       fetch(`${config.apiUrl}/tasks/${lastParam}`, {
-        headers: authHeader,
+        headers: new Headers({
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          'Content-Type': 'application/json',
+        }),
       })
         .then(res => res.json())
         .then(data => {
@@ -138,7 +146,7 @@ class AddNewTask extends React.Component {
       });
       const assigneeId = this.state.assigneeId;
       const assigneeSelect = assigneeOptions.filter(currentObj => {
-        return assigneeId == currentObj.value;
+        return assigneeId === currentObj.value;
       })[0];
       this.setState({
         projectSelect,
@@ -184,7 +192,10 @@ class AddNewTask extends React.Component {
     };
     fetch(`${config.apiUrl}/tasks`, {
       method: 'POST',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify(body),
     })
       .then(res => {
@@ -227,7 +238,10 @@ class AddNewTask extends React.Component {
     };
     fetch(`${config.apiUrl}/tasks/${this.state.taskId}`, {
       method: 'PUT',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify(body),
     })
       .then(res => {

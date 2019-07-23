@@ -3,7 +3,6 @@ import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import CircleImg from '../global/CircleImg';
-import {authHeader} from '../../util/authHeader.js';
 
 class TaskInfo extends React.Component {
   constructor(props) {
@@ -18,7 +17,10 @@ class TaskInfo extends React.Component {
 
   getUsers() {
     fetch(`${config.apiUrl}/users`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {

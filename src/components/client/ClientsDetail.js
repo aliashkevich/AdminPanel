@@ -3,7 +3,6 @@ import ClientInfo from '../project/ClientInfo';
 import ProjectSummary from './ProjectSummary';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 import './ClientDetailsCard.css';
 
 export default class ClientsDetail extends React.Component {
@@ -19,7 +18,10 @@ export default class ClientsDetail extends React.Component {
 
   getClient() {
     fetch(`${config.apiUrl}/clients/${this.state.id}`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {

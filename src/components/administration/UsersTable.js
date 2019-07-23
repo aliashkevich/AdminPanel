@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import './UsersTable.css';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 import CircleImg from '../global/CircleImg';
 
 export default class UsersTable extends React.Component {
@@ -29,7 +28,10 @@ export default class UsersTable extends React.Component {
 
   getUsersData() {
     fetch(`${config.apiUrl}/clients`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -41,7 +43,10 @@ export default class UsersTable extends React.Component {
       .catch(error => console.log(error))
       .then(
         fetch(`${config.apiUrl}/projects`, {
-          headers: authHeader,
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
         })
           .then(res => res.json())
           .then(data => {
@@ -53,7 +58,10 @@ export default class UsersTable extends React.Component {
           .catch(error => console.log(error))
           .then(
             fetch(`${config.apiUrl}/roles`, {
-              headers: authHeader,
+              headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+              }),
             })
               .then(res => res.json())
               .then(data => {
@@ -65,7 +73,10 @@ export default class UsersTable extends React.Component {
               .catch(error => console.log(error))
               .then(
                 fetch(`${config.apiUrl}/users`, {
-                  headers: authHeader,
+                  headers: new Headers({
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                    'Content-Type': 'application/json',
+                  }),
                 })
                   .then(res => res.json())
                   .then(data => {
@@ -88,7 +99,10 @@ export default class UsersTable extends React.Component {
   deleteOnClick(user) {
     const options = {
       method: 'DELETE',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/users/${user.id}`, options)
       .then(this.setState({updated: true}))

@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
-import {authHeader} from '../../util/authHeader.js';
 
 export default class ProjectsTable extends React.Component {
   constructor(props) {
@@ -21,7 +20,10 @@ export default class ProjectsTable extends React.Component {
 
   getProjects() {
     fetch(`${config.apiUrl}/projects`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -41,7 +43,10 @@ export default class ProjectsTable extends React.Component {
   deleteOnClick(project) {
     const options = {
       method: 'DELETE',
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/projects/${project.id}`, options)
       .then(this.setState({updated: true}))

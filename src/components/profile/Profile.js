@@ -1,7 +1,6 @@
 import React from 'react';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
-import {authHeader} from '../../util/authHeader.js';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -17,7 +16,10 @@ export default class Profile extends React.Component {
 
   componentDidMount() {
     fetch(`${config.apiUrl}/roles`, {
-      headers: authHeader,
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     })
       .then(res => res.json())
       .then(data => {
@@ -33,7 +35,10 @@ export default class Profile extends React.Component {
             JSON.parse(localStorage.getItem('user')).id
           }`,
           {
-            headers: authHeader,
+            headers: new Headers({
+              Authorization: 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type': 'application/json',
+            }),
           },
         )
           .then(res => res.json())
