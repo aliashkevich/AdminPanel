@@ -11,6 +11,8 @@ export default class Header extends Component {
     let userFromStorage = localStorage.getItem('user');
     let parsedUser = JSON.parse(userFromStorage);
     const root = document.getElementsByTagName('html')[0];
+    console.log('classList', root.classList);
+    root.classList.remove('nav-open');
     return (
       <React.Fragment>
         <div
