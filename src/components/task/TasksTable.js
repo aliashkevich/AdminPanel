@@ -15,6 +15,7 @@ export default class TasksTable extends React.Component {
       users: [],
       loadingUsers: true,
       updated: false,
+      projects: [],
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -39,6 +40,18 @@ export default class TasksTable extends React.Component {
               users: data.users,
               updated: false,
               loadingUsers: false,
+            });
+          })
+          .catch(error => console.log(error)),
+      )
+      .then(
+        fetch(`${config.apiUrl}/projects`)
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+              projects: data.projects,
+              updated: false,
+              loadingProjects: false,
             });
           })
           .catch(error => console.log(error)),
@@ -78,29 +91,40 @@ export default class TasksTable extends React.Component {
     }
   }
 
+  createNewArray = tasksArray => {
+    const resultArray = [];
+    const initialArray = tasksArray;
+    for (let index = 0; index < initialArray.length; index++) {
+      const array1 = [];
+      array1.push(initialArray[index]);
+      initialArray.splice(index, 1);
+
+      const other = initialArray.filter(currentObj => {
+        return Object.values(currentObj)[1] == array1[0].projectId;
+      });
+
+      array1.push(...other);
+      // console.log(other);
+
+      // const element = initialArray[index].projectId;
+      resultArray.push(array1);
+      console.log('resultArray', resultArray, index);
+    }
+  };
+
   render() {
     function findInArray(array, arrayItemKey, value, arrayItemProperty) {
       var item = array.find(arrayItem => arrayItem[arrayItemKey] === value);
       return item ? item[arrayItemProperty] : '';
     }
+    if (this.state.tasks.length > 0) {
+      console.log(this.createNewArray(this.state.tasks));
+    }
 
-    // unique by project ID
-    // create a table per project id
-    //inside this table only render tasks from this id  = entities with a filter?
-    //table name is project name matched with id
+    // const finalArr = [];
+    // const tasksByProject = this.state.tasks.map(task => )
 
-    // const taskTables = this.state.tasks.map(task => [task.projectId );
-
-    const finalArr = [];
-    const projects = this.state.tasks.map(task => {
-      if (!finalArr[task.projectId]) {
-        finalArr[task.projectId] = [];
-      } else {
-        finalArr[task.projectId].push({...task});
-      }
-    });
-
-    console.log(finalArr);
+    // console.log(finalArr);
 
     const tableData = this.state.tasks.map(task => [
       task.id,
@@ -123,7 +147,7 @@ export default class TasksTable extends React.Component {
           this.state.tasks.map(task => (
             <ActionsTable
               entities={this.state.tasks}
-              tableName={task.projectId}
+              tableName={task.id}
               tableHead={[
                 'ID',
                 'Title',
