@@ -10,10 +10,6 @@ export default class Header extends Component {
     this.closeMobileMenu = this.closeMobileMenu.bind(this);
   }
 
-  componentWillUpdate() {
-    this.closeMobileMenu();
-  }
-
   closeMobileMenu() {
     let toggler = document.getElementsByClassName('navbar-toggler')[0];
     if (toggler !== undefined && toggler.classList.contains('toggled')) {
@@ -44,7 +40,7 @@ export default class Header extends Component {
           </div>
           <div className='sidebar-wrapper'>
             <ul className='nav'>
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/dashboard'
                   className='nav-link '
@@ -70,7 +66,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/projects'
                   className='nav-link'
@@ -80,7 +76,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/tasks'
                   className='nav-link'
@@ -90,7 +86,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/administration'
                   className='nav-link'
