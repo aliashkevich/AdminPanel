@@ -17,7 +17,12 @@ export default class ClientsDetail extends React.Component {
   }
 
   getClient() {
-    fetch(`${config.apiUrl}/clients/${this.state.id}`)
+    fetch(`${config.apiUrl}/clients/${this.state.id}`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -46,12 +51,15 @@ export default class ClientsDetail extends React.Component {
                   <h4 className='card-title'>{this.state.clients.name}</h4>
                 </div>
                 {/* summary */}
-                <div className='card-body'>
-                  <div className='row'>
-                    <ClientInfo clientId={this.state.id} />
-                    <ProjectSummary clientId={this.state.id} />
+                <div className='card-body '>
+                  <div className='row text-dark'>
+                    <div className='col-lg-4 col-md-12 col-sm-12'>
+                      <ClientInfo clientId={this.state.id} />
+                    </div>
+                    <div className='col-lg-8 col-md-12 col-sm-12'>
+                      <ProjectSummary clientId={this.state.id} />
+                    </div>
                   </div>
-                  <div className='row' />
                 </div>
               </div>
             </div>

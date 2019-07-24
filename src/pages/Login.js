@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/login/LoginForm';
-import {Redirect} from 'react-router-dom';
 import {config} from '../util/config';
 
 class Login extends Component {
@@ -10,69 +9,82 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      redirect: false,
-      users: [],
+      flash: '',
+      user: {},
+      token: '',
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.setLocalStorage = this.setLocalStorage.bind(this);
+    this.notify = this.notify.bind(this);
   }
 
   handleInputChange = event => {
-    // will update state by name attribute, so state name should be same with it
-    const {value, name} = event.target;
     this.setState({
-      [name]: value,
+      [event.target.name]: event.target.value,
+      flash: '',
     });
   };
 
   onSubmit = event => {
-    event.preventDefault();
-    let userArray = this.state.users;
-    let existUser = userArray.find(data => {
-      return data.email === this.state.email; // if can't find, it will return undefined
-    });
-    if (existUser !== undefined) {
-      if (existUser.password === this.state.password) {
-        localStorage.setItem('user', JSON.stringify(existUser));
-        alert('Login successful');
-        this.setState({redirect: true});
-      } else {
-        alert('Login failed: password is wrong');
-        this.setState({password: ''});
-      }
-    } else {
-      alert('Login failed: you are not registered');
-      this.setState({email: '', password: ''});
+    if (event) {
+      event.preventDefault();
     }
+
+    const payload = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    fetch(`${config.apiUrl}/auth/login`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify(payload),
+    })
+      .then(res => res.json())
+      .then(res =>
+        res.token
+          ? this.setState(
+              {
+                token: res.token,
+                flash: res.flash,
+                user: res.data,
+              },
+              () => this.setLocalStorage(),
+            )
+          : this.setState({
+              flash: res.flash,
+            }),
+      )
+      .catch(err => console.log(err));
   };
 
-  componentDidMount() {
-    fetch(`${config.apiUrl}/users`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          users: data.users,
-        });
-      })
-      .catch(error => console.log(error));
+  setLocalStorage() {
+    localStorage.setItem('token', this.state.token);
+    localStorage.setItem('user', JSON.stringify(this.state.user));
+
+    this.notify();
+  }
+
+  notify() {
+    var event = new Event('authenticated');
+    document.dispatchEvent(event);
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to='/' />;
-    } else {
-      return (
-        <div>
-          <LoginForm
-            email={this.state.email}
-            password={this.state.password}
-            onSubmit={this.onSubmit}
-            handleInputChange={this.handleInputChange}
-          />
-        </div>
-      );
-    }
+    return (
+      <React.Fragment>
+        <LoginForm
+          email={this.state.email}
+          password={this.state.password}
+          onSubmit={this.onSubmit}
+          handleInputChange={this.handleInputChange}
+          flash={this.state.flash}
+        />
+      </React.Fragment>
+    );
   }
 }
 

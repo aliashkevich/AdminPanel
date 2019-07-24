@@ -27,7 +27,12 @@ export default class UsersTable extends React.Component {
   }
 
   getUsersData() {
-    fetch(`${config.apiUrl}/clients`)
+    fetch(`${config.apiUrl}/clients`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -37,7 +42,12 @@ export default class UsersTable extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${config.apiUrl}/projects`)
+        fetch(`${config.apiUrl}/projects`, {
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
+        })
           .then(res => res.json())
           .then(data => {
             this.setState({
@@ -47,7 +57,12 @@ export default class UsersTable extends React.Component {
           })
           .catch(error => console.log(error))
           .then(
-            fetch(`${config.apiUrl}/roles`)
+            fetch(`${config.apiUrl}/roles`, {
+              headers: new Headers({
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+              }),
+            })
               .then(res => res.json())
               .then(data => {
                 this.setState({
@@ -57,7 +72,12 @@ export default class UsersTable extends React.Component {
               })
               .catch(error => console.log(error))
               .then(
-                fetch(`${config.apiUrl}/users`)
+                fetch(`${config.apiUrl}/users`, {
+                  headers: new Headers({
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                    'Content-Type': 'application/json',
+                  }),
+                })
                   .then(res => res.json())
                   .then(data => {
                     this.setState({
@@ -79,6 +99,10 @@ export default class UsersTable extends React.Component {
   deleteOnClick(user) {
     const options = {
       method: 'DELETE',
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/users/${user.id}`, options)
       .then(this.setState({updated: true}))
