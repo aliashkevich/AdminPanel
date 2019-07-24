@@ -180,7 +180,6 @@ class NewClient extends React.Component {
     });
   }
 
-  componentWillUpdate() {}
 
   render() {
     return (
