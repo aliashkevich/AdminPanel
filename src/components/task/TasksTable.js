@@ -92,6 +92,7 @@ export default class TasksTable extends React.Component {
   }
 
   updateOnClick(task) {
+    console.log(task);
     const data = {status: 'done'};
     const options = {
       method: 'PUT',
@@ -101,7 +102,7 @@ export default class TasksTable extends React.Component {
         'Content-Type': 'application/json',
       }),
     };
-    fetch(`${config.apiUrl}/tasks/${task.id}`, options)
+    fetch(`${config.apiUrl}/tasks/${task[1]}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }

@@ -66,7 +66,7 @@ function ActionsTable(props) {
                             <button
                               type='button'
                               className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
-                              onClick={() => updateOnClick(entities[rowIndex])}
+                              onClick={() => updateOnClick(dataRow)}
                               title='Mark as done'>
                               <i className='material-icons'>done</i>
                             </button>
