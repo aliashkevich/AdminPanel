@@ -19,7 +19,12 @@ export default class ProjectsTable extends React.Component {
   }
 
   getProjects() {
-    fetch(`${config.apiUrl}/projects`)
+    fetch(`${config.apiUrl}/projects`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -38,6 +43,10 @@ export default class ProjectsTable extends React.Component {
   deleteOnClick(project) {
     const options = {
       method: 'DELETE',
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/projects/${project.id}`, options)
       .then(this.setState({updated: true}))

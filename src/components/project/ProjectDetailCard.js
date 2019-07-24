@@ -21,7 +21,12 @@ export default class ProjectDetailCard extends React.Component {
   }
 
   getProject() {
-    fetch(`${config.apiUrl}/projects/${this.state.id}`)
+    fetch(`${config.apiUrl}/projects/${this.state.id}`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
