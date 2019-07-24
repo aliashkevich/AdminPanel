@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import WelcomeBanner from '../components/dashboard/WelcomeBanner';
 import ProjectsDashboard from '../components/dashboard/ProjectsDashboard';
 import TasksDashboard from '../components/dashboard/TasksDashboard';
-import DataGraph1 from '../components/dashboard/DataGraph1.js';
-import DataGraph2 from '../components/dashboard/DataGraph2.js';
-import DataGraph3 from '../components/dashboard/DataGraph3.js';
+import GraphTasks from '../components/dashboard/GraphTasks.js';
+import GraphClients from '../components/dashboard/GraphClients.js';
+import GraphProjects from '../components/dashboard/GraphProjects.js';
 import SmallCards from '../components/dashboard/SmallCards.js';
 
 export default class Dashboard extends Component {
@@ -18,9 +18,9 @@ export default class Dashboard extends Component {
               <SmallCards />
             </div>
             <div className='form-row col-md-12'>
-              <DataGraph1 />
-              <DataGraph2 />
-              <DataGraph3 />
+              <GraphTasks />
+              <GraphClients />
+              <GraphProjects />
             </div>
             <div className='form-row col-md-12'>
               <ProjectsDashboard />
