@@ -122,6 +122,7 @@ export default class ProjectsTable extends React.Component {
               'End',
               'Participants',
             ]}
+            pathName={'projects'}
             tableData={tableData}
             tableColor={'info'}
             deleteOnClick={this.deleteOnClick}

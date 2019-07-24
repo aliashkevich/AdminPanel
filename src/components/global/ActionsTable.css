@@ -6,3 +6,7 @@ a.btn-action {
 button.btn-modal {
   padding: 12px 30px !important;
 }
+
+.tr-mouse {
+  cursor: pointer;
+}
