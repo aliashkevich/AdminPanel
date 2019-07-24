@@ -24,7 +24,7 @@ function ActionsTable(props) {
   } = props;
 
   return (
-    <div className='card'>
+    <div className='card actions-table-card'>
       <div className={`card-header card-header-${tableColor}`}>
         <h4 className='card-title'>{tableName}</h4>
         <p className='card-category'>{tableDescription}</p>
@@ -45,6 +45,7 @@ function ActionsTable(props) {
             <tbody>
               {tableData !== undefined && tableData.length > 0 ? (
                 tableData.map((dataRow, rowIndex) => {
+                  // debugger;
                   return (
                     <tr key={rowIndex}>
                       {dataRow.map((dataColumn, columnIndex) => {

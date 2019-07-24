@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class TasksTable extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class TasksTable extends React.Component {
       loadingUsers: true,
       updated: false,
       projects: [],
+      loadingProjects: true,
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -38,7 +40,6 @@ export default class TasksTable extends React.Component {
           .then(data => {
             this.setState({
               users: data.users,
-              updated: false,
               loadingUsers: false,
             });
           })
@@ -91,109 +92,73 @@ export default class TasksTable extends React.Component {
     }
   }
 
-  // createNewArray = tasksArray => {
-  //   const resultArray = [];
-  //   const initialArray = tasksArray;
-
-  // initialArray.map(item => {
-  //   const array1 = [];
-  //   array1.push(item);
-  //   // initialArray.splice(index, 1);
-
-  //   const other = initialArray.filter(currentObj => {
-  //     return Object.values(currentObj)[1] == array1[0].projectId;
-  //   });
-
-  //   array1.push(...other);
-  //   // console.log(other);
-
-  //   // const element = initialArray[index].projectId;
-  //   resultArray.push(array1);
-  //   console.log('resultArray', resultArray);
-  // });
-  // for (let index = 0; index < initialArray.length; index++) {
-  //   const array1 = [];
-  //   array1.push(initialArray[index]);
-  //   initialArray.splice(index, 1);
-
-  //   const other = initialArray.filter(currentObj => {
-  //     return Object.values(currentObj)[1] == array1[0].projectId;
-  //   });
-
-  //   array1.push(...other);
-  //   // console.log(other);
-
-  //   // const element = initialArray[index].projectId;
-  //   resultArray.push(array1);
-  //   console.log('resultArray', resultArray, index);
-  // }
-  // for (let index = 0; index < initialArray.length; index++) {
-  //   const array1 = [];
-  //   array1.push(initialArray[index]);
-  //   console.log(array1);
-
-  //   const other = initialArray.filter(currentObj => {
-  //     return Object.values(currentObj)[1] == array1[0].projectId;
-  //   });
-
-  //   array1.push(...other);
-  //   // console.log(other);
-
-  //   // const element = initialArray[index].projectId;
-  //   resultArray.push(array1);
-  //   console.log('resultArray', resultArray, index);
-  // }
-  // };
-
   render() {
     function findInArray(array, arrayItemKey, value, arrayItemProperty) {
       var item = array.find(arrayItem => arrayItem[arrayItemKey] === value);
       return item ? item[arrayItemProperty] : '';
     }
-    // if (this.state.tasks.length > 0) {
-    //   console.log(this.createNewArray(this.state.tasks));
-    // }
 
     var orderedTasks = this.state.tasks,
-      tasksByProjects = orderedTasks.reduce(function(r, a) {
-        r[a.projectId] = r[a.projectId] || [];
-        r[a.projectId].push(a);
-        return r;
+      tasksByProjects = orderedTasks.reduce((accumulator, taskObject) => {
+        accumulator[taskObject.projectId] =
+          accumulator[taskObject.projectId] || [];
+        accumulator[taskObject.projectId].push(taskObject);
+        return accumulator;
       }, Object.create(null));
 
-    console.log(tasksByProjects);
+    let allTablesData = [];
+    const users = this.state.users;
 
-    const tableData = this.state.tasks.map(task => [
-      task.id,
-      <Link to={`/tasks/${task.id}`} className='text-info'>
-        {task.title}
-      </Link>,
-      getLocalDateFromUTC(task.startDate),
-      getLocalDateFromUTC(task.endDate),
-      `${task.estimation} hours`,
-      task.userId
-        ? findInArray(this.state.users, 'id', task.userId, 'name')
-        : null,
-    ]);
+    Object.keys(tasksByProjects).map(function(key, index) {
+      tasksByProjects[key].map(task => {
+        let tableData = [
+          task.projectId,
+          task.id,
+          <Link to={`/tasks/${task.id}`} className='text-info'>
+            {task.title}
+          </Link>,
+          getLocalDateFromUTC(task.startDate),
+          getLocalDateFromUTC(task.endDate),
+          `${task.estimation} hours`,
+          <CircleImg
+            logo={
+              task.userId
+                ? findInArray(users, 'id', task.userId, 'image')
+                : null
+            }
+          />,
+        ];
+        allTablesData.push(tableData);
+      });
+    });
 
     return (
       <React.Fragment>
-        {this.state.loadingClients || this.state.loadingUsers ? (
+        {this.state.loadingClients ||
+        this.state.loadingUsers ||
+        this.state.loadingProjects ? (
           <Spinner spinnerPosition={'global-spinner'} />
         ) : (
-          this.state.tasks.map(task => (
+          Object.keys(tasksByProjects).map((key, index) => (
             <ActionsTable
               entities={this.state.tasks}
-              tableName={task.id}
+              tableName={
+                key
+                  ? findInArray(this.state.projects, 'id', key, 'title')
+                  : null
+              }
               tableHead={[
-                'ID',
+                'Project',
+                'Id',
                 'Title',
                 'Start',
                 'End',
                 'Estimation',
                 'Assignee',
               ]}
-              tableData={tableData}
+              tableData={allTablesData.filter(currentElement => {
+                return currentElement[0] === key;
+              })}
               tableColor={'rose'}
               deleteOnClick={this.deleteOnClick}
               confirmationFieldName={'title'}

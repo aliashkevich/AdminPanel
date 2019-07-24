@@ -6,3 +6,7 @@ a.btn-action {
 button.btn-modal {
   padding: 12px 30px !important;
 }
+
+.actions-table-card {
+  margin: 40px 0px 70px 0px;
+}
