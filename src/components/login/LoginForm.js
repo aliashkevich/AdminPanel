@@ -7,7 +7,7 @@ function LoginForm({email, password, onSubmit, handleInputChange, flash}) {
     <div className='container-fluid'>
       <div
         id='login-form'
-        className='card card-nav-tabs text-center p-3 mx-auto col-lg-8 col-md-10 col-sm-12'
+        className='card card-nav-tabs text-center p-3 mx-auto col-xl-4 col-lg-6 col-md-8 col-sm-12'
         data-color='orange'>
         <div className='card-header card-header-warning'>
           <div className='logo'>
