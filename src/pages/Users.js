@@ -1,6 +1,5 @@
 import React from 'react';
 import UsersTable from '../components/administration/UsersTable';
-import AddUserButton from '../components/administration/AddUserButton';
 
 export default function Tasks() {
   return (
@@ -8,7 +7,6 @@ export default function Tasks() {
       <div className='main-panel'>
         <div className='content'>
           <div className='container-fluid'>
-            <AddUserButton />
             <UsersTable />
           </div>
         </div>

@@ -86,11 +86,7 @@ export default class Header extends Component {
         <div className='main-panel'>
           <nav className='navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top '>
             <div className='container-fluid'>
-              <div className='navbar-wrapper'>
-                <a className='navbar-brand' href='/dashboard'>
-                  Dashboard
-                </a>
-              </div>
+              <div className='navbar-wrapper' />
               <button
                 className='navbar-toggler'
                 type='button'
