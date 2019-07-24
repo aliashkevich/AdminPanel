@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class TasksTable extends React.Component {
   constructor(props) {
@@ -114,9 +115,13 @@ export default class TasksTable extends React.Component {
       getLocalDateFromUTC(task.startDate),
       getLocalDateFromUTC(task.endDate),
       `${task.estimation} hours`,
-      task.userId
-        ? findInArray(this.state.users, 'id', task.userId, 'name')
-        : null,
+      <CircleImg
+        logo={
+          task.userId
+            ? findInArray(this.state.users, 'id', task.userId, 'image')
+            : null
+        }
+      />,
     ]);
 
     return (

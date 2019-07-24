@@ -13,20 +13,18 @@ export default class Dashboard extends Component {
       <React.Fragment>
         <div className='main-panel'>
           <div className='content'>
-            <div className='container-fluid'>
-              <div className='form-row col-md-12'>
-                <WelcomeBanner />
-                <SmallCards />
-              </div>
-              <div className='form-row col-md-12'>
-                <DataGraph1 />
-                <DataGraph2 />
-                <DataGraph3 />
-              </div>
-              <div className='form-row col-md-12'>
-                <ProjectsDashboard />
-                <TasksDashboard />
-              </div>
+            <div className='form-row col-md-12'>
+              <WelcomeBanner />
+              <SmallCards />
+            </div>
+            <div className='form-row col-md-12'>
+              <DataGraph1 />
+              <DataGraph2 />
+              <DataGraph3 />
+            </div>
+            <div className='form-row col-md-12'>
+              <ProjectsDashboard />
+              <TasksDashboard />
             </div>
           </div>
         </div>
