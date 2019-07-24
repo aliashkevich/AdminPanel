@@ -1,1 +1,1 @@
-export const config = {apiUrl: 'https://lesewert.herokuapp.com/api/v1/'};
+export const config = {apiUrl: 'https://lesewert.herokuapp.com/api/v1'};

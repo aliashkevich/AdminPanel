@@ -118,7 +118,6 @@ export default class TasksTable extends React.Component {
       return item ? item[arrayItemProperty] : '';
     }
 
-<<<<<<< HEAD
     var orderedTasks = this.state.tasks,
       tasksByProjects = orderedTasks.reduce((accumulator, taskObject) => {
         accumulator[taskObject.projectId] =
@@ -152,31 +151,6 @@ export default class TasksTable extends React.Component {
         allTablesData.push(tableData);
       });
     });
-=======
-    const tableData = this.state.tasks.map(task => [
-      task.id,
-      <Link
-        to={{
-          pathname: `/tasks/${task.id}`,
-          state: {
-            id: task.id,
-          },
-        }}
-        className='text-info'>
-        {task.title}
-      </Link>,
-      getLocalDateFromUTC(task.startDate),
-      getLocalDateFromUTC(task.endDate),
-      `${task.estimation} hours`,
-      <CircleImg
-        logo={
-          task.userId
-            ? findInArray(this.state.users, 'id', task.userId, 'image')
-            : null
-        }
-      />,
-    ]);
->>>>>>> develop
 
     return (
       <React.Fragment>
