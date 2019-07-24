@@ -17,7 +17,12 @@ export default class ClientsDetail extends React.Component {
   }
 
   getClient() {
-    fetch(`${config.apiUrl}/clients/${this.state.id}`)
+    fetch(`${config.apiUrl}/clients/${this.state.id}`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({

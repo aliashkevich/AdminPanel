@@ -15,7 +15,12 @@ export default class ProjectInfo extends React.Component {
     this.getData = this.getData.bind(this);
   }
   getData() {
-    fetch(`${config.apiUrl}/projects/`)
+    fetch(`${config.apiUrl}/projects/`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
