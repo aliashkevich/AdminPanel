@@ -22,7 +22,12 @@ export default class TaskDetailCard extends React.Component {
   }
 
   getTask() {
-    fetch(`${config.apiUrl}/tasks/${this.state.id}`)
+    fetch(`${config.apiUrl}/tasks/${this.state.id}`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -32,7 +37,12 @@ export default class TaskDetailCard extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${config.apiUrl}/projects/`)
+        fetch(`${config.apiUrl}/projects/`, {
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
+        })
           .then(res => res.json())
           .then(data => {
             this.setState({

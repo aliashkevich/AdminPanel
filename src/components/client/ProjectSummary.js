@@ -16,7 +16,12 @@ export default class ProjectTasksTable extends React.Component {
   }
 
   getProjects() {
-    fetch(`${config.apiUrl}/projects`)
+    fetch(`${config.apiUrl}/projects`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -59,7 +64,7 @@ export default class ProjectTasksTable extends React.Component {
                       </h4>
                     </div>
                   </Link>
-                  <div class='card-body'>
+                  <div class='card-body text-dark'>
                     <b>
                       {getLocalDateFromUTC(project.startDate)}-
                       {getLocalDateFromUTC(project.endDate)}

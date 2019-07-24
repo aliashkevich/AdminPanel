@@ -1,7 +1,21 @@
-.vertical-center {
-  min-height: 100%; /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
+div#login-form {
+  margin-top: 25vh;
+}
 
+div.logo {
+  margin: 0 auto;
+}
+
+div.alert-container {
   display: flex;
-  align-items: center;
+}
+
+div.alert {
+  margin: 0 auto;
+  text-align: center;
+  min-width: 300px;
+}
+
+button.close-alert {
+  height: 100%;
 }

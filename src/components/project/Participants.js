@@ -13,7 +13,12 @@ export default class Participants extends React.Component {
     this.getUsers = this.getUsers.bind(this);
   }
   getUsers() {
-    fetch(`${config.apiUrl}/users`)
+    fetch(`${config.apiUrl}/users`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({

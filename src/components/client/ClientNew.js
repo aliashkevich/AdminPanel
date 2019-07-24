@@ -40,6 +40,12 @@ class NewClient extends React.Component {
         `${config.apiUrl}/clients/${this.props.location.pathname
           .split('/')
           .pop()}`,
+        {
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
+        },
       )
         .then(res => res.json())
         .then(data => {
@@ -69,6 +75,7 @@ class NewClient extends React.Component {
     fetch(`${config.apiUrl}/clients/${this.state.clientId}`, {
       method: 'PUT',
       headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify(body),
@@ -118,6 +125,7 @@ class NewClient extends React.Component {
     fetch(`${config.apiUrl}/clients`, {
       method: 'POST',
       headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify(body),

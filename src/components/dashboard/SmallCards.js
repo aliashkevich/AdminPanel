@@ -15,7 +15,12 @@ export default class SmallCards extends React.Component {
   }
 
   getData() {
-    fetch(`${config.apiUrl}/clients`)
+    fetch(`${config.apiUrl}/clients`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -24,7 +29,12 @@ export default class SmallCards extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${config.apiUrl}/users`)
+        fetch(`${config.apiUrl}/users`, {
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
+        })
           .then(res => res.json())
           .then(data => {
             this.setState({
@@ -43,10 +53,10 @@ export default class SmallCards extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.loading ? (
-          <Spinner spinnerPosition={'global-spinner'} />
-        ) : (
-          <div className='col-lg-3 col-md-3 col-sm-6'>
+        <div className='col-lg-3 col-md-3 col-sm-6'>
+          {this.state.loading ? (
+            <Spinner spinnerPosition={'inline-spinner'} />
+          ) : (
             <div className='card card-stats'>
               <div className='card-header card-header-success card-header-icon'>
                 <div className='card-icon'>
@@ -61,12 +71,13 @@ export default class SmallCards extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
-        )}
-        {this.state.loading ? (
-          <Spinner spinnerPosition={'global-spinner'} />
-        ) : (
-          <div className='col-lg-3 col-md-3 col-sm-6'>
+          )}
+        </div>
+
+        <div className='col-lg-3 col-md-3 col-sm-6'>
+          {this.state.loading ? (
+            <Spinner spinnerPosition={'inline-spinner'} />
+          ) : (
             <div className='card card-stats'>
               <div className='card-header card-header-info card-header-icon'>
                 <div className='card-icon'>
@@ -81,8 +92,8 @@ export default class SmallCards extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </React.Fragment>
     );
   }

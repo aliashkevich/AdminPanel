@@ -17,7 +17,12 @@ class TasksDashboard extends React.Component {
   }
 
   getTasks() {
-    fetch(`${config.apiUrl}/tasks`)
+    fetch(`${config.apiUrl}/tasks`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
