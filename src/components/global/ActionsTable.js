@@ -89,7 +89,9 @@ function ActionsTable(props) {
                         </Link>
                         <button
                           data-toggle='modal'
-                          data-target={'#confirmDelete-' + rowIndex}
+                          data-target={
+                            '#confirmDelete-' + entities[rowIndex].id
+                          }
                           type='button'
                           title='Delete'
                           className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
@@ -97,7 +99,7 @@ function ActionsTable(props) {
                         </button>
                         <div
                           className='modal fade text-left'
-                          id={'confirmDelete-' + rowIndex}
+                          id={'confirmDelete-' + entities[rowIndex].id}
                           tabIndex='-1'
                           role='dialog'
                           aria-labelledby='confirmDelete'
@@ -122,8 +124,6 @@ function ActionsTable(props) {
                                   className={`btn btn-modal btn-${tableColor}`}
                                   data-dismiss='modal'
                                   onClick={() => {
-                                    console.log(entities[rowIndex]);
-                                    console.log(dataRow);
                                     deleteOnClick(entities[rowIndex]);
                                   }}>
                                   Delete
