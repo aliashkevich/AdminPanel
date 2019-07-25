@@ -10,10 +10,8 @@
   z-index: 100;
 }
 
-button.close-alert {
-  margin-top: 10px;
-}
-
 div.popup {
   width: 370px;
+  padding: 15px 0px;
+  margin: 5px 0px;
 }

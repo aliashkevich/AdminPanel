@@ -6,8 +6,9 @@ import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
 import Popup from '../global/Popup';
+import {throwStatement} from '@babel/types';
 
-function validate(startDate, endDate, participants, clientId, date) {
+function validate(startDate, endDate, participantSelect, clientSelect, date) {
   const errors = [];
 
   if (startDate > endDate) {
@@ -16,10 +17,10 @@ function validate(startDate, endDate, participants, clientId, date) {
   if (startDate <= date) {
     errors.push('Start date cant be in the past');
   }
-  if (participants.length === 0) {
+  if (participantSelect.length === 0) {
     errors.push('One or more participants must be selected');
   }
-  if (clientId.length === 0) {
+  if (clientSelect.length === 0) {
     errors.push('One client must be selected');
   }
   return errors;
@@ -81,6 +82,7 @@ class ProjectNew extends React.Component {
       date: date,
       errors: [],
       showPopup: false,
+      showError: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -90,7 +92,7 @@ class ProjectNew extends React.Component {
     this.getProject = this.getProject.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getClients = this.getClients.bind(this);
-    this.togglePopup = this.togglePopup.bind(this);
+    this.togglePopupHandler = this.togglePopupHandler.bind(this);
   }
 
   componentDidMount() {
@@ -184,9 +186,14 @@ class ProjectNew extends React.Component {
         return participantId.includes(currentObj.value);
       });
       this.setState({
-        clientSelect,
-        participantSelect,
+        clientSelect: [],
+        participantSelect: [],
         loading: false,
+      });
+    }
+    if (this.state.participantSelect === null) {
+      this.setState({
+        participantSelect: [],
       });
     }
   }
@@ -210,23 +217,43 @@ class ProjectNew extends React.Component {
     });
   }
 
-  togglePopup() {
+  togglePopupHandler(e) {
+    e.preventDefault();
+    e.target.parentElement.classList.remove('show');
+    this.setState({
+      showError: false,
+    });
+    console.log(e.target.key);
     setTimeout(() => {
       this.setState({
         showPopup: false,
-        errors: '',
+        errors: [],
       });
-    }, 5000);
+      console.log('Removed!!!');
+    }, 1000);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const {startDate, endDate, participants, clientId, date} = this.state;
-    const errors = validate(startDate, endDate, participants, clientId, date);
+    const {
+      startDate,
+      endDate,
+      participantSelect,
+      clientSelect,
+      date,
+    } = this.state;
+    const errors = validate(
+      startDate,
+      endDate,
+      participantSelect,
+      clientSelect,
+      date,
+    );
     if (errors.length > 0) {
       this.setState({
         showPopup: true,
         errors,
+        showError: true,
       });
       return;
     }
@@ -341,12 +368,16 @@ class ProjectNew extends React.Component {
                     onSubmit={
                       this.state.edit ? this.handleEdit : this.handleSubmit
                     }>
-                    <div
-                      onSubmit={this.togglePopup}
-                      className='validation-alert'>
+                    <div className='validation-alert'>
                       {this.state.showPopup
-                        ? this.state.errors.map(error => {
-                            return <Popup error={error} />;
+                        ? this.state.errors.map((error, index) => {
+                            return (
+                              <Popup
+                                error={error}
+                                key={this.state.errors[index]}
+                                onClose={this.togglePopupHandler}
+                              />
+                            );
                           })
                         : null}
                     </div>

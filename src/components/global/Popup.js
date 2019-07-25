@@ -3,20 +3,15 @@ import PropTypes from 'prop-types';
 import './Popup.css';
 
 export default function Popup(props) {
-  const {error} = props;
+  const {error, onClose} = props;
   return (
     <div
-      className='alert alert-warning alert-dismissible fade show popup'
-      role='alert'>
+      className='alert alert-warning alert-dismissible fade show popup popup-cursor'
+      role='alert'
+      onClick={onClose}>
       <div className='popupWrapper'>
         {error}
-        <button
-          type='button'
-          className='close close-alert'
-          data-dismiss='alert'
-          aria-label='Close'>
-          <span aria-hidden='true'>&times;</span>
-        </button>
+        <button type='button' />
       </div>
     </div>
   );

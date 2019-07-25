@@ -1,15 +1,3 @@
-/* .validation-alert {
-  position: fixed;
-  bottom: 30px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-  padding: 20px;
+.popup-cursor {
+  cursor: pointer;
 }
-
-.popupWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
