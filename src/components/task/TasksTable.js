@@ -92,7 +92,6 @@ export default class TasksTable extends React.Component {
   }
 
   updateOnClick(task) {
-    console.log(task);
     const data = {status: 'done'};
     const options = {
       method: 'PUT',

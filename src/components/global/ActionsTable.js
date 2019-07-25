@@ -66,7 +66,10 @@ function ActionsTable(props) {
                             <button
                               type='button'
                               className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
-                              onClick={() => updateOnClick(dataRow)}
+                              onClick={() => {
+                                updateOnClick(dataRow);
+                                console.log(dataRow);
+                              }}
                               title='Mark as done'>
                               <i className='material-icons'>done</i>
                             </button>
@@ -118,9 +121,11 @@ function ActionsTable(props) {
                                   type='button'
                                   className={`btn btn-modal btn-${tableColor}`}
                                   data-dismiss='modal'
-                                  onClick={() =>
-                                    deleteOnClick(entities[rowIndex])
-                                  }>
+                                  onClick={() => {
+                                    console.log(entities[rowIndex]);
+                                    console.log(dataRow);
+                                    deleteOnClick(entities[rowIndex]);
+                                  }}>
                                   Delete
                                 </button>
                               </div>
