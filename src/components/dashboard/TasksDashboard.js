@@ -60,6 +60,7 @@ class TasksDashboard extends React.Component {
                 tableHead={['Title', 'Start', 'End']}
                 tableData={tableData.slice(0, 4)}
                 tableColor={'rose'}
+                visible={`${this.state.didMount && 'visible'}`}
               />
             </Link>
           )}

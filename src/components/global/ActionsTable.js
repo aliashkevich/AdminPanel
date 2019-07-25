@@ -27,12 +27,11 @@ function ActionsTable(props) {
 
   return (
     <div className='card'>
-      <div
-        className={`card-header card-header-${tableColor} bounce-in ${visible}`}>
+      <div className={`card-header card-header-${tableColor} grow ${visible}`}>
         <h4 className='card-title'>{tableName}</h4>
         <p className='card-category'>{tableDescription}</p>
       </div>
-      <div className={`card-body slide-in ${visible}`}>
+      <div className='card-body'>
         <div className='table-responsive'>
           <table className='table table-hover'>
             {tableHead !== undefined ? (

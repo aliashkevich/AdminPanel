@@ -1,4 +1,5 @@
 import React from 'react';
+import './Dashboard.css';
 
 class WelcomeBanner extends React.Component {
   constructor(props) {
@@ -21,22 +22,20 @@ class WelcomeBanner extends React.Component {
         <div className='col-md-6'>
           <div className='card'>
             <div className='card-header card-header-text card-header-primary'>
-              <div className={`card-text slide-down ${didMount && 'visible'}`}>
-                <h4 className='card-title'>
-                  Welcome {parsedUser ? parsedUser.name : 'user'}
+              <div className={`card-text grow ${didMount && 'visible'}`}>
+                <h4 className='card-title welcome-title'>
+                  Welcome
+                  <h4 className={`text-transition ${didMount && 'visible'}`}>
+                    {parsedUser ? parsedUser.name : 'user'}
+                  </h4>
                 </h4>
               </div>
             </div>
-            <div className={`card-body grow ${didMount && 'visible'}`}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco...
+            <div className='card-body'>
+              Welcome to our project dashboard. Feel free to add, edit and
+              delete clients, projects and tasks! Click on their names in order
+              to access the details.
             </div>
-          </div>
-          <div className='card-body'>
-            Welcome to our project dashboard. Feel free to add, edit and delete
-            clients, projects and tasks! Click on their names in order to access
-            the details.
           </div>
         </div>
       </React.Fragment>

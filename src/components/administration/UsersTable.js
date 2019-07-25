@@ -20,6 +20,7 @@ export default class UsersTable extends React.Component {
       roles: [],
       loadingRoles: true,
       updated: false,
+      didMount: false,
     };
 
     this.getUsersData = this.getUsersData.bind(this);
@@ -94,6 +95,7 @@ export default class UsersTable extends React.Component {
 
   componentDidMount() {
     this.getUsersData();
+    this.setState({didMount: true});
   }
 
   deleteOnClick(user) {
@@ -153,6 +155,7 @@ export default class UsersTable extends React.Component {
           tableColor={'success'}
           deleteOnClick={this.deleteOnClick}
           confirmationFieldName={'name'}
+          visible={`${this.state.didMount && 'visible'}`}
         />
       );
     }
