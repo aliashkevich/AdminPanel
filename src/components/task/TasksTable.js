@@ -18,7 +18,7 @@ export default class TasksTable extends React.Component {
       updated: false,
       projects: [],
       loadingProjects: true,
-      didMount: false;
+      didMount: false,
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
