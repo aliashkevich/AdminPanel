@@ -159,6 +159,7 @@ export default class TasksTable extends React.Component {
         ) : (
           Object.keys(tasksByProjects).map((key, index) => (
             <ActionsTable
+              key={key}
               entities={this.state.tasks.filter(currentElement => {
                 return currentElement.projectId === key;
               })}
