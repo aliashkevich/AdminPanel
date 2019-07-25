@@ -1,0 +1,24 @@
+.popup-cursor {
+  cursor: pointer;
+}
+.validation-alert {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column-reverse;
+  z-index: 100;
+}
+div.popup {
+  width: 370px;
+  padding: 15px 0px;
+  margin: 5px 0px;
+}
+.hidden-button {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}

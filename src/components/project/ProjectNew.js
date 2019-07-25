@@ -5,6 +5,24 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import Popup from '../global/Popup';
+
+function validate(startDate, endDate, participantSelect, clientSelect, date) {
+  const errors = [];
+  if (startDate > endDate) {
+    errors.push('End date must be after the start date');
+  }
+  if (startDate <= date) {
+    errors.push('Start date cant be in the past');
+  }
+  if (participantSelect.length === 0) {
+    errors.push('One or more participants must be selected');
+  }
+  if (clientSelect.length === 0) {
+    errors.push('One client must be selected');
+  }
+  return errors;
+}
 
 const styles = {
   select: {
@@ -34,6 +52,13 @@ const styles = {
 class ProjectNew extends React.Component {
   constructor(props) {
     super(props);
+    var today = new Date(),
+      date =
+        today.getFullYear() +
+        '-' +
+        (today.getMonth() + 1) +
+        '-' +
+        today.getDate();
     this.state = {
       id: '',
       clients: [],
@@ -52,6 +77,10 @@ class ProjectNew extends React.Component {
       participantFlag: false,
       clientFlag: false,
       projectFlag: false,
+      date: date,
+      errors: [],
+      showPopup: false,
+      showError: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClientChange = this.handleClientChange.bind(this);
@@ -61,6 +90,7 @@ class ProjectNew extends React.Component {
     this.getProject = this.getProject.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.getClients = this.getClients.bind(this);
+    this.togglePopupHandler = this.togglePopupHandler.bind(this);
   }
 
   componentDidMount() {
@@ -159,6 +189,11 @@ class ProjectNew extends React.Component {
         loading: false,
       });
     }
+    if (this.state.participantSelect === null) {
+      this.setState({
+        participantSelect: [],
+      });
+    }
   }
 
   handleChange(e) {
@@ -180,8 +215,45 @@ class ProjectNew extends React.Component {
     });
   }
 
+  togglePopupHandler(e) {
+    e.preventDefault();
+    e.target.parentElement.classList.remove('show');
+    this.setState({
+      showError: false,
+    });
+    setTimeout(() => {
+      this.setState({
+        showPopup: false,
+        errors: [],
+        showError: false,
+      });
+    }, 5000);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
+    const {
+      startDate,
+      endDate,
+      participantSelect,
+      clientSelect,
+      date,
+    } = this.state;
+    const errors = validate(
+      startDate,
+      endDate,
+      participantSelect,
+      clientSelect,
+      date,
+    );
+    if (errors.length > 0) {
+      this.setState({
+        showPopup: true,
+        errors,
+        showError: true,
+      });
+      return;
+    }
     const newClient = this.state.clientSelect.value;
     const newParticipants = this.state.participantSelect.map(participant => {
       return participant.value;
@@ -225,6 +297,28 @@ class ProjectNew extends React.Component {
 
   handleEdit(e) {
     e.preventDefault();
+    const {
+      startDate,
+      endDate,
+      participantSelect,
+      clientSelect,
+      date,
+    } = this.state;
+    const errors = validate(
+      startDate,
+      endDate,
+      participantSelect,
+      clientSelect,
+      date,
+    );
+    if (errors.length > 0) {
+      this.setState({
+        showPopup: true,
+        errors,
+        showError: true,
+      });
+      return;
+    }
     const newClient = this.state.clientSelect.value;
     const newParticipants = this.state.participantSelect.map(participant => {
       return participant.value;
@@ -292,6 +386,19 @@ class ProjectNew extends React.Component {
                     onSubmit={
                       this.state.edit ? this.handleEdit : this.handleSubmit
                     }>
+                    <div className='validation-alert'>
+                      {this.state.showPopup
+                        ? this.state.errors.map((error, index) => {
+                            return (
+                              <Popup
+                                error={error}
+                                key={this.state.errors[index]}
+                                onClose={this.togglePopupHandler}
+                              />
+                            );
+                          })
+                        : null}
+                    </div>
                     <div className='form-row'>
                       <div
                         className='form-group col-sm-12 col-md-6 has-info'
