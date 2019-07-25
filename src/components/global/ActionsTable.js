@@ -91,18 +91,20 @@ function ActionsTable(props) {
                             </button>
                           )
                         ) : null}
-                        <Link
-                          to={`${props.location.pathname}/edit/${
-                            entities[rowIndex].id
-                          }`}>
-                          <button
-                            type='button'
-                            className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
-                            title='Edit'
-                            props={entities[rowIndex].id}>
-                            <i className='material-icons'>edit</i>
-                          </button>
-                        </Link>
+                        {tableName === 'Users' ? null : (
+                          <Link
+                            to={`${props.location.pathname}/edit/${
+                              entities[rowIndex].id
+                            }`}>
+                            <button
+                              type='button'
+                              className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
+                              title='Edit'
+                              props={entities[rowIndex].id}>
+                              <i className='material-icons'>edit</i>
+                            </button>
+                          </Link>
+                        )}
                         <button
                           data-toggle='modal'
                           data-target={

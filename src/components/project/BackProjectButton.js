@@ -6,7 +6,7 @@ export default function BackProjectButton() {
   const buttonName = 'Back';
   return (
     <React.Fragment>
-      <Link className='text-light' to='/clients'>
+      <Link className='text-light' to='/projects'>
         <BackButton buttonName={buttonName} />
       </Link>
     </React.Fragment>
