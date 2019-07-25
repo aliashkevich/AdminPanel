@@ -49,7 +49,7 @@ export default class ProjectInfo extends React.Component {
                 id: projectId,
               },
             }}>
-            <button type='button' class='btn btn-success'>
+            <button type='button' className='btn btn-success'>
               <b>
                 {this.state.projects.find(
                   project => project.id === this.props.projectId,
@@ -59,7 +59,7 @@ export default class ProjectInfo extends React.Component {
                     ).title
                   : ''}
               </b>{' '}
-              project details <i class='material-icons'>arrow_forward</i>
+              project details <i className='material-icons'>arrow_forward</i>
             </button>
           </Link>
         )}

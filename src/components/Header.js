@@ -119,7 +119,7 @@ export default class Header extends Component {
                   <li className='nav-item dropdown'>
                     <a
                       className='nav-link'
-                      href='javascript:void(0)'
+                      href='#/'
                       id='navbarDropdownProfile'
                       data-toggle='dropdown'
                       aria-haspopup='true'

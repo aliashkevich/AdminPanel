@@ -38,7 +38,7 @@ export default class ProjectTasksTable extends React.Component {
 
   render() {
     const clientProjects = this.state.projects.filter(
-      project => project.clientId == this.props.clientId,
+      project => project.clientId.toString() === this.props.clientId,
     );
 
     if (this.state.loading) {
@@ -48,8 +48,8 @@ export default class ProjectTasksTable extends React.Component {
         <React.Fragment>
           {clientProjects.map((project, index) => {
             return (
-              <div class='card' key={index}>
-                <div class='card-header card-header-text card-header-success'>
+              <div className='card' key={index}>
+                <div className='card-header card-header-text card-header-success'>
                   <Link
                     to={{
                       pathname: `/projects/${project.id}`,
@@ -57,14 +57,14 @@ export default class ProjectTasksTable extends React.Component {
                         id: project.id,
                       },
                     }}>
-                    <div class='project-summary-title card-text project-sum'>
-                      <h4 class='card-title'>
+                    <div className='project-summary-title card-text project-sum'>
+                      <h4 className='card-title'>
                         Project: {project.title}{' '}
-                        <i class='material-icons'>arrow_forward</i>
+                        <i className='material-icons'>arrow_forward</i>
                       </h4>
                     </div>
                   </Link>
-                  <div class='card-body text-dark'>
+                  <div className='card-body text-dark'>
                     <b>
                       {getLocalDateFromUTC(project.startDate)}-
                       {getLocalDateFromUTC(project.endDate)}

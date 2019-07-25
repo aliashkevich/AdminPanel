@@ -1,6 +1,5 @@
 import React from 'react';
 import ActionsTable from '../global/ActionsTable';
-import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
@@ -130,7 +129,7 @@ export default class TasksTable extends React.Component {
     const users = this.state.users;
 
     Object.keys(tasksByProjects).map(function(key, index) {
-      tasksByProjects[key].map(task => {
+      return tasksByProjects[key].map(task => {
         let tableData = [
           task.projectId,
           task.id,
@@ -146,7 +145,7 @@ export default class TasksTable extends React.Component {
             }
           />,
         ];
-        allTablesData.push(tableData);
+        return allTablesData.push(tableData);
       });
     });
 

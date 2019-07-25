@@ -35,8 +35,9 @@ export default class Participants extends React.Component {
 
   render() {
     const {participantsArr} = this.props;
+    // console.log(participantsArr);
     const users = this.state.users;
-
+    //todo
     const participants = [];
     if (this.state.loading === false) {
       users.map(user => {
@@ -45,6 +46,7 @@ export default class Participants extends React.Component {
         });
       });
     }
+
     return (
       <div className='card'>
         <div className='card-header card-header-info card-header-text'>
