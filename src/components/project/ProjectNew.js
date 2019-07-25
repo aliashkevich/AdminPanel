@@ -7,19 +7,13 @@ import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
 import Popup from '../global/Popup';
 
-function validate(startDate, endDate, participantSelect, clientSelect, date) {
+function validate(startDate, endDate, date) {
   const errors = [];
   if (startDate > endDate) {
     errors.push('End date must be after the start date');
   }
   if (startDate <= date) {
     errors.push('Start date cant be in the past');
-  }
-  if (participantSelect.length === 0) {
-    errors.push('One or more participants must be selected');
-  }
-  if (clientSelect.length === 0) {
-    errors.push('One client must be selected');
   }
   return errors;
 }
@@ -189,11 +183,6 @@ class ProjectNew extends React.Component {
         loading: false,
       });
     }
-    if (this.state.participantSelect === null) {
-      this.setState({
-        participantSelect: [],
-      });
-    }
   }
 
   handleChange(e) {
@@ -232,20 +221,8 @@ class ProjectNew extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const {
-      startDate,
-      endDate,
-      participantSelect,
-      clientSelect,
-      date,
-    } = this.state;
-    const errors = validate(
-      startDate,
-      endDate,
-      participantSelect,
-      clientSelect,
-      date,
-    );
+    const {startDate, endDate, date} = this.state;
+    const errors = validate(startDate, endDate, date);
     if (errors.length > 0) {
       this.setState({
         showPopup: true,
@@ -297,20 +274,8 @@ class ProjectNew extends React.Component {
 
   handleEdit(e) {
     e.preventDefault();
-    const {
-      startDate,
-      endDate,
-      participantSelect,
-      clientSelect,
-      date,
-    } = this.state;
-    const errors = validate(
-      startDate,
-      endDate,
-      participantSelect,
-      clientSelect,
-      date,
-    );
+    const {startDate, endDate, date} = this.state;
+    const errors = validate(startDate, endDate, date);
     if (errors.length > 0) {
       this.setState({
         showPopup: true,
