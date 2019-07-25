@@ -68,7 +68,6 @@ function ActionsTable(props) {
                               className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
                               onClick={() => {
                                 updateOnClick(dataRow);
-                                console.log(dataRow);
                               }}
                               title='Mark as done'>
                               <i className='material-icons'>done</i>
