@@ -40,7 +40,6 @@ export default class ProjectTasksTable extends React.Component {
     const clientProjects = this.state.projects.filter(
       project => project.clientId == this.props.clientId,
     );
-    console.log(clientProjects);
 
     if (this.state.loading) {
       return <Spinner spinnerPosition={'global-spinner'} />;
