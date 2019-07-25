@@ -16,7 +16,12 @@ class ProjectsDashboard extends React.Component {
   }
 
   getProjects() {
-    fetch(`${config.apiUrl}/projects`)
+    fetch(`${config.apiUrl}/projects`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -45,14 +50,16 @@ class ProjectsDashboard extends React.Component {
           {this.state.loading ? (
             <Spinner spinnerPosition={'inline-spinner'} />
           ) : (
-            <Table
-              entities={this.state.projects}
-              tableName={'Projects'}
-              tableDescription={'Projects nearing completion'}
-              tableHead={['Title', 'Start', 'End']}
-              tableData={tableData.slice(0, 4)}
-              tableColor={'info'}
-            />
+            <Link to={`/projects`}>
+              <Table
+                entities={this.state.projects}
+                tableName={'Project'}
+                tableDescription={'Projects nearing completion'}
+                tableHead={['Title', 'Start', 'End']}
+                tableData={tableData.slice(0, 4)}
+                tableColor={'info'}
+              />
+            </Link>
           )}
         </div>
       </React.Fragment>

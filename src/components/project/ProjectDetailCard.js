@@ -21,7 +21,12 @@ export default class ProjectDetailCard extends React.Component {
   }
 
   getProject() {
-    fetch(`${config.apiUrl}/projects/${this.state.id}`)
+    fetch(`${config.apiUrl}/projects/${this.state.id}`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -40,9 +45,6 @@ export default class ProjectDetailCard extends React.Component {
   }
 
   render() {
-    if (this.state.project === {}) {
-      return null;
-    }
     return (
       <React.Fragment>
         {this.state.loading ? (
@@ -60,12 +62,15 @@ export default class ProjectDetailCard extends React.Component {
                 {/* summary */}
                 <div className='card-body'>
                   <div className='row'>
-                    <ClientInfo clientId={this.state.client} />
-                    <ProjectSummary project={this.state.project} />
-                  </div>
-                  <div className='row'>
-                    <Participants participantsArr={this.state.participants} />
-                    <ProjectTasks projectId={this.state.project.id} />
+                    <div className=' col-lg-4 col-md-6-col-sm-12s'>
+                      <ClientInfo clientId={this.state.client} />
+                      <Participants participantsArr={this.state.participants} />
+                    </div>
+
+                    <div className='col-lg-8 col-md-12 col-sm-12'>
+                      <ProjectTasks projectId={this.state.project.id} />
+                      <ProjectSummary project={this.state.project} />
+                    </div>
                   </div>
                 </div>
               </div>

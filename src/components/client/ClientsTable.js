@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import ActionsTable from '../global/ActionsTable';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class ClientsTable extends React.Component {
   constructor(props) {
@@ -23,7 +24,12 @@ export default class ClientsTable extends React.Component {
   }
 
   getClients() {
-    fetch(`${config.apiUrl}/clients`)
+    fetch(`${config.apiUrl}/clients`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -38,6 +44,10 @@ export default class ClientsTable extends React.Component {
   deleteOnClick(client) {
     const options = {
       method: 'DELETE',
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/clients/${client.id}`, options)
       .then(res => res.json())
@@ -56,7 +66,7 @@ export default class ClientsTable extends React.Component {
 
   render() {
     const tableData = this.state.clients.map(client => [
-      client.id,
+      <CircleImg logo={client.logo ? client.logo : null} />,
       <Link
         to={{
           pathname: `/clients/${client.id}`,
@@ -78,7 +88,7 @@ export default class ClientsTable extends React.Component {
           <ActionsTable
             entities={this.state.clients}
             tableName={'Clients'}
-            tableHead={['ID', 'Initials', 'Name']}
+            tableHead={['Logo', 'Initials', 'Name']}
             tableData={tableData}
             tableColor={'primary'}
             deleteOnClick={this.deleteOnClick}

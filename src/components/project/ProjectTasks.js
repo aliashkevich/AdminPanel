@@ -16,7 +16,12 @@ export default class ProjectTasks extends React.Component {
   }
 
   getTasks() {
-    fetch(`${config.apiUrl}/tasks`)
+    fetch(`${config.apiUrl}/tasks`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -25,7 +30,12 @@ export default class ProjectTasks extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${config.apiUrl}/users`)
+        fetch(`${config.apiUrl}/users`, {
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
+        })
           .then(res => res.json())
           .then(data => {
             this.setState({
@@ -59,7 +69,8 @@ export default class ProjectTasks extends React.Component {
       task.status,
     ]);
     return (
-      <div className='col-lg-8 col-md-12 col-sm-12'>
+      <React.Fragment>
+        {' '}
         {this.state.loading ? (
           <Spinner spinnerPosition={'inline-spinner'} />
         ) : (
@@ -70,7 +81,7 @@ export default class ProjectTasks extends React.Component {
             tableColor={'info'}
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
