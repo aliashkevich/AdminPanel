@@ -63,3 +63,14 @@
     width: 100%;
   }
 }
+
+.slide-down.visible {
+  animation: slideDown ease-in 0.3s;
+}
+
+@keyframes slideDown {
+  0% {
+    /* transform: translateY(-45px); */
+    opacity: 0;
+  }
+}
