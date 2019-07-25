@@ -11,6 +11,7 @@ class ProjectsDashboard extends React.Component {
     this.state = {
       projects: [],
       loading: true,
+      didMount: false,
     };
     this.getProjects = this.getProjects.bind(this);
   }
@@ -34,6 +35,7 @@ class ProjectsDashboard extends React.Component {
 
   componentDidMount() {
     this.getProjects();
+    this.setState({didMount: true});
   }
 
   render() {
@@ -58,6 +60,7 @@ class ProjectsDashboard extends React.Component {
                 tableHead={['Title', 'Start', 'End']}
                 tableData={tableData.slice(0, 4)}
                 tableColor={'info'}
+                visible={`${this.state.didMount && 'visible'}`}
               />
             </Link>
           )}

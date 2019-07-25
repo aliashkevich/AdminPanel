@@ -7,14 +7,17 @@ import {Link} from 'react-router-dom';
 class DataGraph3 extends React.Component {
   state = {
     loading: true,
+    didMount: false,
   };
 
   componentDidMount() {
     this.setState({
       loading: false,
+      didMount: true,
     });
   }
   render() {
+    const {didMount} = this.state;
     return (
       <React.Fragment>
         <div className='col-md-4'>
@@ -22,7 +25,9 @@ class DataGraph3 extends React.Component {
             <Spinner spinnerPosition={'inline-spinner'} />
           ) : (
             <Link to={'/projects'}>
-              <div className='card card-chart'>
+              <div
+                className={`card card-chart slide-down ${didMount &&
+                  'visible'}`}>
                 <div className='card-header card-header-danger'>
                   <ChartistGraph
                     className='ct-chart'
