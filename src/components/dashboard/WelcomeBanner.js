@@ -32,14 +32,11 @@ class WelcomeBanner extends React.Component {
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco...
             </div>
-<<<<<<< HEAD
-=======
           </div>
           <div className='card-body'>
             Welcome to our project dashboard. Feel free to add, edit and delete
             clients, projects and tasks! Click on their names in order to access
             the details.
->>>>>>> develop
           </div>
         </div>
       </React.Fragment>

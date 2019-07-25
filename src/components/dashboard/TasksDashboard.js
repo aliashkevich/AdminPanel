@@ -52,17 +52,6 @@ class TasksDashboard extends React.Component {
           {this.state.loading ? (
             <Spinner spinnerPosition={'inline-spinner'} />
           ) : (
-<<<<<<< HEAD
-            <Table
-              entities={this.state.tasks}
-              tableName={'Tasks'}
-              tableDescription={'Tasks nearing completion'}
-              tableHead={['Title', 'Start', 'End']}
-              tableData={tableData.slice(0, 4)}
-              tableColor={'rose'}
-              visible={`${this.state.didMount && 'visible'}`}
-            />
-=======
             <Link to={`/tasks`}>
               <Table
                 entities={this.state.tasks}
@@ -73,7 +62,6 @@ class TasksDashboard extends React.Component {
                 tableColor={'rose'}
               />
             </Link>
->>>>>>> develop
           )}
         </div>
       </React.Fragment>
