@@ -9,7 +9,7 @@ const ProjectDetail = props => {
         <div className='content'>
           <div className='container-fluid'>
             <BackProjectButton />
-            <ProjectDetailCard id={props.location.state.id} />
+            <ProjectDetailCard id={props.location.pathname.split('/').pop()} />
           </div>
         </div>
       </div>

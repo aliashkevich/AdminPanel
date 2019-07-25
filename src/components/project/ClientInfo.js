@@ -44,17 +44,17 @@ export default class ClientInfo extends React.Component {
           <div className='card card-stats'>
             <div className='card-header card-header-primary card-header-icon'>
               <div className='card-icon client-logo-wrapper'>
-                <img
-                  className='card-img-top client-logo'
-                  src={
-                    this.state.client.logo ? (
-                      this.state.client.logo
-                    ) : (
-                      <i className='material-icons'>location_city</i>
-                    )
-                  }
-                  alt='client logo'
-                />
+                {this.state.client.logo ? (
+                  <img
+                    className='card-img-top client-logo'
+                    src={this.state.client.logo}
+                    alt='client logo'
+                  />
+                ) : (
+                  <i className='material-icons client-placeholder'>
+                    location_city
+                  </i>
+                )}
               </div>
               <h3 className='card-title'>{this.state.client.initials}</h3>
             </div>

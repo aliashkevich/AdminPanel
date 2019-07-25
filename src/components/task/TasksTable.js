@@ -134,9 +134,7 @@ export default class TasksTable extends React.Component {
         let tableData = [
           task.projectId,
           task.id,
-          <Link to={`/tasks/${task.id}`} className='text-info'>
-            {task.title}
-          </Link>,
+          task.title,
           getLocalDateFromUTC(task.startDate),
           getLocalDateFromUTC(task.endDate),
           `${task.estimation} hours`,
@@ -187,6 +185,7 @@ export default class TasksTable extends React.Component {
               updateOnClick={this.updateOnClick}
               checkmarkFieldName={'status'}
               checkmarkValue={'done'}
+              pathName={'tasks'}
             />
           ))
         )}

@@ -91,16 +91,7 @@ export default class ProjectsTable extends React.Component {
         }
       />,
       project.id,
-      <Link
-        to={{
-          pathname: `/projects/${project.id}`,
-          state: {
-            id: project.id,
-          },
-        }}
-        className='text-info'>
-        {project.title}
-      </Link>,
+      project.title,
       getLocalDateFromUTC(project.startDate),
       getLocalDateFromUTC(project.endDate),
       project.participants.length,
@@ -122,6 +113,7 @@ export default class ProjectsTable extends React.Component {
               'End',
               'Participants',
             ]}
+            pathName={'projects'}
             tableData={tableData}
             tableColor={'info'}
             deleteOnClick={this.deleteOnClick}
