@@ -15,7 +15,7 @@ export default class Header extends Component {
     this.closeMobileMenu = this.closeMobileMenu.bind(this);
     this.logOut = this.logOut.bind(this);
     this.notify = this.notify.bind(this);
-    this.openTabletMenu = this.openTabletMenu.bind(this);
+    this.openMobileMenu = this.openMobileMenu.bind(this);
     this.resize = this.resize.bind(this);
   }
 
@@ -65,7 +65,7 @@ export default class Header extends Component {
     document.dispatchEvent(event);
   }
 
-  openTabletMenu() {
+  openMobileMenu() {
     let root = document.getElementsByTagName('html')[0];
     if (root !== undefined && root.classList.contains('nav-open')) {
       this.setState({
@@ -193,7 +193,7 @@ export default class Header extends Component {
                 aria-controls='navigation-index'
                 aria-expanded='true'
                 aria-label='Toggle navigation'
-                onClick={this.openTabletMenu}>
+                onClick={this.openMobileMenu}>
                 <span className='sr-only'>Toggle navigation</span>
                 <span className='navbar-toggler-icon icon-bar' />
                 <span className='navbar-toggler-icon icon-bar' />
