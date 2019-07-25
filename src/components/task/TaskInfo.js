@@ -37,8 +37,6 @@ class TaskInfo extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
     const user = this.state.users.find(user => user.id === this.props.userId);
 
     return (
