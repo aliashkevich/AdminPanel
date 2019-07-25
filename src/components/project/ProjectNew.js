@@ -466,6 +466,10 @@ class ProjectNew extends React.Component {
                       </div>
                       <div className='form-group col-xs-1 text-end ml-auto'>
                         <button
+                          disabled={
+                            !this.state.participantSelect ||
+                            !this.state.clientSelect
+                          }
                           type='submit'
                           className='btn btn-success btn-right'>
                           {this.state.edit ? 'Save' : 'Add'}

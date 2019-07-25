@@ -56,6 +56,7 @@ class AddNewTask extends React.Component {
       endDate: '',
       estimation: '',
       assignee: [],
+      assigneeProject: [],
       assigneeSelect: {},
       assigneeId: '',
       edit: false,
@@ -154,6 +155,11 @@ class AddNewTask extends React.Component {
     this.getProjects();
   }
 
+  findInArray = (array, arrayItemKey, value, arrayItemProperty) => {
+    var item = array.find(arrayItem => arrayItem[arrayItemKey].includes(value));
+    return item ? item[arrayItemProperty] : '';
+  };
+
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.assigneeFlag !== this.state.assigneeFlag ||
@@ -198,6 +204,7 @@ class AddNewTask extends React.Component {
   handleProjectChange(option) {
     this.setState({
       projectSelect: option,
+      assigneeSelect: null,
     });
   }
 
@@ -345,7 +352,18 @@ class AddNewTask extends React.Component {
       return {value: project.id, label: project.title};
     });
     let assigneeOptions = this.state.assignee.map(user => {
-      return {value: user.id, label: user.name};
+      return {
+        value: user.id,
+        label: user.name,
+        isDisabled: this.state.projectSelect
+          ? !this.findInArray(
+              this.state.projects,
+              'id',
+              this.state.projectSelect.value,
+              'participants',
+            ).includes(user.id)
+          : true,
+      };
     });
     let statusOptions = this.state.statuses.map(status => {
       return {value: status.toLowerCase(), label: status};
@@ -449,6 +467,7 @@ class AddNewTask extends React.Component {
                         onChange={this.handleAssigneeChange}
                         className='select'
                         theme={styles.select.theme}
+                        placeholder='First select a project ...'
                         required
                       />
                     </div>
@@ -524,6 +543,10 @@ class AddNewTask extends React.Component {
                     </div>
                     <div className='form-group col-xs-1 text-end ml-auto'>
                       <button
+                        disabled={
+                          !this.state.projectSelect ||
+                          !this.state.assigneeSelect
+                        }
                         type='submit'
                         className='btn btn-success btn-right'>
                         {this.state.edit ? 'Save' : 'Add'}
