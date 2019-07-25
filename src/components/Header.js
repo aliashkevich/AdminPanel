@@ -86,7 +86,10 @@ export default class Header extends Component {
           data-background-color='white'
           data-image='../assets/img/sidebar-1.jpg'>
           <div className='logo'>
-            <NavLink to='/' className='simple-text logo-normal'>
+            <NavLink
+              to='/'
+              className='simple-text logo-normal'
+              onClick={this.closeMobileMenu}>
               <img src={logo} alt='Lesewert' />
             </NavLink>
           </div>
