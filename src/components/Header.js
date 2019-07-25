@@ -8,8 +8,8 @@ export default class Header extends Component {
     super(props);
 
     this.state = {
-      tabletMenuOpened: false,
-      tabletView: false,
+      mobileMenuOpened: false,
+      mobileView: false,
     };
 
     this.closeMobileMenu = this.closeMobileMenu.bind(this);
@@ -21,7 +21,7 @@ export default class Header extends Component {
 
   componentDidMount() {
     if (window.innerWidth < 992) {
-      this.setState({tabletView: true});
+      this.setState({mobileView: true});
     }
     window.addEventListener('resize', this.resize);
   }
@@ -32,8 +32,8 @@ export default class Header extends Component {
 
   resize() {
     let currentSize = window.innerWidth < 992;
-    if (currentSize !== this.state.tabletView) {
-      this.setState({tabletView: currentSize});
+    if (currentSize !== this.state.mobileView) {
+      this.setState({mobileView: currentSize});
     }
   }
 
@@ -49,7 +49,7 @@ export default class Header extends Component {
     }
 
     this.setState({
-      tabletMenuOpened: false,
+      mobileMenuOpened: false,
     });
   }
 
@@ -69,7 +69,7 @@ export default class Header extends Component {
     let root = document.getElementsByTagName('html')[0];
     if (root !== undefined && root.classList.contains('nav-open')) {
       this.setState({
-        tabletMenuOpened: true,
+        mobileMenuOpened: true,
       });
     }
   }
@@ -92,7 +92,7 @@ export default class Header extends Component {
           </div>
           <div className='sidebar-wrapper'>
             <ul className='nav'>
-              {this.state.tabletMenuOpened && this.state.tabletView ? (
+              {this.state.mobileMenuOpened && this.state.mobileView ? (
                 <li className='nav-item dropdown mobile-dropdown-custom'>
                   <a
                     className='nav-link'
