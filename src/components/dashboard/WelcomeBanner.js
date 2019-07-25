@@ -25,9 +25,9 @@ class WelcomeBanner extends React.Component {
               <div className={`card-text grow ${didMount && 'visible'}`}>
                 <h4 className='card-title welcome-title'>
                   Welcome
-                  <h4 className={`text-transition ${didMount && 'visible'}`}>
+                  <span className={`text-transition ${didMount && 'visible'}`}>
                     {parsedUser ? parsedUser.name : 'user'}
-                  </h4>
+                  </span>
                 </h4>
               </div>
             </div>
