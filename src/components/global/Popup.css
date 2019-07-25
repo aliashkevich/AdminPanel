@@ -1,0 +1,25 @@
+.popup-cursor {
+  cursor: pointer;
+}
+
+.hidden-button {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.popup-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+
+.cross {
+  font-size: 1.5em;
+  pointer-events: none;
+}
+
+.cross:hover {
+  color: grey;
+}
