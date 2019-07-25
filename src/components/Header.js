@@ -6,11 +6,26 @@ import './Header.css';
 export default class Header extends Component {
   constructor(props) {
     super(props);
+
+    this.closeMobileMenu = this.closeMobileMenu.bind(this);
+  }
+
+  closeMobileMenu() {
+    let toggler = document.getElementsByClassName('navbar-toggler')[0];
+    if (toggler !== undefined && toggler.classList.contains('toggled')) {
+      toggler.classList.remove('toggled');
+    }
+
+    let root = document.getElementsByTagName('html')[0];
+    if (root !== undefined && root.classList.contains('nav-open')) {
+      root.classList.remove('nav-open');
+    }
   }
 
   render() {
     let userFromStorage = localStorage.getItem('user');
     let parsedUser = JSON.parse(userFromStorage);
+
     return (
       <React.Fragment>
         <div
@@ -25,7 +40,7 @@ export default class Header extends Component {
           </div>
           <div className='sidebar-wrapper'>
             <ul className='nav'>
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/dashboard'
                   className='nav-link '
@@ -41,7 +56,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/clients'
                   className='nav-link'
@@ -51,7 +66,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/projects'
                   className='nav-link'
@@ -61,7 +76,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/tasks'
                   className='nav-link'
@@ -71,7 +86,7 @@ export default class Header extends Component {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
+              <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/administration'
                   className='nav-link'
@@ -88,7 +103,7 @@ export default class Header extends Component {
             <div className='container-fluid'>
               <div className='navbar-wrapper' />
               <button
-                className='navbar-toggler'
+                className='navbar-toggler '
                 type='button'
                 data-toggle='collapse'
                 aria-controls='navigation-index'
