@@ -61,6 +61,40 @@ class Login extends Component {
       .catch(err => console.log(err));
   };
 
+  onGuestLogin = event => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    const payload = {
+      email: 'admin@gmail.com',
+      password: 'insecure_password_at_all',
+    };
+    fetch(`${config.apiUrl}/auth/login`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify(payload),
+    })
+      .then(res => res.json())
+      .then(res =>
+        res.token
+          ? this.setState(
+              {
+                token: res.token,
+                flash: res.flash,
+                user: res.data,
+              },
+              () => this.setLocalStorage(),
+            )
+          : this.setState({
+              flash: res.flash,
+            }),
+      )
+      .catch(err => console.log(err));
+  };
+
   setLocalStorage() {
     localStorage.setItem('token', this.state.token);
     localStorage.setItem('user', JSON.stringify(this.state.user));
@@ -82,6 +116,7 @@ class Login extends Component {
           onSubmit={this.onSubmit}
           handleInputChange={this.handleInputChange}
           flash={this.state.flash}
+          onGuestLogin={this.onGuestLogin}
         />
       </React.Fragment>
     );
