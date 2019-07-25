@@ -21,8 +21,9 @@ export default class Header extends Component {
 
   componentDidMount() {
     if (window.innerWidth < 992) {
-      this.setState({mobileView: true, idMount: true});
+      this.setState({mobileView: true});
     }
+    this.setState({idMount: true});
     window.addEventListener('resize', this.resize);
   }
 
