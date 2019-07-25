@@ -45,7 +45,6 @@ function ActionsTable(props) {
             <tbody>
               {tableData !== undefined && tableData.length > 0 ? (
                 tableData.map((dataRow, rowIndex) => {
-                  // debugger;
                   return (
                     <tr key={rowIndex}>
                       {dataRow.map((dataColumn, columnIndex) => {
