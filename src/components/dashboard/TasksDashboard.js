@@ -40,7 +40,7 @@ class TasksDashboard extends React.Component {
 
   render() {
     const tableData = this.state.tasks.map(task => [
-      <Link to={`/tasks/${task.id}`} className='text-info'>
+      <Link to={`/tasks/${task.id}`} className='text-rose'>
         {task.title}
       </Link>,
       getLocalDateFromUTC(task.startDate),
