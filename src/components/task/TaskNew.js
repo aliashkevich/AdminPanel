@@ -190,6 +190,7 @@ class AddNewTask extends React.Component {
   handleProjectChange(option) {
     this.setState({
       projectSelect: option,
+      assigneeSelect: null,
     });
   }
 
@@ -480,6 +481,10 @@ class AddNewTask extends React.Component {
                     </div>
                     <div className='form-group col-xs-1 text-end ml-auto'>
                       <button
+                        disabled={
+                          !this.state.projectSelect ||
+                          !this.state.assigneeSelect
+                        }
                         type='submit'
                         className='btn btn-success btn-right'>
                         {this.state.edit ? 'Save' : 'Add'}
