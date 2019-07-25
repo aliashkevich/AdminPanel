@@ -136,9 +136,7 @@ export default class UsersTable extends React.Component {
           tableHead={['', 'Name', 'Email', 'Client', 'Project', 'Role']}
           tableData={this.state.users.map(user => [
             <CircleImg logo={user.image} />,
-            <Link to={`/users/${user.id}`} className='text-info'>
-              {user.name}
-            </Link>,
+            user.name,
             user.email,
             user.clientId
               ? findInArray(this.state.clients, 'id', user.clientId, 'name')
@@ -151,6 +149,7 @@ export default class UsersTable extends React.Component {
               : null,
           ])}
           tableColor={'success'}
+          pathName={'users'}
           deleteOnClick={this.deleteOnClick}
           confirmationFieldName={'name'}
         />
