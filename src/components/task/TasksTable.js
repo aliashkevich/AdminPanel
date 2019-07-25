@@ -101,7 +101,7 @@ export default class TasksTable extends React.Component {
         'Content-Type': 'application/json',
       }),
     };
-    fetch(`${config.apiUrl}/tasks/${task.id}`, options)
+    fetch(`${config.apiUrl}/tasks/${task[1]}`, options)
       .then(this.setState({updated: true}))
       .catch(error => console.log(error));
   }
@@ -159,7 +159,9 @@ export default class TasksTable extends React.Component {
         ) : (
           Object.keys(tasksByProjects).map((key, index) => (
             <ActionsTable
-              entities={this.state.tasks}
+              entities={this.state.tasks.filter(currentElement => {
+                return currentElement.projectId === key;
+              })}
               tableName={
                 key
                   ? findInArray(this.state.projects, 'id', key, 'title')
@@ -178,7 +180,6 @@ export default class TasksTable extends React.Component {
                 return currentElement[0] === key;
               })}
               tableColor={'rose'}
-              pathName={'tasks'}
               deleteOnClick={this.deleteOnClick}
               confirmationFieldName={'title'}
               updateOnClick={this.updateOnClick}

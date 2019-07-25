@@ -6,7 +6,9 @@ import {withRouter} from 'react-router-dom';
 
 function ActionsTable(props) {
   const handleClick = (pathName, id) => {
-    props.history.push(`/${pathName}/${id}`);
+    if (pathName !== 'users') {
+      props.history.push(`/${pathName}/${id}`);
+    }
   };
 
   const {
@@ -29,7 +31,7 @@ function ActionsTable(props) {
   } = props;
 
   return (
-    <div className='card'>
+    <div className='card actions-table-card'>
       <div className={`card-header card-header-${tableColor}`}>
         <h4 className='card-title'>{tableName}</h4>
         <p className='card-category'>{tableDescription}</p>
@@ -51,7 +53,9 @@ function ActionsTable(props) {
               {tableData !== undefined && tableData.length > 0 ? (
                 tableData.map((dataRow, rowIndex) => {
                   return (
-                    <tr key={rowIndex} className='tr-mouse'>
+                    <tr
+                      key={rowIndex}
+                      className={pathName === 'users' ? null : 'tr-mouse'}>
                       {dataRow.map((dataColumn, columnIndex) => {
                         return (
                           <td
@@ -79,7 +83,9 @@ function ActionsTable(props) {
                             <button
                               type='button'
                               className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
-                              onClick={() => updateOnClick(entities[rowIndex])}
+                              onClick={() => {
+                                updateOnClick(dataRow);
+                              }}
                               title='Mark as done'>
                               <i className='material-icons'>done</i>
                             </button>
@@ -99,7 +105,9 @@ function ActionsTable(props) {
                         </Link>
                         <button
                           data-toggle='modal'
-                          data-target={'#confirmDelete-' + rowIndex}
+                          data-target={
+                            '#confirmDelete-' + entities[rowIndex].id
+                          }
                           type='button'
                           title='Delete'
                           className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
@@ -107,7 +115,7 @@ function ActionsTable(props) {
                         </button>
                         <div
                           className='modal text-left'
-                          id={'confirmDelete-' + rowIndex}
+                          id={'confirmDelete-' + entities[rowIndex].id}
                           tabIndex='-1'
                           role='dialog'
                           aria-labelledby='confirmDelete'
@@ -131,9 +139,9 @@ function ActionsTable(props) {
                                   type='button'
                                   className={`btn btn-modal btn-${tableColor}`}
                                   data-dismiss='modal'
-                                  onClick={() =>
-                                    deleteOnClick(entities[rowIndex])
-                                  }>
+                                  onClick={() => {
+                                    deleteOnClick(entities[rowIndex]);
+                                  }}>
                                   Delete
                                 </button>
                               </div>
