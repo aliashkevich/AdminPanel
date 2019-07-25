@@ -185,6 +185,7 @@ export default class TasksTable extends React.Component {
               updateOnClick={this.updateOnClick}
               checkmarkFieldName={'status'}
               checkmarkValue={'done'}
+              pathName={'tasks'}
             />
           ))
         )}

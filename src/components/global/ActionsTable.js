@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom';
 
 function ActionsTable(props) {
   const handleClick = (pathName, id) => {
-    if (pathName !== 'users') {
+    if (pathName) {
       props.history.push(`/${pathName}/${id}`);
     }
   };
