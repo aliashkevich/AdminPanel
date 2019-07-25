@@ -2,6 +2,7 @@ import React from 'react';
 import Table from '../global/Table';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
+import CircleImg from '../global/CircleImg';
 
 export default class ProjectTasks extends React.Component {
   constructor(props) {
@@ -62,11 +63,15 @@ export default class ProjectTasks extends React.Component {
     );
 
     const tableData = projectTasks.map(task => [
-      task.userId
-        ? findInArray(this.state.users, 'id', task.userId, 'name')
-        : null,
       task.title,
       task.status,
+      <CircleImg
+        logo={
+          task.userId
+            ? findInArray(this.state.users, 'id', task.userId, 'image')
+            : null
+        }
+      />,
     ]);
     return (
       <React.Fragment>

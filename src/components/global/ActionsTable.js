@@ -5,6 +5,12 @@ import {Link} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 
 function ActionsTable(props) {
+  const handleClick = (pathName, id) => {
+    if (pathName !== 'users') {
+      props.history.push(`/${pathName}/${id}`);
+    }
+  };
+
   const {
     // array of all entities received from parental component (e.g. projects, clients and etc.)
     entities,
@@ -12,6 +18,7 @@ function ActionsTable(props) {
     tableDescription,
     tableHead,
     tableData,
+    pathName,
     tableColor,
     deleteOnClick,
     // property name that will be used in modal window while delete
@@ -21,11 +28,13 @@ function ActionsTable(props) {
     checkmarkFieldName,
     // value of checkmarkFieldName propery when condition to diplay checkmark equal true
     checkmarkValue,
+    //animation to start on mount
+    visible,
   } = props;
 
   return (
     <div className='card actions-table-card'>
-      <div className={`card-header card-header-${tableColor}`}>
+      <div className={`card-header card-header-${tableColor} grow ${visible}`}>
         <h4 className='card-title'>{tableName}</h4>
         <p className='card-category'>{tableDescription}</p>
       </div>
@@ -46,11 +55,21 @@ function ActionsTable(props) {
               {tableData !== undefined && tableData.length > 0 ? (
                 tableData.map((dataRow, rowIndex) => {
                   return (
-                    <tr key={rowIndex}>
+                    <tr
+                      key={rowIndex}
+                      className={pathName === 'users' ? null : 'tr-mouse'}>
                       {dataRow.map((dataColumn, columnIndex) => {
-                        return <td key={columnIndex}>{dataColumn}</td>;
+                        return (
+                          <td
+                            key={columnIndex}
+                            onClick={() =>
+                              handleClick(pathName, entities[rowIndex].id)
+                            }>
+                            {dataColumn}
+                          </td>
+                        );
                       })}
-                      <td className='td-actions text-right'>
+                      <td className='td-actions text-right tr-mouse'>
                         {checkmarkFieldName ? (
                           entities[rowIndex][
                             checkmarkFieldName

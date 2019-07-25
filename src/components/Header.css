@@ -43,3 +43,7 @@ li.mobile-dropdown-custom {
 .sidebar {
   background-color: transparent;
 }
+
+.nav-link:hover {
+  transform: scale(1.05);
+}

@@ -9,12 +9,12 @@ import CircleImg from '../global/CircleImg';
 export default class ProjectsTable extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       clients: [],
       projects: [],
       updated: false,
       loading: true,
+      didMount: false,
     };
     this.getProjects = this.getProjects.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -55,6 +55,7 @@ export default class ProjectsTable extends React.Component {
 
   componentDidMount() {
     this.getProjects();
+    this.setState({didMount: true});
   }
 
   deleteOnClick(project) {
@@ -91,16 +92,7 @@ export default class ProjectsTable extends React.Component {
         }
       />,
       project.id,
-      <Link
-        to={{
-          pathname: `/projects/${project.id}`,
-          state: {
-            id: project.id,
-          },
-        }}
-        className='text-info'>
-        {project.title}
-      </Link>,
+      project.title,
       getLocalDateFromUTC(project.startDate),
       getLocalDateFromUTC(project.endDate),
       project.participants.length,
@@ -122,10 +114,12 @@ export default class ProjectsTable extends React.Component {
               'End',
               'Participants',
             ]}
+            pathName={'projects'}
             tableData={tableData}
             tableColor={'info'}
             deleteOnClick={this.deleteOnClick}
             confirmationFieldName={'title'}
+            visible={`${this.state.didMount && 'visible'}`}
           />
         )}
       </React.Fragment>

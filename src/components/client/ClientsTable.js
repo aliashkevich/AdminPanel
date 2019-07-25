@@ -8,11 +8,11 @@ import CircleImg from '../global/CircleImg';
 export default class ClientsTable extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       clients: [],
       updated: false,
       loading: true,
+      didMount: false,
     };
 
     this.getClients = this.getClients.bind(this);
@@ -21,6 +21,7 @@ export default class ClientsTable extends React.Component {
 
   componentDidMount() {
     this.getClients();
+    this.setState({didMount: true});
   }
 
   getClients() {
@@ -67,16 +68,7 @@ export default class ClientsTable extends React.Component {
   render() {
     const tableData = this.state.clients.map(client => [
       <CircleImg logo={client.logo ? client.logo : null} />,
-      <Link
-        to={{
-          pathname: `/clients/${client.id}`,
-          state: {
-            id: client.id,
-          },
-        }}
-        className='text-info'>
-        {client.initials}
-      </Link>,
+      client.initials,
       client.name,
     ]);
 
@@ -88,11 +80,13 @@ export default class ClientsTable extends React.Component {
           <ActionsTable
             entities={this.state.clients}
             tableName={'Clients'}
+            pathName={'clients'}
             tableHead={['Logo', 'Initials', 'Name']}
             tableData={tableData}
             tableColor={'primary'}
             deleteOnClick={this.deleteOnClick}
             confirmationFieldName={'name'}
+            visible={`${this.state.didMount && 'visible'}`}
           />
         )}
       </React.Fragment>
