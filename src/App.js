@@ -15,7 +15,7 @@ import Dashboard from './pages/Dashboard';
 import ProjectEdit from './pages/ProjectEdit';
 import TaskDetail from './pages/TaskDetail';
 import ClientDetail from './pages/ClientDetail';
-import './App.css';
+import './Animations.css';
 
 export default class App extends React.Component {
   constructor(props) {

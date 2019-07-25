@@ -10,6 +10,7 @@ export default class SmallCards extends React.Component {
       loading: true,
       clients: [],
       users: [],
+      didMount: false,
     };
     this.getData = this.getData.bind(this);
   }
@@ -48,9 +49,11 @@ export default class SmallCards extends React.Component {
 
   componentDidMount() {
     this.getData();
+    this.setState({didMount: true});
   }
 
   render() {
+    const {didMount} = this.state;
     return (
       <React.Fragment>
         <div className='col-lg-3 col-md-3 col-sm-6'>
@@ -58,7 +61,9 @@ export default class SmallCards extends React.Component {
             <Spinner spinnerPosition={'inline-spinner'} />
           ) : (
             <div className='card card-stats'>
-              <div className='card-header card-header-success card-header-icon'>
+              <div
+                className={`card-header card-header-success card-header-icon bounce-in ${didMount &&
+                  'visible'}`}>
                 <div className='card-icon'>
                   <i className='material-icons'>group</i>
                 </div>
@@ -79,7 +84,9 @@ export default class SmallCards extends React.Component {
             <Spinner spinnerPosition={'inline-spinner'} />
           ) : (
             <div className='card card-stats'>
-              <div className='card-header card-header-info card-header-icon'>
+              <div
+                className={`card-header card-header-success card-header-icon bounce-in ${didMount &&
+                  'visible'}`}>
                 <div className='card-icon'>
                   <i className='material-icons'>person_outline</i>
                 </div>
