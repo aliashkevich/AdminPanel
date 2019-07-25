@@ -15,3 +15,26 @@ li.nav-item:hover > a.selected {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(255, 152, 0, 0.4);
 }
+
+div.dropdown-menu.dropdown-menu-right.mobile {
+  background-color: transparent;
+  width: auto;
+  float: none;
+  box-shadow: none;
+  position: static !important;
+  top: -2px;
+  left: 5px;
+  will-change: top, left;
+  transform-origin: 100% 100%;
+}
+
+.dropdown-menu.show,
+.open > .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+}
+
+li.mobile-dropdown {
+  cursor: pointer !important;
+}

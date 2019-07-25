@@ -7,7 +7,34 @@ export default class Header extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      tabletMenuOpened: false,
+      tabletView: false,
+    };
+
     this.closeMobileMenu = this.closeMobileMenu.bind(this);
+    this.logOut = this.logOut.bind(this);
+    this.notify = this.notify.bind(this);
+    this.openMobilMenu = this.openMobilMenu.bind(this);
+    this.resize = this.resize.bind(this);
+  }
+
+  componentDidMount() {
+    if (window.innerWidth < 992) {
+      this.setState({tabletView: true});
+    }
+    window.addEventListener('resize', this.resize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
+  }
+
+  resize() {
+    let currentSize = window.innerWidth < 992;
+    if (currentSize !== this.state.tabletView) {
+      this.setState({tabletView: currentSize});
+    }
   }
 
   closeMobileMenu() {
@@ -19,6 +46,31 @@ export default class Header extends Component {
     let root = document.getElementsByTagName('html')[0];
     if (root !== undefined && root.classList.contains('nav-open')) {
       root.classList.remove('nav-open');
+    }
+
+    this.setState({
+      tabletMenuOpened: false,
+    });
+  }
+
+  logOut() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.notify();
+    this.closeMobileMenu();
+  }
+
+  notify() {
+    var event = new Event('authenticated');
+    document.dispatchEvent(event);
+  }
+
+  openMobilMenu() {
+    let root = document.getElementsByTagName('html')[0];
+    if (root !== undefined && root.classList.contains('nav-open')) {
+      this.setState({
+        tabletMenuOpened: true,
+      });
     }
   }
 
@@ -40,6 +92,39 @@ export default class Header extends Component {
           </div>
           <div className='sidebar-wrapper'>
             <ul className='nav'>
+              {this.state.tabletMenuOpened && this.state.tabletView ? (
+                <li className='nav-item dropdown mobile-dropdown'>
+                  <a
+                    className='nav-link'
+                    id='navbarDropdownProfile'
+                    data-toggle='dropdown'
+                    aria-haspopup='true'
+                    aria-expanded='false'>
+                    <i className='material-icons'>person</i>
+                    <p className='d-lg-none d-md-block'>Account</p>
+                  </a>
+                  <div
+                    className='dropdown-menu dropdown-menu-right mobile'
+                    aria-labelledby='navbarDropdownProfile'
+                    x-placement='top-end'>
+                    {/* <li className='nav-item' onClick={this.closeMobileMenu}> */}
+                    <NavLink
+                      to='/profile'
+                      className='nav-item dropdown-item'
+                      onClick={this.closeMobileMenu}>
+                      Profile
+                    </NavLink>
+                    <div className='dropdown-divider' />
+                    <NavLink
+                      to='/login'
+                      className='dropdown-item nav-item'
+                      onClick={this.logOut}>
+                      Log out
+                    </NavLink>
+                  </div>
+                </li>
+              ) : null}
+
               <li className='nav-item' onClick={this.closeMobileMenu}>
                 <NavLink
                   to='/dashboard'
@@ -103,12 +188,13 @@ export default class Header extends Component {
             <div className='container-fluid'>
               <div className='navbar-wrapper' />
               <button
-                className='navbar-toggler '
+                className='navbar-toggler'
                 type='button'
                 data-toggle='collapse'
                 aria-controls='navigation-index'
                 aria-expanded='true'
-                aria-label='Toggle navigation'>
+                aria-label='Toggle navigation'
+                onClick={this.openMobilMenu}>
                 <span className='sr-only'>Toggle navigation</span>
                 <span className='navbar-toggler-icon icon-bar' />
                 <span className='navbar-toggler-icon icon-bar' />
@@ -128,7 +214,7 @@ export default class Header extends Component {
                       {parsedUser !== null ? parsedUser.name : 'login'}
                     </a>
                     {parsedUser !== null ? (
-                      <DropdownAfterLogin />
+                      <DropdownAfterLogin logOut={this.logOut} />
                     ) : (
                       <DropdownBeforeLogin />
                     )}
@@ -156,17 +242,6 @@ function DropdownBeforeLogin() {
 }
 
 function DropdownAfterLogin(props) {
-  const logOut = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    notify();
-  };
-
-  const notify = () => {
-    var event = new Event('authenticated');
-    document.dispatchEvent(event);
-  };
-
   return (
     <div
       className='dropdown-menu dropdown-menu-right'
@@ -175,7 +250,7 @@ function DropdownAfterLogin(props) {
         Profile
       </Link>
       <div className='dropdown-divider' />
-      <Link to='/login' className='dropdown-item' onClick={logOut}>
+      <Link to='/login' className='dropdown-item' onClick={props.logOut}>
         Log out
       </Link>
     </div>
