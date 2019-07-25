@@ -191,11 +191,11 @@ class ProjectNew extends React.Component {
         loading: false,
       });
     }
-    if (this.state.participantSelect === null) {
-      this.setState({
-        participantSelect: [],
-      });
-    }
+    // if (this.state.participantSelect === null) {
+    //   this.setState({
+    //     participantSelect: [],
+    //   });
+    // }
   }
 
   handleChange(e) {
