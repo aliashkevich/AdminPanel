@@ -24,7 +24,7 @@ function ActionsTable(props) {
   } = props;
 
   return (
-    <div className='card'>
+    <div className='card actions-table-card'>
       <div className={`card-header card-header-${tableColor}`}>
         <h4 className='card-title'>{tableName}</h4>
         <p className='card-category'>{tableDescription}</p>
@@ -66,27 +66,33 @@ function ActionsTable(props) {
                             <button
                               type='button'
                               className='btn btn-default btn-fab btn-fab-mini btn-round btn-action'
-                              onClick={() => updateOnClick(entities[rowIndex])}
+                              onClick={() => {
+                                updateOnClick(dataRow);
+                              }}
                               title='Mark as done'>
                               <i className='material-icons'>done</i>
                             </button>
                           )
                         ) : null}
-                        <Link
-                          to={`${props.location.pathname}/edit/${
-                            entities[rowIndex].id
-                          }`}>
-                          <button
-                            type='button'
-                            className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
-                            title='Edit'
-                            props={entities[rowIndex].id}>
-                            <i className='material-icons'>edit</i>
-                          </button>
-                        </Link>
+                        {tableName === 'Users' ? null : (
+                          <Link
+                            to={`${props.location.pathname}/edit/${
+                              entities[rowIndex].id
+                            }`}>
+                            <button
+                              type='button'
+                              className='btn btn-info btn-fab btn-fab-mini btn-round btn-action'
+                              title='Edit'
+                              props={entities[rowIndex].id}>
+                              <i className='material-icons'>edit</i>
+                            </button>
+                          </Link>
+                        )}
                         <button
                           data-toggle='modal'
-                          data-target={'#confirmDelete-' + rowIndex}
+                          data-target={
+                            '#confirmDelete-' + entities[rowIndex].id
+                          }
                           type='button'
                           title='Delete'
                           className='btn btn-danger btn-fab btn-fab-mini btn-round btn-action'>
@@ -94,7 +100,7 @@ function ActionsTable(props) {
                         </button>
                         <div
                           className='modal text-left'
-                          id={'confirmDelete-' + rowIndex}
+                          id={'confirmDelete-' + entities[rowIndex].id}
                           tabIndex='-1'
                           role='dialog'
                           aria-labelledby='confirmDelete'
@@ -118,9 +124,9 @@ function ActionsTable(props) {
                                   type='button'
                                   className={`btn btn-modal btn-${tableColor}`}
                                   data-dismiss='modal'
-                                  onClick={() =>
-                                    deleteOnClick(entities[rowIndex])
-                                  }>
+                                  onClick={() => {
+                                    deleteOnClick(entities[rowIndex]);
+                                  }}>
                                   Delete
                                 </button>
                               </div>

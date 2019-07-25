@@ -9,7 +9,7 @@ const TaskDetail = props => {
         <div className='content'>
           <div className='container-fluid'>
             <BackTaskButton />
-            <TaskDetailCard id={props.location.state.id} />
+            <TaskDetailCard id={props.location.pathname.split('/').pop()} />
           </div>
         </div>
       </div>

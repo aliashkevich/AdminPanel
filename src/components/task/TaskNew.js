@@ -164,7 +164,6 @@ class AddNewTask extends React.Component {
       let statusOptions = this.state.statuses.map(status => {
         return {value: status.toLowerCase(), label: status};
       });
-      console.log(this.state.status, statusOptions);
       let statusSelect = statusOptions.find(c => c.value === this.state.status);
       this.setState({
         projectSelect,
