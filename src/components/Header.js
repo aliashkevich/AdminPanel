@@ -6,8 +6,8 @@ import './Header.css';
 export default class Header extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      didMount: false,
       mobileMenuOpened: false,
       mobileView: false,
     };
@@ -23,6 +23,7 @@ export default class Header extends Component {
     if (window.innerWidth < 992) {
       this.setState({mobileView: true});
     }
+    this.setState({idMount: true});
     window.addEventListener('resize', this.resize);
   }
 
@@ -77,6 +78,7 @@ export default class Header extends Component {
   render() {
     let userFromStorage = localStorage.getItem('user');
     let parsedUser = JSON.parse(userFromStorage);
+    const {didMount} = this.state;
 
     return (
       <React.Fragment>
@@ -131,7 +133,8 @@ export default class Header extends Component {
                 <NavLink
                   to='/dashboard'
                   className='nav-link '
-                  activeClassName='selected'
+                  activeClassName={`selected bounce-in ${didMount &&
+                    'visible'}`}
                   isActive={(match, location) => {
                     return (
                       location.pathname === '/' ||
@@ -147,7 +150,7 @@ export default class Header extends Component {
                 <NavLink
                   to='/clients'
                   className='nav-link'
-                  activeClassName='selected'>
+                  activeClassName={`selected grow ${didMount && 'visible'}`}>
                   <i className='material-icons'>people</i>
                   <p>Clients</p>
                 </NavLink>
@@ -157,7 +160,8 @@ export default class Header extends Component {
                 <NavLink
                   to='/projects'
                   className='nav-link'
-                  activeClassName='selected'>
+                  activeClassName={`selected grow ${didMount && 'visible'}`}>
+                  {' '}
                   <i className='material-icons'>library_books</i>
                   <p>Projects</p>
                 </NavLink>
@@ -167,7 +171,8 @@ export default class Header extends Component {
                 <NavLink
                   to='/tasks'
                   className='nav-link'
-                  activeClassName='selected'>
+                  activeClassName={`selected grow ${didMount && 'visible'}`}>
+                  {' '}
                   <i className='material-icons'>notes</i>
                   <p>Tasks</p>
                 </NavLink>
@@ -177,7 +182,8 @@ export default class Header extends Component {
                 <NavLink
                   to='/administration'
                   className='nav-link'
-                  activeClassName='selected'>
+                  activeClassName={`selected grow ${didMount && 'visible'}`}>
+                  {' '}
                   <i className='material-icons'>content_paste</i>
                   <p>Administration</p>
                 </NavLink>

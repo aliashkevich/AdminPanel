@@ -18,6 +18,7 @@ export default class TasksTable extends React.Component {
       updated: false,
       projects: [],
       loadingProjects: true,
+      didMount: false,
     };
     this.getTasks = this.getTasks.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
@@ -76,6 +77,7 @@ export default class TasksTable extends React.Component {
 
   componentDidMount() {
     this.getTasks();
+    this.setState({didMount: true});
   }
 
   deleteOnClick(task) {
@@ -186,6 +188,7 @@ export default class TasksTable extends React.Component {
               checkmarkFieldName={'status'}
               checkmarkValue={'done'}
               pathName={'tasks'}
+              visible={`${this.state.didMount && 'visible'}`}
             />
           ))
         )}

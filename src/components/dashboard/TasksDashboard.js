@@ -8,10 +8,10 @@ import {config} from '../../util/config.js';
 class TasksDashboard extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       tasks: [],
       loading: true,
+      didMount: false,
     };
     this.getTasks = this.getTasks.bind(this);
   }
@@ -35,6 +35,7 @@ class TasksDashboard extends React.Component {
 
   componentDidMount() {
     this.getTasks();
+    this.setState({didMount: true});
   }
 
   render() {
@@ -59,6 +60,7 @@ class TasksDashboard extends React.Component {
                 tableHead={['Title', 'Start', 'End']}
                 tableData={tableData.slice(0, 4)}
                 tableColor={'rose'}
+                visible={`${this.state.didMount && 'visible'}`}
               />
             </Link>
           )}
