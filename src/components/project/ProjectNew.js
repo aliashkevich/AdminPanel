@@ -6,14 +6,12 @@ import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
 import Popup from '../global/Popup';
+import './ProjectNew.css';
 
-function validate(startDate, endDate, date) {
+function validate(startDate, endDate) {
   const errors = [];
   if (startDate > endDate) {
     errors.push('End date must be after the start date');
-  }
-  if (startDate <= date) {
-    errors.push('Start date cant be in the past');
   }
   return errors;
 }
@@ -46,13 +44,7 @@ const styles = {
 class ProjectNew extends React.Component {
   constructor(props) {
     super(props);
-    var today = new Date(),
-      date =
-        today.getFullYear() +
-        '-' +
-        (today.getMonth() + 1) +
-        '-' +
-        today.getDate();
+
     this.state = {
       id: '',
       clients: [],
@@ -71,7 +63,6 @@ class ProjectNew extends React.Component {
       participantFlag: false,
       clientFlag: false,
       projectFlag: false,
-      date: date,
       errors: [],
       showPopup: false,
       showError: false,
@@ -221,8 +212,8 @@ class ProjectNew extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const {startDate, endDate, date} = this.state;
-    const errors = validate(startDate, endDate, date);
+    const {startDate, endDate} = this.state;
+    const errors = validate(startDate, endDate);
     if (errors.length > 0) {
       this.setState({
         showPopup: true,
@@ -274,8 +265,8 @@ class ProjectNew extends React.Component {
 
   handleEdit(e) {
     e.preventDefault();
-    const {startDate, endDate, date} = this.state;
-    const errors = validate(startDate, endDate, date);
+    const {startDate, endDate} = this.state;
+    const errors = validate(startDate, endDate);
     if (errors.length > 0) {
       this.setState({
         showPopup: true,
