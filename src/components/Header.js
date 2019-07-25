@@ -15,7 +15,7 @@ export default class Header extends Component {
     this.closeMobileMenu = this.closeMobileMenu.bind(this);
     this.logOut = this.logOut.bind(this);
     this.notify = this.notify.bind(this);
-    this.openMobilMenu = this.openMobilMenu.bind(this);
+    this.openTabletMenu = this.openTabletMenu.bind(this);
     this.resize = this.resize.bind(this);
   }
 
@@ -65,7 +65,7 @@ export default class Header extends Component {
     document.dispatchEvent(event);
   }
 
-  openMobilMenu() {
+  openTabletMenu() {
     let root = document.getElementsByTagName('html')[0];
     if (root !== undefined && root.classList.contains('nav-open')) {
       this.setState({
@@ -93,7 +93,7 @@ export default class Header extends Component {
           <div className='sidebar-wrapper'>
             <ul className='nav'>
               {this.state.tabletMenuOpened && this.state.tabletView ? (
-                <li className='nav-item dropdown mobile-dropdown'>
+                <li className='nav-item dropdown mobile-dropdown-custom'>
                   <a
                     className='nav-link'
                     id='navbarDropdownProfile'
@@ -107,7 +107,6 @@ export default class Header extends Component {
                     className='dropdown-menu dropdown-menu-right mobile'
                     aria-labelledby='navbarDropdownProfile'
                     x-placement='top-end'>
-                    {/* <li className='nav-item' onClick={this.closeMobileMenu}> */}
                     <NavLink
                       to='/profile'
                       className='nav-item dropdown-item'
@@ -194,7 +193,7 @@ export default class Header extends Component {
                 aria-controls='navigation-index'
                 aria-expanded='true'
                 aria-label='Toggle navigation'
-                onClick={this.openMobilMenu}>
+                onClick={this.openTabletMenu}>
                 <span className='sr-only'>Toggle navigation</span>
                 <span className='navbar-toggler-icon icon-bar' />
                 <span className='navbar-toggler-icon icon-bar' />

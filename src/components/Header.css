@@ -35,6 +35,11 @@ div.dropdown-menu.dropdown-menu-right.mobile {
   transform: scale(1);
 }
 
-li.mobile-dropdown {
+li.mobile-dropdown-custom {
   cursor: pointer !important;
+}
+
+.sidebar .nav li a,
+.sidebar {
+  background-color: transparent;
 }
