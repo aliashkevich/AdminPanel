@@ -6,12 +6,13 @@ export default function Popup(props) {
   const {error, onClose} = props;
   return (
     <div
-      className='alert alert-warning alert-dismissible fade show popup popup-cursor'
+      className='alert alert-warning alert-dismissible fade show popup popup-cursor validation-alert'
       role='alert'
       onClick={onClose}>
-      <div className='popupWrapper'>
+      <div className='popup-wrapper'>
         {error}
-        <button type='button' />
+        <button className='hidden-button' type='button' />
+        <span aria-hidden='true'>&times;</span>
       </div>
     </div>
   );
