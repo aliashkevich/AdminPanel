@@ -16,6 +16,34 @@ li.nav-item:hover > a.selected {
     0 7px 10px -5px rgba(255, 152, 0, 0.4);
 }
 
+div.dropdown-menu.dropdown-menu-right.mobile {
+  background-color: transparent;
+  width: auto;
+  float: none;
+  box-shadow: none;
+  position: static !important;
+  top: -2px;
+  left: 5px;
+  will-change: top, left;
+  transform-origin: 100% 100%;
+}
+
+.dropdown-menu.show,
+.open > .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+}
+
+li.mobile-dropdown-custom {
+  cursor: pointer !important;
+}
+
+.sidebar .nav li a,
+.sidebar {
+  background-color: transparent;
+}
+
 .nav-link:hover {
   transform: scale(1.05);
 }
