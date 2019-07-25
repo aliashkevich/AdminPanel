@@ -54,8 +54,10 @@ class NewClient extends React.Component {
             name: data.client.name,
             initials: data.client.initials,
             contactInformation: data.client.contactInformation,
+            logoPreview: data.client.logo,
             edit: true,
             loading: false,
+            logoLoaded: true,
           });
         })
         .catch(error => alert(error));
@@ -68,6 +70,7 @@ class NewClient extends React.Component {
       name: this.state.name,
       initials: this.state.initials,
       contactInformation: this.state.contactInformation,
+      logo: this.state.logoPreview,
     };
     fetch(`${config.apiUrl}/clients/${this.state.clientId}`, {
       method: 'PUT',
@@ -90,6 +93,7 @@ class NewClient extends React.Component {
       name: '',
       initials: '',
       contactInformation: '',
+      logo: '',
     });
   }
 
@@ -175,6 +179,7 @@ class NewClient extends React.Component {
       logoLoaded: false,
     });
   }
+
 
   render() {
     return (

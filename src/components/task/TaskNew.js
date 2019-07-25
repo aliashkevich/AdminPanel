@@ -49,10 +49,20 @@ class AddNewTask extends React.Component {
       assigneeSelect: {},
       assigneeId: '',
       edit: false,
+      status: '',
       loading: true,
       taskFlag: false,
       assigneeFlag: false,
       projectFlag: false,
+      statusSelect: {},
+      statuses: [
+        'New',
+        'Pending',
+        'In progress',
+        'In review',
+        'Done',
+        'Finished',
+      ],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleProjectChange = this.handleProjectChange.bind(this);
@@ -108,6 +118,7 @@ class AddNewTask extends React.Component {
           this.setState({
             taskId: data.task.id,
             projectId: data.task.projectId,
+            status: data.task.status,
             title: data.task.title,
             summary: data.task.summary,
             description: data.task.description,
@@ -141,6 +152,7 @@ class AddNewTask extends React.Component {
       let projectSelect = projectOptions.find(
         c => c.value === this.state.projectId,
       );
+
       let assigneeOptions = this.state.assignee.map(assignee => {
         return {value: assignee.id, label: assignee.name};
       });
@@ -148,9 +160,16 @@ class AddNewTask extends React.Component {
       const assigneeSelect = assigneeOptions.filter(currentObj => {
         return assigneeId === currentObj.value;
       })[0];
+
+      let statusOptions = this.state.statuses.map(status => {
+        return {value: status.toLowerCase(), label: status};
+      });
+      console.log(this.state.status, statusOptions);
+      let statusSelect = statusOptions.find(c => c.value === this.state.status);
       this.setState({
         projectSelect,
         assigneeSelect,
+        statusSelect,
         loading: false,
       });
     }
@@ -174,6 +193,12 @@ class AddNewTask extends React.Component {
       assigneeSelect: option,
     });
   }
+
+  handleStatusChange = option => {
+    this.setState({
+      statusSelect: option,
+    });
+  };
 
   handleSubmit(e) {
     e.preventDefault();
@@ -225,6 +250,7 @@ class AddNewTask extends React.Component {
     e.preventDefault();
     const newProject = this.state.projectSelect.value;
     const newAssignee = this.state.assigneeSelect.value;
+    const newStatus = this.state.statusSelect.value;
     const body = {
       projectId: newProject,
       title: this.state.title,
@@ -234,7 +260,7 @@ class AddNewTask extends React.Component {
       endDate: this.state.endDate,
       estimation: this.state.estimation,
       userId: newAssignee,
-      status: 'new',
+      status: newStatus,
     };
     fetch(`${config.apiUrl}/tasks/${this.state.taskId}`, {
       method: 'PUT',
@@ -272,6 +298,9 @@ class AddNewTask extends React.Component {
     });
     let assigneeOptions = this.state.assignee.map(user => {
       return {value: user.id, label: user.name};
+    });
+    let statusOptions = this.state.statuses.map(status => {
+      return {value: status.toLowerCase(), label: status};
     });
     return (
       <React.Fragment>
@@ -322,7 +351,7 @@ class AddNewTask extends React.Component {
                     </div>
                   </div>
                   <div className='form-row'>
-                    <div className='form-group col-sm-12 col-md-2 col-lg-2 has-info input-group'>
+                    <div className='form-group col-sm-12 col-md-3 has-info input-group'>
                       <label htmlFor='inputStartDate'>Start Date:</label>
                       <input
                         type='date'
@@ -334,7 +363,7 @@ class AddNewTask extends React.Component {
                         required
                       />
                     </div>
-                    <div className='form-group col-sm-12 col-md-2 col-lg-2 has-info input-group'>
+                    <div className='form-group col-sm-12 col-md-3 has-info input-group'>
                       <label htmlFor='inputEndDate'>End Date:</label>
                       <input
                         type='date'
@@ -346,22 +375,7 @@ class AddNewTask extends React.Component {
                         required
                       />
                     </div>
-                    <div className='form-group col-sm-5 col-md-2 col-lg-2 has-info input-group'>
-                      <label htmlFor='inputEstimation'>
-                        Estimation: (hours)
-                      </label>
-                      <textarea
-                        type='text'
-                        name='estimation'
-                        className='form-control'
-                        id='inputEstimation'
-                        onChange={this.handleChange}
-                        rows={1}
-                        placeholder='hours'
-                        value={this.state.estimation}
-                        required
-                      />
-                    </div>
+
                     <div className='col-sm-12 col-md-6 col-lg-6 has-info projects'>
                       <label htmlFor='inputClient' className='text-info'>
                         Assignee:
@@ -377,6 +391,41 @@ class AddNewTask extends React.Component {
                         required
                       />
                     </div>
+                  </div>
+                  <div className='form-row'>
+                    <div className='form-group col-sm-6 col-md-6  has-info input-group'>
+                      <label htmlFor='inputEstimation'>
+                        Estimation: (hours)
+                      </label>
+                      <textarea
+                        type='text'
+                        name='estimation'
+                        className='form-control'
+                        id='inputEstimation'
+                        onChange={this.handleChange}
+                        rows={1}
+                        placeholder='hours'
+                        value={this.state.estimation}
+                        required
+                      />
+                    </div>
+                    {this.state.edit && (
+                      <div className='col-sm-6 col-md-6  has-info projects'>
+                        <label htmlFor='inputClient' className='text-info'>
+                          Status:
+                        </label>
+                        <Select
+                          id='inputClient'
+                          name='projectSelect'
+                          value={this.state.statusSelect}
+                          options={statusOptions}
+                          onChange={this.handleStatusChange}
+                          className='select'
+                          theme={styles.select.theme}
+                          required
+                        />
+                      </div>
+                    )}
                   </div>
                   <div className='form-group col-sm-12 col-md-12 has-info'>
                     <label htmlFor='inputSummary'>Summary:</label>
