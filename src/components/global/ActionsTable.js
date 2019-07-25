@@ -96,7 +96,7 @@ function ActionsTable(props) {
                           <i className='material-icons'>delete</i>
                         </button>
                         <div
-                          className='modal fade text-left'
+                          className='modal text-left'
                           id={'confirmDelete-' + rowIndex}
                           tabIndex='-1'
                           role='dialog'

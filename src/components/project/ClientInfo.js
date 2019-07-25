@@ -14,7 +14,12 @@ export default class ClientInfo extends React.Component {
     this.getClient = this.getClient.bind(this);
   }
   getClient() {
-    fetch(`${config.apiUrl}/clients/${this.props.clientId}`)
+    fetch(`${config.apiUrl}/clients/${this.props.clientId}`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -32,12 +37,12 @@ export default class ClientInfo extends React.Component {
 
   render() {
     return (
-      <div className='col-lg-4 col-md-12 col-sm-12'>
+      <React.Fragment>
         {this.state.loading ? (
           <Spinner spinnerPosition={'inline-spinner'} />
         ) : (
           <div className='card card-stats'>
-            <div className='card-header card-header-info card-header-icon'>
+            <div className='card-header card-header-primary card-header-icon'>
               <div className='card-icon client-logo-wrapper'>
                 <img
                   className='card-img-top client-logo'
@@ -51,21 +56,18 @@ export default class ClientInfo extends React.Component {
                   alt='client logo'
                 />
               </div>
-              <h3 className='card-title font-grey'>
-                {this.state.client.initials}
-              </h3>
+              <h3 className='card-title'>{this.state.client.initials}</h3>
             </div>
-            <div className='container-fluid container-padding'>
-              <p className='card-category font-grey'>
-                Email: {this.state.contactInformation.email}
-              </p>
-              <p className='card-category font-grey'>
-                Number: {this.state.contactInformation.number}
-              </p>
+            <div className='text-align'>
+              <div>
+                <p>Email: {this.state.contactInformation.email}</p>
+                <hr />
+                <p>Number: {this.state.contactInformation.number}</p>
+              </div>
             </div>
           </div>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

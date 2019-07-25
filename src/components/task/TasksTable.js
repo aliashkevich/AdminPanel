@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import {getLocalDateFromUTC} from '../../util/date';
 import {config} from '../../util/config.js';
+import CircleImg from '../global/CircleImg';
 
 export default class TasksTable extends React.Component {
   constructor(props) {
@@ -22,7 +23,12 @@ export default class TasksTable extends React.Component {
   }
 
   getTasks() {
-    fetch(`${config.apiUrl}/tasks`)
+    fetch(`${config.apiUrl}/tasks`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -32,7 +38,12 @@ export default class TasksTable extends React.Component {
       })
       .catch(error => console.log(error))
       .then(
-        fetch(`${config.apiUrl}/users`)
+        fetch(`${config.apiUrl}/users`, {
+          headers: new Headers({
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+          }),
+        })
           .then(res => res.json())
           .then(data => {
             this.setState({
@@ -53,6 +64,10 @@ export default class TasksTable extends React.Component {
   deleteOnClick(task) {
     const options = {
       method: 'DELETE',
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
     };
     fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
@@ -64,9 +79,10 @@ export default class TasksTable extends React.Component {
     const options = {
       method: 'PUT',
       body: JSON.stringify(data),
-      headers: {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
         'Content-Type': 'application/json',
-      },
+      }),
     };
     fetch(`${config.apiUrl}/tasks/${task.id}`, options)
       .then(this.setState({updated: true}))
@@ -87,15 +103,26 @@ export default class TasksTable extends React.Component {
 
     const tableData = this.state.tasks.map(task => [
       task.id,
-      <Link to={`/tasks/${task.id}`} className='text-info'>
+      <Link
+        to={{
+          pathname: `/tasks/${task.id}`,
+          state: {
+            id: task.id,
+          },
+        }}
+        className='text-info'>
         {task.title}
       </Link>,
       getLocalDateFromUTC(task.startDate),
       getLocalDateFromUTC(task.endDate),
       `${task.estimation} hours`,
-      task.userId
-        ? findInArray(this.state.users, 'id', task.userId, 'name')
-        : null,
+      <CircleImg
+        logo={
+          task.userId
+            ? findInArray(this.state.users, 'id', task.userId, 'image')
+            : null
+        }
+      />,
     ]);
 
     return (

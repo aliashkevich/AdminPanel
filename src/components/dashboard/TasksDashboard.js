@@ -17,7 +17,12 @@ class TasksDashboard extends React.Component {
   }
 
   getTasks() {
-    fetch(`${config.apiUrl}/tasks`)
+    fetch(`${config.apiUrl}/tasks`, {
+      headers: new Headers({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+      }),
+    })
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -47,6 +52,7 @@ class TasksDashboard extends React.Component {
           {this.state.loading ? (
             <Spinner spinnerPosition={'inline-spinner'} />
           ) : (
+<<<<<<< HEAD
             <Table
               entities={this.state.tasks}
               tableName={'Tasks'}
@@ -56,6 +62,18 @@ class TasksDashboard extends React.Component {
               tableColor={'rose'}
               visible={`${this.state.didMount && 'visible'}`}
             />
+=======
+            <Link to={`/tasks`}>
+              <Table
+                entities={this.state.tasks}
+                tableName={'Tasks'}
+                tableDescription={'Tasks nearing completion'}
+                tableHead={['Title', 'Start', 'End']}
+                tableData={tableData.slice(0, 4)}
+                tableColor={'rose'}
+              />
+            </Link>
+>>>>>>> develop
           )}
         </div>
       </React.Fragment>

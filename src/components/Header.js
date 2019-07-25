@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import logo from '../img/lesewert-logo.svg';
 import './Header.css';
 
 export default class Header extends Component {
@@ -26,10 +27,7 @@ export default class Header extends Component {
           data-image='../assets/img/sidebar-1.jpg'>
           <div className='logo'>
             <NavLink to='/' className='simple-text logo-normal'>
-              <img
-                src='https://www.lesewert.de/files/lesewert/img/lesewert_logo.svg'
-                alt='Lesewert'
-              />
+              <img src={logo} alt='Lesewert' />
             </NavLink>
           </div>
           <div className='sidebar-wrapper'>
@@ -153,7 +151,18 @@ function DropdownBeforeLogin() {
   );
 }
 
-function DropdownAfterLogin() {
+function DropdownAfterLogin(props) {
+  const logOut = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    notify();
+  };
+
+  const notify = () => {
+    var event = new Event('authenticated');
+    document.dispatchEvent(event);
+  };
+
   return (
     <div
       className='dropdown-menu dropdown-menu-right'
@@ -161,11 +170,8 @@ function DropdownAfterLogin() {
       <Link to='/profile' className='dropdown-item'>
         Profile
       </Link>
-      <a className='dropdown-item' href='#'>
-        Settings
-      </a>
       <div className='dropdown-divider' />
-      <Link to='/login' className='dropdown-item'>
+      <Link to='/login' className='dropdown-item' onClick={logOut}>
         Log out
       </Link>
     </div>
