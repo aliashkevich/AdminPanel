@@ -223,14 +223,13 @@ class ProjectNew extends React.Component {
     this.setState({
       showError: false,
     });
-    console.log(e.target.key);
     setTimeout(() => {
       this.setState({
         showPopup: false,
         errors: [],
+        showError: false,
       });
-      console.log('Removed!!!');
-    }, 1000);
+    }, 5000);
   }
 
   handleSubmit(e) {
