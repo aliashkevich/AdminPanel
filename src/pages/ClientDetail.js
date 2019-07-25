@@ -9,7 +9,7 @@ const ClientDetail = props => {
         <div className='content'>
           <div className='container-fluid'>
             <BackClientButton />
-            <ClientsDetail id={props.location.state.id} />
+            <ClientsDetail id={props.location.pathname.split('/').pop()} />
           </div>
         </div>
       </div>

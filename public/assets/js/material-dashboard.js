@@ -86,8 +86,16 @@ $(document).ready(function() {
   });
 });
 
+$(document).on('click', '.close-layer', function() {
+  $('.close-layer').remove();
+});
+
 $(document).on('click', '.navbar-toggler', function() {
   $toggle = $(this);
+
+  if (mobile_menu_visible == 1 && !$('html').hasClass('nav-open')) {
+    mobile_menu_visible = 0;
+  }
 
   if (mobile_menu_visible == 1) {
     $('html').removeClass('nav-open');
