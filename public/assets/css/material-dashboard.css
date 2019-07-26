@@ -13352,12 +13352,12 @@ fieldset[disabled] .form-group .form-control {
   font-size: 12px;
   text-transform: uppercase;
   border-radius: 3px;
-  color: #fff;
+  color: rgb(255, 255, 255);
   margin: 0 15px;
 }
 
 .off-canvas-sidebar .navbar .navbar-collapse .navbar-nav .nav-item .nav-link:hover {
-  background: rgba(200, 200, 200, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .off-canvas-sidebar .navbar.navbar-transparent {
