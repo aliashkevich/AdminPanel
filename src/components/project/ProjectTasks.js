@@ -75,7 +75,6 @@ export default class ProjectTasks extends React.Component {
     ]);
     return (
       <React.Fragment>
-        {' '}
         {this.state.loading ? (
           <Spinner spinnerPosition={'inline-spinner'} />
         ) : (
