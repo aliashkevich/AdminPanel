@@ -4,6 +4,14 @@ import {withRouter} from 'react-router';
 import '../global/Form.css';
 import {config} from '../../util/config.js';
 import Spinner from '../global/Spinner';
+import Popup from '../global/Popup';
+import './ClientNew.css';
+
+function validate() {
+  const errors = [];
+  errors.push('Image size is too big');
+  return errors;
+}
 
 class NewClient extends React.Component {
   constructor(props) {
@@ -21,6 +29,9 @@ class NewClient extends React.Component {
       },
       loading: false,
       edit: false,
+      errors: [],
+      showPopup: false,
+      showError: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +39,7 @@ class NewClient extends React.Component {
     this.handleLogoDelete = this.handleLogoDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.getClient = this.getClient.bind(this);
+    this.togglePopupHandler = this.togglePopupHandler.bind(this);
   }
 
   componentDidMount() {
@@ -155,7 +167,12 @@ class NewClient extends React.Component {
         });
       };
     } else {
-      alert('Image is to big');
+      const errors = validate();
+      this.setState({
+        showPopup: true,
+        errors,
+        showError: true,
+      });
     }
     if (file) {
       reader.readAsDataURL(file);
@@ -178,6 +195,21 @@ class NewClient extends React.Component {
       logoPreview: '',
       logoLoaded: false,
     });
+  }
+
+  togglePopupHandler(e) {
+    e.preventDefault();
+    e.target.parentElement.classList.remove('show');
+    this.setState({
+      showError: false,
+    });
+    setTimeout(() => {
+      this.setState({
+        showPopup: false,
+        errors: [],
+        showError: false,
+      });
+    }, 5000);
   }
 
   render() {
@@ -278,6 +310,19 @@ class NewClient extends React.Component {
                             onChange={this.handleLogoChange}
                             className='fileInput'
                           />
+                          <div className='validation-alert'>
+                            {this.state.showPopup
+                              ? this.state.errors.map((error, index) => {
+                                  return (
+                                    <Popup
+                                      error={error}
+                                      key={this.state.errors[index]}
+                                      onClose={this.togglePopupHandler}
+                                    />
+                                  );
+                                })
+                              : null}
+                          </div>
                           <button
                             className='btn btn-fab btn-danger btn-round client-button'
                             type='button'
@@ -302,6 +347,19 @@ class NewClient extends React.Component {
                             className='fileInput'
                             accept='image/png, image/jpeg'
                           />
+                          <div className='validation-alert'>
+                            {this.state.showPopup
+                              ? this.state.errors.map((error, index) => {
+                                  return (
+                                    <Popup
+                                      error={error}
+                                      key={this.state.errors[index]}
+                                      onClose={this.togglePopupHandler}
+                                    />
+                                  );
+                                })
+                              : null}
+                          </div>
                         </div>
                       )}
                     </div>

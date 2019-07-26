@@ -2,7 +2,14 @@ import React from 'react';
 import './LoginForm.css';
 import logo from '../../img/lesewert-logo.svg';
 
-function LoginForm({email, password, onSubmit, handleInputChange, flash}) {
+function LoginForm({
+  email,
+  password,
+  onSubmit,
+  handleInputChange,
+  flash,
+  onGuestLogin,
+}) {
   return (
     <div className='container-fluid'>
       <div
@@ -47,6 +54,14 @@ function LoginForm({email, password, onSubmit, handleInputChange, flash}) {
 
           <input type='submit' value='submit' className='btn btn-warning' />
         </form>
+        <hr />
+        <p>
+          In order to present our project you can log in without credentials
+          (temporarily), just click below:
+        </p>
+        <button className='btn btn-warning' onClick={onGuestLogin}>
+          Log in as guest
+        </button>
       </div>
       {flash ? (
         <div className='alert-container'>
