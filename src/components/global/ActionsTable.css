@@ -1,0 +1,16 @@
+button.btn-action,
+a.btn-action {
+  margin: 5px !important;
+}
+
+button.btn-modal {
+  padding: 12px 30px !important;
+}
+
+.tr-mouse {
+  cursor: pointer;
+}
+
+.actions-table-card {
+  margin: 40px 0px 70px 0px;
+}
