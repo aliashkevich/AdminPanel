@@ -100,6 +100,7 @@ export default class Header extends Component {
               {this.state.mobileMenuOpened && this.state.mobileView ? (
                 <li className='nav-item dropdown mobile-dropdown-custom'>
                   <a
+                    href='#/'
                     className='nav-link'
                     id='navbarDropdownProfile'
                     data-toggle='dropdown'

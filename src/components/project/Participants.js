@@ -41,8 +41,8 @@ export default class Participants extends React.Component {
     const participants = [];
     if (this.state.loading === false) {
       users.map(user => {
-        participantsArr.find(id => {
-          if (id === user.id) return participants.push(user);
+        return participantsArr.find(id => {
+          return id === user.id ? participants.push(user) : null;
         });
       });
     }
