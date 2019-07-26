@@ -38,7 +38,6 @@ class TaskInfo extends React.Component {
 
   render() {
     const user = this.state.users.find(user => user.id === this.props.userId);
-
     return (
       <React.Fragment>
         {this.state.loading ? (

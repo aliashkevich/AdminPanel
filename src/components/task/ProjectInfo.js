@@ -8,9 +8,8 @@ export default class ProjectInfo extends React.Component {
     super(props);
 
     this.state = {
-      projects: {},
+      projects: [],
       loading: true,
-      projectId: props.projectId,
     };
     this.getData = this.getData.bind(this);
   }
@@ -37,6 +36,12 @@ export default class ProjectInfo extends React.Component {
 
   render() {
     const projectId = this.props.projectId;
+
+    const selectedProject =
+      this.props.projectId || this.state.projects
+        ? this.state.projects.find(project => project.id === projectId)
+        : null;
+
     return (
       <div>
         {this.state.loading ? (
@@ -49,17 +54,12 @@ export default class ProjectInfo extends React.Component {
                 id: projectId,
               },
             }}>
-            <button type='button' class='btn btn-success'>
-              <b>
-                {this.state.projects.find(
-                  project => project.id === this.props.projectId,
-                ).title
-                  ? this.state.projects.find(
-                      project => project.id === this.props.projectId,
-                    ).title
-                  : ''}
-              </b>{' '}
-              project details <i class='material-icons'>arrow_forward</i>
+            <button type='button' className='btn btn-success'>
+              <div>
+                {selectedProject ? <b>{selectedProject.title}</b> : null}
+                {' - '}
+                project details <i className='material-icons'>arrow_forward</i>
+              </div>
             </button>
           </Link>
         )}
