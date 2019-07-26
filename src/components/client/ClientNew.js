@@ -180,7 +180,6 @@ class NewClient extends React.Component {
     });
   }
 
-
   render() {
     return (
       <React.Fragment>

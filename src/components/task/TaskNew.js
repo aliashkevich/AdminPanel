@@ -5,6 +5,16 @@ import Select from 'react-select';
 import '../global/Form.css';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
+import Popup from '../global/Popup';
+import './TaskNew.css';
+
+function validate(startDate, endDate) {
+  const errors = [];
+  if (startDate > endDate) {
+    errors.push('End date must be after the start date');
+  }
+  return errors;
+}
 
 const styles = {
   select: {
@@ -46,6 +56,7 @@ class AddNewTask extends React.Component {
       endDate: '',
       estimation: '',
       assignee: [],
+      assigneeProject: [],
       assigneeSelect: {},
       assigneeId: '',
       edit: false,
@@ -63,11 +74,15 @@ class AddNewTask extends React.Component {
         'Done',
         'Finished',
       ],
+      errors: [],
+      showPopup: false,
+      showError: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleProjectChange = this.handleProjectChange.bind(this);
     this.handleAssigneeChange = this.handleAssigneeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.togglePopupHandler = this.togglePopupHandler.bind(this);
   }
 
   getUsers = () => {
@@ -140,6 +155,11 @@ class AddNewTask extends React.Component {
     this.getProjects();
   }
 
+  findInArray = (array, arrayItemKey, value, arrayItemProperty) => {
+    var item = array.find(arrayItem => arrayItem[arrayItemKey].includes(value));
+    return item ? item[arrayItemProperty] : '';
+  };
+
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.assigneeFlag !== this.state.assigneeFlag ||
@@ -184,6 +204,7 @@ class AddNewTask extends React.Component {
   handleProjectChange(option) {
     this.setState({
       projectSelect: option,
+      assigneeSelect: null,
     });
   }
 
@@ -199,8 +220,33 @@ class AddNewTask extends React.Component {
     });
   };
 
+  togglePopupHandler(e) {
+    e.preventDefault();
+    e.target.parentElement.classList.remove('show');
+    this.setState({
+      showError: false,
+    });
+    setTimeout(() => {
+      this.setState({
+        showPopup: false,
+        errors: [],
+        showError: false,
+      });
+    }, 5000);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
+    const {startDate, endDate} = this.state;
+    const errors = validate(startDate, endDate);
+    if (errors.length > 0) {
+      this.setState({
+        showPopup: true,
+        errors,
+        showError: true,
+      });
+      return;
+    }
     const newProject = this.state.projectSelect.value;
     const newAssignee = this.state.assigneeSelect.value;
     const body = {
@@ -247,6 +293,16 @@ class AddNewTask extends React.Component {
 
   handleEdit = e => {
     e.preventDefault();
+    const {startDate, endDate} = this.state;
+    const errors = validate(startDate, endDate);
+    if (errors.length > 0) {
+      this.setState({
+        showPopup: true,
+        errors,
+        showError: true,
+      });
+      return;
+    }
     const newProject = this.state.projectSelect.value;
     const newAssignee = this.state.assigneeSelect.value;
     const newStatus = this.state.statusSelect.value;
@@ -296,7 +352,18 @@ class AddNewTask extends React.Component {
       return {value: project.id, label: project.title};
     });
     let assigneeOptions = this.state.assignee.map(user => {
-      return {value: user.id, label: user.name};
+      return {
+        value: user.id,
+        label: user.name,
+        isDisabled: this.state.projectSelect
+          ? !this.findInArray(
+              this.state.projects,
+              'id',
+              this.state.projectSelect.value,
+              'participants',
+            ).includes(user.id)
+          : true,
+      };
     });
     let statusOptions = this.state.statuses.map(status => {
       return {value: status.toLowerCase(), label: status};
@@ -320,6 +387,19 @@ class AddNewTask extends React.Component {
                   onSubmit={
                     this.state.edit ? this.handleEdit : this.handleSubmit
                   }>
+                  <div className='validation-alert'>
+                    {this.state.showPopup
+                      ? this.state.errors.map((error, index) => {
+                          return (
+                            <Popup
+                              error={error}
+                              key={this.state.errors[index]}
+                              onClose={this.togglePopupHandler}
+                            />
+                          );
+                        })
+                      : null}
+                  </div>
                   <div className='form-row'>
                     <div className='form-group col-sm-12 col-md-6 has-info input-group'>
                       <label htmlFor='inputTitle'>Title:</label>
@@ -387,6 +467,7 @@ class AddNewTask extends React.Component {
                         onChange={this.handleAssigneeChange}
                         className='select'
                         theme={styles.select.theme}
+                        placeholder='First select a project ...'
                         required
                       />
                     </div>
@@ -396,8 +477,9 @@ class AddNewTask extends React.Component {
                       <label htmlFor='inputEstimation'>
                         Estimation: (hours)
                       </label>
-                      <textarea
-                        type='text'
+                      <input
+                        type='number'
+                        step='.01'
                         name='estimation'
                         className='form-control'
                         id='inputEstimation'
@@ -462,6 +544,10 @@ class AddNewTask extends React.Component {
                     </div>
                     <div className='form-group col-xs-1 text-end ml-auto'>
                       <button
+                        disabled={
+                          !this.state.projectSelect ||
+                          !this.state.assigneeSelect
+                        }
                         type='submit'
                         className='btn btn-success btn-right'>
                         {this.state.edit ? 'Save' : 'Add'}

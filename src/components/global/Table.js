@@ -2,14 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Table(props) {
-  const {tableName, tableDescription, tableHead, tableData, tableColor} = props;
+  const {
+    tableName,
+    tableDescription,
+    tableHead,
+    tableData,
+    tableColor,
+    //animation to start on mount
+    visible,
+  } = props;
   return (
     <div className='card'>
-      <div className={`card-header card-header-${tableColor}`}>
-        <h4 className='card-title'>{tableName}</h4>
+      <div
+        className={`card-header card-header-${tableColor} bounce-in ${visible}`}>
+        <h4 className={`card-title`}>{tableName}</h4>
         <p className='card-category'>{tableDescription}</p>
       </div>
-      <div className='card-body'>
+      <div className={`card-body slide-in ${visible}`}>
         <div className='table-responsive'>
           <table className='table table-hover'>
             {tableHead !== undefined ? (

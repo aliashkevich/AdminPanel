@@ -37,6 +37,8 @@ class TaskInfo extends React.Component {
   }
 
   render() {
+    const user = this.state.users.find(user => user.id === this.props.userId);
+
     return (
       <React.Fragment>
         {this.state.loading ? (
@@ -65,19 +67,14 @@ class TaskInfo extends React.Component {
               </p>
               <hr />
               <div className='task-participants'>
-                <div>
-                  <b>Participant:</b>{' '}
-                  {
-                    this.state.users.find(user => user.id === this.props.userId)
-                      .name
-                  }
-                </div>
-                <CircleImg
-                  logo={
-                    this.state.users.find(user => user.id === this.props.userId)
-                      .image
-                  }
-                />
+                {user ? (
+                  <React.Fragment>
+                    <div>
+                      <b>Participant:</b> {user.name}
+                    </div>
+                    <CircleImg logo={user.image} />
+                  </React.Fragment>
+                ) : null}
               </div>
             </div>
           </div>
