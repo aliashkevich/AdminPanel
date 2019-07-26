@@ -477,8 +477,9 @@ class AddNewTask extends React.Component {
                       <label htmlFor='inputEstimation'>
                         Estimation: (hours)
                       </label>
-                      <textarea
-                        type='text'
+                      <input
+                        type='number'
+                        step='.01'
                         name='estimation'
                         className='form-control'
                         id='inputEstimation'
