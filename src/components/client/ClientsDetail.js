@@ -1,6 +1,6 @@
 import React from 'react';
 import ClientInfo from '../project/ClientInfo';
-import ProjectSummary from './ProjectSummary';
+import ProjectTasksTable from './ProjectTasksTable';
 import Spinner from '../global/Spinner';
 import {config} from '../../util/config.js';
 import './ClientDetailsCard.css';
@@ -50,14 +50,13 @@ export default class ClientsDetail extends React.Component {
                 <div className='card-header card-header-primary'>
                   <h4 className='card-title'>{this.state.clients.name}</h4>
                 </div>
-                {/* summary */}
                 <div className='card-body '>
                   <div className='row text-dark'>
                     <div className='col-lg-4 col-md-12 col-sm-12'>
                       <ClientInfo clientId={this.state.id} />
                     </div>
                     <div className='col-lg-8 col-md-12 col-sm-12'>
-                      <ProjectSummary clientId={this.state.id} />
+                      <ProjectTasksTable clientId={this.state.id} />
                     </div>
                   </div>
                 </div>

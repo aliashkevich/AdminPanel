@@ -1,6 +1,5 @@
 import React from 'react';
 import ActionsTable from '../global/ActionsTable';
-import {Link} from 'react-router-dom';
 import Spinner from '../global/Spinner';
 import './UsersTable.css';
 import {config} from '../../util/config.js';

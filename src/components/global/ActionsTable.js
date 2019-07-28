@@ -76,7 +76,7 @@ function ActionsTable(props) {
                           ].toLowerCase() === checkmarkValue.toLowerCase() ? (
                             <span title='Task is done'>
                               <a
-                                href='#'
+                                href='#/'
                                 className='btn btn-success btn-fab btn-fab-mini btn-round btn-action disabled'>
                                 <i className='material-icons'>done</i>
                               </a>

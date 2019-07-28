@@ -100,6 +100,7 @@ export default class Header extends Component {
               {this.state.mobileMenuOpened && this.state.mobileView ? (
                 <li className='nav-item dropdown mobile-dropdown-custom'>
                   <a
+                    href='#/'
                     className='nav-link'
                     id='navbarDropdownProfile'
                     data-toggle='dropdown'
@@ -213,7 +214,7 @@ export default class Header extends Component {
                   <li className='nav-item dropdown'>
                     <a
                       className='nav-link'
-                      href='javascript:void(0)'
+                      href='#/'
                       id='navbarDropdownProfile'
                       data-toggle='dropdown'
                       aria-haspopup='true'
