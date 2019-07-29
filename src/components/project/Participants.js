@@ -57,7 +57,14 @@ export default class Participants extends React.Component {
               return (
                 <div key={i}>
                   <div className='participant-wrapper'>
-                    {participant.name ? <span className='font-grey ml-1'>{participant.name}</span>                     <CircleImg logo={participant.image} />: null }
+                    {participant.name ? (
+                      <React.Fragment>
+                        <span className='font-grey ml-1'>
+                          {participant.name}
+                        </span>{' '}
+                        <CircleImg logo={participant.image} />{' '}
+                      </React.Fragment>
+                    ) : null}
                   </div>
                   <hr />
                 </div>

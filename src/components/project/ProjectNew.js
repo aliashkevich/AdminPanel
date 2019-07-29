@@ -328,156 +328,139 @@ class ProjectNew extends React.Component {
         {this.state.loading ? (
           <Spinner />
         ) : (
-          <div className='container-fluid'>
-            <div className='col-md-12'>
-              <div className='card'>
-                <div className='card-header card-header-info'>
-                  <h4 className='card-title'>
-                    {this.state.edit ? 'Edit Project' : 'New Project'}
-                  </h4>
-                </div>
-                <div className='card-body'>
-                  <br />
-                  <form
-                    onSubmit={
-                      this.state.edit ? this.handleEdit : this.handleSubmit
-                    }>
-                    <div className='validation-alert'>
-                      {this.state.showPopup
-                        ? this.state.errors.map((error, index) => {
-                            return (
-                              <Popup
-                                error={error}
-                                key={this.state.errors[index]}
-                                onClose={this.togglePopupHandler}
-                              />
-                            );
-                          })
-                        : null}
+          <div className='col-md-12'>
+            <div className='card'>
+              <div className='card-header card-header-info'>
+                <h4 className='card-title'>
+                  {this.state.edit ? 'Edit Project' : 'New Project'}
+                </h4>
+              </div>
+              <div className='card-body'>
+                <br />
+                <form
+                  onSubmit={
+                    this.state.edit ? this.handleEdit : this.handleSubmit
+                  }>
+                  <div className='validation-alert'>
+                    {this.state.showPopup
+                      ? this.state.errors.map((error, index) => {
+                          return (
+                            <Popup
+                              error={error}
+                              key={this.state.errors[index]}
+                              onClose={this.togglePopupHandler}
+                            />
+                          );
+                        })
+                      : null}
+                  </div>
+                  <div className='form-row'>
+                    <div className='form-group col-sm-12 col-md-6 has-info'>
+                      <label htmlFor='inputTitle'>Title:</label>
+                      <input
+                        type='text'
+                        name='title'
+                        className='form-control'
+                        id='inputTitle'
+                        onChange={this.handleChange}
+                        value={this.state.title}
+                        required
+                      />
                     </div>
-                    <div className='form-row'>
-                      <div
-                        className='form-group col-sm-12 col-md-6 has-info'
-                        style={styles.dates}>
-                        <label htmlFor='inputTitle'>Title:</label>
-                        <input
-                          style={styles.margin}
-                          type='text'
-                          name='title'
-                          className='form-control'
-                          id='inputTitle'
-                          onChange={this.handleChange}
-                          value={this.state.title}
-                          required
-                        />
-                      </div>
-                      <div
-                        className='col-sm-12 col-md-6 has-info'
-                        style={styles.clients}>
-                        <label htmlFor='inputClient' className='text-info'>
-                          Client:
-                        </label>
-                        <Select
-                          id='inputClient'
-                          name='clientSelect'
-                          value={this.state.clientSelect}
-                          options={clientOptions}
-                          onChange={this.handleClientChange}
-                          styles={styles.select}
-                          theme={styles.select.theme}
-                          required
-                        />
-                      </div>
+                    <div className='col-sm-12 col-md-6 has-info'>
+                      <label htmlFor='inputClient' className='text-info'>
+                        Client:
+                      </label>
+                      <Select
+                        id='inputClient'
+                        name='clientSelect'
+                        value={this.state.clientSelect}
+                        options={clientOptions}
+                        onChange={this.handleClientChange}
+                        styles={styles.select}
+                        theme={styles.select.theme}
+                        required
+                      />
                     </div>
-                    <div className='form-row'>
-                      <div
-                        className='form-group col-sm-12 col-md-3 has-info'
-                        style={styles.dates}>
-                        <label htmlFor='inputStartDate'>Start Date:</label>
-                        <input
-                          style={styles.margin}
-                          type='date'
-                          name='startDate'
-                          className='form-control'
-                          id='inputStartDate'
-                          onChange={this.handleChange}
-                          value={this.state.startDate.slice(0, 10)}
-                          required
-                        />
-                      </div>
-                      <div
-                        className='form-group col-sm-12 col-md-3 has-info'
-                        style={styles.dates}>
-                        <label htmlFor='inputEndDate'>End Date:</label>
-                        <input
-                          style={styles.margin}
-                          type='date'
-                          name='endDate'
-                          className='form-control'
-                          id='inputEndDate'
-                          onChange={this.handleChange}
-                          value={this.state.endDate.slice(0, 10)}
-                          required
-                        />
-                      </div>
-                      <div
-                        className='col-sm-12 col-md-6 has-info'
-                        style={styles.participants}>
-                        <label
-                          htmlFor='inputParticipants'
-                          className='text-info'>
-                          Participants:
-                        </label>
-                        <Select
-                          id='inputParticipants'
-                          name='participantSelect'
-                          value={this.state.participantSelect}
-                          options={participantOptions}
-                          onChange={this.handleParticipantChange}
-                          isMulti
-                          styles={styles.select}
-                          theme={styles.select.theme}
-                          required
-                        />
-                      </div>
+                  </div>
+                  <div className='form-row'>
+                    <div className='form-group col-sm-12 col-md-3 has-info'>
+                      <label htmlFor='inputStartDate'>Start Date:</label>
+                      <input
+                        type='date'
+                        name='startDate'
+                        className='form-control'
+                        id='inputStartDate'
+                        onChange={this.handleChange}
+                        value={this.state.startDate.slice(0, 10)}
+                        required
+                      />
                     </div>
-                    <div className='form-row'>
-                      <div className='form-group col-sm-12 col-md-12 has-info'>
-                        <label htmlFor='inputSummary'>Summary:</label>
-                        <textarea
-                          type='text'
-                          name='summary'
-                          className='form-control'
-                          id='inputSummary'
-                          onChange={this.handleChange}
-                          rows={10}
-                          value={this.state.summary}
-                          required
-                        />
-                      </div>
+                    <div className='form-group col-sm-12 col-md-3 has-info'>
+                      <label htmlFor='inputEndDate'>End Date:</label>
+                      <input
+                        type='date'
+                        name='endDate'
+                        className='form-control'
+                        id='inputEndDate'
+                        onChange={this.handleChange}
+                        value={this.state.endDate.slice(0, 10)}
+                        required
+                      />
                     </div>
-                    <div className='form-row'>
-                      <div className=' form-group col-xs-1'>
-                        <Link to='/projects'>
-                          <button type='reset' className='btn btn-danger'>
-                            Cancel
-                          </button>
-                        </Link>
-                      </div>
-                      <div className='form-group col-xs-1 text-end ml-auto'>
-                        <button
-                          disabled={
-                            !this.state.participantSelect ||
-                            !this.state.clientSelect
-                          }
-                          type='submit'
-                          className='btn btn-success btn-right'>
-                          {this.state.edit ? 'Save' : 'Add'}
+                    <div className='col-sm-12 col-md-6 has-info'>
+                      <label htmlFor='inputParticipants' className='text-info'>
+                        Participants:
+                      </label>
+                      <Select
+                        id='inputParticipants'
+                        name='participantSelect'
+                        value={this.state.participantSelect}
+                        options={participantOptions}
+                        onChange={this.handleParticipantChange}
+                        isMulti
+                        styles={styles.select}
+                        theme={styles.select.theme}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className='form-row'>
+                    <div className='form-group col-sm-12 col-md-12 has-info'>
+                      <label htmlFor='inputSummary'>Summary:</label>
+                      <textarea
+                        type='text'
+                        name='summary'
+                        className='form-control'
+                        id='inputSummary'
+                        onChange={this.handleChange}
+                        rows={10}
+                        value={this.state.summary}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className='form-row'>
+                    <div className=' form-group col-xs-1'>
+                      <Link to='/projects'>
+                        <button type='reset' className='btn btn-danger'>
+                          Cancel
                         </button>
-                      </div>
+                      </Link>
                     </div>
-                  </form>
-                </div>
+                    <div className='form-group col-xs-1 text-end ml-auto'>
+                      <button
+                        disabled={
+                          !this.state.participantSelect ||
+                          !this.state.clientSelect
+                        }
+                        type='submit'
+                        className='btn btn-success btn-right'>
+                        {this.state.edit ? 'Save' : 'Add'}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
