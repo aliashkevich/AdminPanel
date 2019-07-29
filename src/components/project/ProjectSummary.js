@@ -15,12 +15,17 @@ function ProjectSummary(props) {
         <div>
           <p>
             Project Date:{' '}
-            <span>
-              {startDate} ~ {endDate}
-            </span>
+            {props.project.endDate || props.project.startDate ? (
+              <span>
+                {startDate} ~ {endDate}
+              </span>
+            ) : (
+              <span>No dates selected</span>
+            )}
           </p>
+          {}
         </div>
-        {props.project.summary}
+        {props.project.summary ? props.project.summary : 'No summary available'}
       </div>
     </div>
   );

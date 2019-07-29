@@ -63,7 +63,9 @@ export default class ProjectDetailCard extends React.Component {
                 <div className='card-body'>
                   <div className='row'>
                     <div className=' col-lg-4 col-md-6-col-sm-12s'>
-                      <ClientInfo clientId={this.state.client} />
+                      {this.state.client || this.state.project.clientId ? (
+                        <ClientInfo clientId={this.state.client} />
+                      ) : null}
                       <Participants participantsArr={this.state.participants} />
                     </div>
 
